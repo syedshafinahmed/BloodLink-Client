@@ -9,7 +9,7 @@ const Navbar = () => {
       <li><NavLink to="/funding">Funding</NavLink></li>
     </>
   return (
-    <div className='w-full sticky top-0 z-50 backdrop-blur-xl bg-white/40 shadow-sm'>
+    <div className='w-full sticky top-0 z-50 backdrop-blur-xl bg-white/20 shadow-sm'>
       <div className='max-w-7xl mx-auto'>
         <div className="navbar">
           <div className="navbar-start">
@@ -31,7 +31,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <button className="btn btn-outline font-black btn-primary">Login</button>
+            <NavLink to='/login'><button className="btn btn-outline font-black btn-primary">Login</button></NavLink>
           </div>
         </div>
       </div>
