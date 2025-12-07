@@ -1,13 +1,42 @@
+import { useState } from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
+import Select from "react-select";
+import locations from "../../../public/location.json";
 
 export default function Register() {
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [selectedUpazila, setSelectedUpazila] = useState(null);
+
+  const districtOptions = [...new Set(locations.map((loc) => loc.district)),].map((dist) => ({
+    value: dist,
+    label: dist,
+  }));
+
+  const upazilaOptions = selectedDistrict
+    ? locations
+      .filter((loc) => loc.district === selectedDistrict.value)
+      .map((loc) => ({
+        value: loc.upazila,
+        label: loc.upazila,
+      }))
+    : [];
+
+  const customSelectStyles = {
+    control: (base, state) => ({
+      ...base,
+      borderColor: "#f9232c",
+      boxShadow: "none",
+      "&:hover": { borderColor: "#f9232c" },
+    }),
+  };
+
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.1, 
+        staggerChildren: 0.1,
       },
     },
   };
@@ -18,34 +47,54 @@ export default function Register() {
   };
 
   return (
-    <div className="">
-      <motion.h1 className="text-2xl font-semibold text-center p-10" initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} >
+    <div>
+      <motion.h1
+        className="text-2xl font-semibold text-center p-10"
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         Create Donor Account
       </motion.h1>
 
-      <motion.form className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-8 rounded-xl bg-base-200 shadow" variants={containerVariants} initial="hidden" animate="visible">
+      <motion.form
+        className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-8 rounded-xl bg-base-200 shadow"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Email */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">Email</label>
-          <input type="email" className="border border-primary p-2 rounded outline-none" />
+          <input
+            type="email"
+            className="border border-primary p-2 rounded outline-none"
+          />
         </motion.div>
 
         {/* Name */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">Name</label>
-          <input type="text" className="border border-primary p-2 rounded outline-none" />
+          <input
+            type="text"
+            className="border border-primary p-2 rounded outline-none"
+          />
         </motion.div>
 
         {/* Avatar */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">Avatar</label>
-          <input type="file" className="border border-primary p-2 rounded outline-none" />
+          <input
+            type="file"
+            className="border border-primary p-2 rounded outline-none"
+          />
         </motion.div>
 
         {/* Blood Group */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">Blood Group</label>
           <select className="border border-primary p-2 rounded outline-none">
+            <option>Select blood group</option>
             <option>A+</option>
             <option>A-</option>
             <option>B+</option>
@@ -57,44 +106,76 @@ export default function Register() {
           </select>
         </motion.div>
 
-        {/* District */}
+        {/* District  */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">District</label>
-          <select className="border border-primary p-2 rounded outline-none" style={{ borderColor: "#f9232c" }}>
-            <option>Select district</option>
-            <option>Dhaka</option>
-            <option>Chattogram</option>
-            <option>Rajshahi</option>
-          </select>
+          <Select
+            options={districtOptions}
+            value={selectedDistrict}
+            onChange={(value) => {
+              setSelectedDistrict(value);
+              setSelectedUpazila(null);
+            }}
+            placeholder="Select district"
+            isSearchable
+            styles={customSelectStyles}
+          />
         </motion.div>
 
         {/* Upazila */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">Upazila</label>
-          <select className="border border-primary p-2 rounded outline-none">
-            <option>Select upazila</option>
-            <option>Mirpur</option>
-            <option>Uttara</option>
-            <option>Gulshan</option>
-          </select>
+          <Select
+            options={upazilaOptions}
+            value={selectedUpazila}
+            onChange={(value) => setSelectedUpazila(value)}
+            placeholder={
+              selectedDistrict
+                ? "Select upazila"
+                : "Select district first"
+            }
+            isDisabled={!selectedDistrict}
+            isSearchable
+            styles={customSelectStyles} 
+          />
         </motion.div>
 
         {/* Password */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">Password</label>
-          <input type="password" className="border p-2 rounded border-primary outline-none" />
+          <input
+            type="password"
+            className="border p-2 rounded border-primary outline-none"
+          />
         </motion.div>
 
         {/* Confirm Password */}
         <motion.div className="flex flex-col" variants={itemVariants}>
           <label className="font-medium text-xs mb-1">Confirm Password</label>
-          <input type="password" className="border p-2 rounded outline-none border-primary" />
+          <input
+            type="password"
+            className="border p-2 rounded outline-none border-primary"
+          />
         </motion.div>
 
-        {/* Submit Button */}
-        <motion.div className="w-full flex flex-col col-span-1 md:col-span-2" variants={itemVariants}>
-          <Button variant="outlined" sx={{ borderColor: "#f9232c", color: "#f9232c" }} >Register</Button>
-          <span className="text-sm py-5 text-center">Don’t have an account?{" "}<Link to="/login" className="text-[#f9232c] font-black">Login</Link></span>
+        {/* Submit */}
+        <motion.div
+          className="w-full flex flex-col col-span-1 md:col-span-2"
+          variants={itemVariants}
+        >
+          <Button
+            variant="outlined"
+            sx={{ borderColor: "#f9232c", color: "#f9232c" }}
+          >
+            Register
+          </Button>
+
+          <span className="text-sm py-5 text-center">
+            Already have an account?{" "}
+            <Link to="/login" className="text-[#f9232c] font-black">
+              Login
+            </Link>
+          </span>
         </motion.div>
       </motion.form>
     </div>
