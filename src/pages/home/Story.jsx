@@ -22,29 +22,31 @@ const Story = () => {
         <motion.div className='flex-1' initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}>
           <div className='flex justify-center gap-10'>
-            <section className='flex flex-col items-center'>
+            <section className='flex flex-col items-center hover:scale-110'>
               <h1 className='font-black text-5xl'>50+</h1>
               <p className='text-primary font-bold'>Blood Cooperations</p>
             </section>
-            <section className='flex flex-col items-center'>
+            <section className='flex flex-col items-center hover:scale-110'>
               <h1 className='font-black text-5xl'>100+</h1>
               <p className='text-primary font-bold'>Expert Volunteers</p>
             </section>
-            <section className='flex flex-col items-center'>
+            <section className='flex flex-col items-center hover:scale-110'>
               <h1 className='font-black text-5xl'>500+</h1>
               <p className='text-primary font-bold'>Blood Donations</p>
             </section>
           </div>
 
           <div className='flex gap-5 px-5 md:px-0 mt-10'>
-            <motion.section className='w-1/2 p-10 bg-primary h-80 rounded text-base-200 flex flex-col' initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
-              <h1 className='text-4xl font-black'>Why we need you?</h1>
-              <hr className='mt-5 mb-5' />
-              <p className='text-sm text-justify'>A blood transfusion is required every two seconds. However, less than 5% donate blood. Our goal is to close that gap by making donations easy, secure, and fulfilling.</p>
+            <motion.section className='w-1/2 p-10 bg-primary h-80 text-base-200 flex flex-col rounded overflow-hidden' initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+              <div className='transition-transform duration-300 ease-out hover:scale-110'>
+                <h1 className='text-4xl font-black'>Why we need you?</h1>
+                <hr className='mt-5 mb-5' />
+                <p className='text-sm text-justify'>A blood transfusion is required every two seconds. However, less than 5% donate blood. Our goal is to close that gap by making donations easy, secure, and fulfilling.</p>
+              </div>
             </motion.section>
 
-            <motion.section className='flex-1' initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}>
-              <img src={auth} alt="" className="w-full h-80 object-cover rounded" />
+            <motion.section className='flex-1 overflow-hidden rounded' initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}>
+              <img src={auth} alt="" className="w-full h-80 object-cover rounded transition-transform duration-300 ease-out hover:scale-120" />
             </motion.section>
           </div>
         </motion.div>
@@ -66,7 +68,7 @@ const Story = () => {
           >
             {images.map((img, i) => (
               <SwiperSlide key={i} className="w-full h-80">
-                <img src={img} alt={`slide-${i}`} className="w-[600px] h-72 object-cover" />
+                <img src={img} alt={`slide-${i}`} className="w-[600px] h-72 object-cover transition-transform duration-300 ease-out hover:scale-110" />
               </SwiperSlide>
             ))}
           </Swiper>
