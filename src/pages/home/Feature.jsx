@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { div } from "framer-motion/client";
 import { Heart, Droplets, Users, MapPin } from "lucide-react";
 
 const features = [
@@ -38,43 +39,46 @@ const Feature = () => {
   };
 
   return (
-    <section className="p-10 mt-15 mb-15">
-      <motion.div
-        className="text-center mb-10"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl font-bold text-[#f9232c]">Why Choose BloodLink?</h2>
-        <p className="text-gray-600 mt-2">
-          We make blood donation and receiving easier, faster, and more reliable.
-        </p>
-      </motion.div>
+    <div className='max-w-7xl mx-auto'>
+      <section className="p-10 mt-15 mb-15">
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-bold text-[#f9232c]">Why Choose BloodLink?</h2>
+          <p className="text-gray-600 mt-2">
+            We make blood donation and receiving easier, faster, and more reliable.
+          </p>
+        </motion.div>
 
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-      >
-        {features.map((f, i) => (
-          <motion.div
-            key={i}
-            variants={item}
-            className="p-6 rounded-xl shadow-2xl hover:shadow-3xl
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          {features.map((f, i) => (
+            <motion.div
+              key={i}
+              variants={item}
+              className="p-6 rounded-xl shadow-2xl hover:shadow-3xl
                        bg-base-200 flex gap-4 items-start transition-all"
-          >
-            <div>{f.icon}</div>
-            <div>
-              <h3 className="text-lg font-semibold">{f.title}</h3>
-              <p className="text-gray-600 text-sm mt-1">{f.desc}</p>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </section>
+            >
+              <div>{f.icon}</div>
+              <div>
+                <h3 className="text-lg font-semibold">{f.title}</h3>
+                <p className="text-gray-600 text-sm mt-1">{f.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+    </div>
+
   );
 };
 
