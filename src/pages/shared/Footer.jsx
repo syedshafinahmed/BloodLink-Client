@@ -23,7 +23,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className='px-5 md:px-0'>
-            <h1 className='font-black text-primary text-2xl pb-2'>Contact Us</h1>
+            <h1 className='font-black text-primary text-2xl pb-2'>BloodLink Support</h1>
             <ul className='flex flex-col space-y-2'>
               <span className='flex items-center gap-2'><PiPhoneCallFill size={25} color='#f9232c' /> +8801630216932</span>
               <span className='flex items-center gap-2'><IoMdMail size={25} color='#f9232c' /> shafinahmed.cse@gmail.com</span>
