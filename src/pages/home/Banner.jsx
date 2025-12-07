@@ -5,7 +5,7 @@ import banner from '../../assets/banner.jpg'
 const Banner = () => {
   const navigate = useNavigate();
   return (
-    <section className="relative w-full h-[70vh] overflow-hidden mt-2">
+    <section className="relative h-[70vh] mt-30">
       <img
         src={banner}
         alt="Blood Donation"
@@ -14,7 +14,7 @@ const Banner = () => {
 
       <div className="absolute inset-0 bg-linear-to-r from-black/90 to-[#f9232c]/20" />
 
-      <div className="relative z-10 h-full flex flex-col justify-center items-start px-10 md:px-20">
+      <div className="relative z-10 h-full flex flex-col justify-center items-start px-5 sm:px-10 md:px-16 lg:px-20">
 
         <motion.h1
           initial={{ opacity: 0, y: 40 }}

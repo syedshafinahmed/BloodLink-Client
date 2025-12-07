@@ -9,7 +9,7 @@ const Navbar = () => {
       <li><NavLink to="/funding">Funding</NavLink></li>
     </>
   return (
-    <div className='w-full sticky top-0 z-50 backdrop-blur-xl bg-white/20 shadow-sm'>
+    <div className='w-full fixed top-0 z-50 backdrop-blur-xl bg-white/20 shadow-sm'>
       <div className='max-w-7xl mx-auto'>
         <div className="navbar">
           <div className="navbar-start">

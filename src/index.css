@@ -6,6 +6,15 @@ body {
   font-family: "Arimo", sans-serif;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
@@ -16,9 +25,6 @@ body {
 
 li .active {
   font-weight: bold;
-  /* padding: 7px 10px; */
-  /* background: linear-gradient(to bottom right, #f9232c, #8f1d21); */
-  /* color: #8f1d21; */
   border-radius: 2px;
   border-bottom: 3px solid #f9232c;
 }

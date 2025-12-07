@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { div } from "framer-motion/client";
 import { Heart, Droplets, Users, MapPin } from "lucide-react";
 
 const features = [
@@ -40,7 +39,7 @@ const Feature = () => {
 
   return (
     <div className='max-w-7xl mx-auto'>
-      <section className="p-10 mt-15 mb-15">
+      <section className="p-10 mt-30 mb-15">
         <motion.div
           className="text-center mb-10"
           initial={{ opacity: 0, y: 20 }}

@@ -17,7 +17,7 @@ const Story = () => {
   const images = [gal1, gal2, gal3, gal4, gal5, gal6];
 
   return (
-    <div className='max-w-7xl mx-auto mt-30 mb-30'>
+    <div className='max-w-7xl mx-auto mt-50 mb-50'>
       <div className='flex flex-col md:flex-row gap-10'>
         <motion.div className='flex-1' initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}>

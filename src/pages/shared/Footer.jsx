@@ -7,7 +7,7 @@ import { IoMdMail } from 'react-icons/io';
 import { FaMapLocationDot } from 'react-icons/fa6';
 const Footer = () => {
   return (
-    <div className='w-full border-t-2 border-primary'>
+    <div className='w-full border-t-2 border-primary bg-gray-600/20'>
       <div className='max-w-7xl mx-auto'>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-7 py-5 items-center'>
           <div className='flex flex-row md:flex-col items-center md:items-start'>
