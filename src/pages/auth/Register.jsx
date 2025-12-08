@@ -170,7 +170,7 @@ export default function Register() {
             Register
           </Button>
 
-          <span className="text-sm py-5 text-center">
+          <span className="text-sm py-5 border-none text-center">
             Already have an account?{" "}
             <Link to="/login" className="text-[#f9232c] font-black">
               Login
