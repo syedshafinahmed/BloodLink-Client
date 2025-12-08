@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import Select from "react-select";
 import locations from "../../../public/location.json";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
 
 export default function Register() {
+  const { registerUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -55,8 +57,15 @@ export default function Register() {
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
   };
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const handleRegistration = (data) => {
+    registerUser(data.email, data.password)
+      .then(result => {
+        // console.log(result.user);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    // console.log("Form Data:", data);
   };
 
   return (
@@ -71,7 +80,7 @@ export default function Register() {
       </motion.h1>
 
       <motion.form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleRegistration)}
         className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-8 rounded-xl bg-base-200 shadow"
         variants={containerVariants}
         initial="hidden"
