@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@mui/material";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import Select from "react-select";
 import locations from "../../../public/location.json";
@@ -8,7 +8,12 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import logo from '../../assets/BloodLink.png'
 import axios from "axios";
+import Loading from "../../loading/Loading";
+import Swal from "sweetalert2";
 export default function Register() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const { registerUser, updateUserProfile } = useAuth();
   const {
     register,
@@ -59,20 +64,19 @@ export default function Register() {
   };
 
   const handleRegistration = (data) => {
-
-
-    console.log('after register', data.photo[0]);
+    setLoading(true);
+    // console.log('after register', data.photo[0]);
     const profileImg = data.photo[0];
 
     registerUser(data.email, data.password)
       .then(result => {
-        console.log(result.user);
+        // console.log(result.user);
         const formData = new FormData();
         formData.append('image', profileImg);
         const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`
         axios.post(image_API_URL, formData)
           .then(res => {
-            console.log('after image upload', res.data.data.url);
+            // console.log('after image upload', res.data.data.url);
 
             const userProfile = {
               displayName: data.name,
@@ -80,19 +84,33 @@ export default function Register() {
             }
             updateUserProfile(userProfile)
               .then(() => {
-                console.log('useer profile updated done')
+                setLoading(false);
+
+                Swal.fire({
+                  icon: "success",
+                  title: "Registration Successful!",
+                  text: "Welcome to BloodLink",
+                  timer: 1800,
+                  showConfirmButton: false
+                });
+                navigate(location.state || "/");
               })
               .catch(error => {
                 console.log(error);
+                setLoading(false);
               })
 
           })
       })
       .catch(error => {
         console.log(error);
+        setLoading(false);
       })
-    // console.log("Form Data:", data);
   };
+
+  if (loading) {
+    return <Loading></Loading>
+  }
 
   return (
     <div className="bg-white/10">
@@ -280,7 +298,7 @@ export default function Register() {
 
           <span className="text-sm py-5 border-none text-center">
             Already have an account?{" "}
-            <Link to="/login" className="text-[#f9232c] font-black">
+            <Link state={location.state} to="/login" className="text-[#f9232c] font-black">
               Login
             </Link>
           </span>

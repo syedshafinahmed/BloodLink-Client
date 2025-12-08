@@ -2,28 +2,46 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import logo from '../../assets/BloodLink.png';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { motion } from "framer-motion";
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import Loading from '../../loading/Loading';
 
 const Login = () => {
   const { signInUser } = useAuth();
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [loginError, setLoginError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogin = (data) => {
     setLoginError("");
+    setLoading(true);
     signInUser(data.email, data.password)
-      .then(result => {
-        // console.log("Logged in user:", result.user);
-
+      .then(() => {
+        setLoading(false);
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: "Welcome back!",
+          timer: 1500,
+          showConfirmButton: false
+        });
+        navigate(location?.state || '/');
       })
       .catch(error => {
         console.log(error);
+        setLoading(false);
         setLoginError("Incorrect email or password");
       });
   };
+
+  if(loading) {
+    return <Loading></Loading>
+  }
 
   return (
     <div className='p-10'>
@@ -43,7 +61,7 @@ const Login = () => {
 
           <Button type='submit' variant="outlined" color="error" sx={{ mb: 2, mt: 2, borderColor: "#f9232c", color: "#f9232c" }}>Login</Button>
 
-          <span className="text-sm text-center">Don't have an account?{" "}<Link to="/register" className="text-[#f9232c] font-black">Register</Link>
+          <span className="text-sm text-center">Don't have an account?{" "}<Link state={location.state} to="/register" className="text-[#f9232c] font-black">Register</Link>
           </span>
         </form>
       </motion.div>
