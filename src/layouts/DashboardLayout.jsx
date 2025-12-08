@@ -1,6 +1,7 @@
 import React from 'react';
-import { FaUser } from 'react-icons/fa';
+import { FaHourglassEnd, FaUser } from 'react-icons/fa';
 import { IoLogOut } from "react-icons/io5";
+import { MdAddToPhotos, MdDashboard } from "react-icons/md";
 import { Link, Outlet } from 'react-router';
 import logo from "../assets/BloodLink.png"
 import useAuth from '../hooks/useAuth';
@@ -13,16 +14,16 @@ const DashboardLayout = () => {
       .catch()
   }
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open bg-base-200">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-green-800">
+        <nav className="navbar w-full bg-base-200">
           <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
             {/* Sidebar toggle icon */}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
           </label>
-          <div className="px-4">Navbar Title</div>
+          {/* <div className="px-4">Navbar Title</div> */}
         </nav>
         {/* Page content here */}
         <div className="p-4">
@@ -32,7 +33,7 @@ const DashboardLayout = () => {
 
       <div className="drawer-side is-drawer-close:overflow-visible">
         <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-        <div className="flex min-h-full flex-col items-start bg-blue-800 is-drawer-close:w-14 is-drawer-open:w-40">
+        <div className="flex min-h-full flex-col items-start bg-gray-900 is-drawer-close:w-14 is-drawer-open:w-52">
           {/* Sidebar content here */}
           <ul className="menu w-full grow text-[#f9232c]">
             {/* List item */}
@@ -44,16 +45,37 @@ const DashboardLayout = () => {
 
 
             <li>
+              <Link to='dhome' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Dashboard">
+                <MdDashboard />
+                <span className="is-drawer-close:hidden text-xs">Dashboard</span>
+              </Link>
+            </li>
+
+            <li>
               <Link to='profile' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Profile">
                 <FaUser />
-                <span className="is-drawer-close:hidden">Profile</span>
+                <span className="is-drawer-close:hidden text-xs">Profile</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to='donation-requests' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Donation Requests">
+                <FaHourglassEnd />
+                <span className="is-drawer-close:hidden text-xs">Donation Requests</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to='create-donation-request' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Create Donation Request">
+                <MdAddToPhotos />
+                <span className="is-drawer-close:hidden text-xs">Create Donation Request</span>
               </Link>
             </li>
 
             <li>
               <button onClick={handleLogout} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Logout">
                 <IoLogOut />
-                <span className="is-drawer-close:hidden">Logout</span>
+                <span className="is-drawer-close:hidden text-xs">Logout</span>
               </button>
             </li>
           </ul>
