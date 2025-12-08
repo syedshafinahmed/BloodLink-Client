@@ -14,6 +14,12 @@ const Navbar = () => {
       <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/donation-request">Donation Requests</NavLink></li>
       <li><NavLink to="/funding">Funding</NavLink></li>
+      {
+        user &&
+        <>
+          <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+        </>
+      }
     </>
   return (
     <div className='w-full fixed top-0 z-50 backdrop-blur-xl bg-white/20 shadow-sm'>
