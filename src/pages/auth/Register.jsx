@@ -7,8 +7,9 @@ import locations from "../../../public/location.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import logo from '../../assets/BloodLink.png'
+import axios from "axios";
 export default function Register() {
-  const { registerUser } = useAuth();
+  const { registerUser, updateUserProfile } = useAuth();
   const {
     register,
     handleSubmit,
@@ -58,9 +59,34 @@ export default function Register() {
   };
 
   const handleRegistration = (data) => {
+
+
+    console.log('after register', data.photo[0]);
+    const profileImg = data.photo[0];
+
     registerUser(data.email, data.password)
       .then(result => {
-        // console.log(result.user);
+        console.log(result.user);
+        const formData = new FormData();
+        formData.append('image', profileImg);
+        const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`
+        axios.post(image_API_URL, formData)
+          .then(res => {
+            console.log('after image upload', res.data.data.url);
+
+            const userProfile = {
+              displayName: data.name,
+              photoURL: res.data.data.url,
+            }
+            updateUserProfile(userProfile)
+              .then(() => {
+                console.log('useer profile updated done')
+              })
+              .catch(error => {
+                console.log(error);
+              })
+
+          })
       })
       .catch(error => {
         console.log(error);
@@ -115,16 +141,16 @@ export default function Register() {
           )}
         </motion.div>
 
-        {/* Avatar */}
+        {/* Photo */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Avatar</label>
+          <label className="font-medium text-xs mb-1">Photo</label>
           <input
             type="file"
-            {...register("avatar", { required: "Avatar is required" })}
+            {...register("photo", { required: "photo is required" })}
             className="border border-primary p-2 rounded outline-none"
           />
-          {errors.avatar && (
-            <p className="text-[#f9232c] text-xs">{errors.avatar.message}</p>
+          {errors.photo && (
+            <p className="text-[#f9232c] text-xs">{errors.photo.message}</p>
           )}
         </motion.div>
 
