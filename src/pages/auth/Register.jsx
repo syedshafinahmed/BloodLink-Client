@@ -6,7 +6,7 @@ import Select from "react-select";
 import locations from "../../../public/location.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-
+import logo from '../../assets/BloodLink.png'
 export default function Register() {
   const { registerUser } = useAuth();
   const {
@@ -69,19 +69,20 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className="bg-white/10">
       <motion.h1
-        className="text-2xl font-black text-center p-10"
+        className="text-center mb-5 flex flex-col items-center justify-center"
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Create Donor Account
+        <img src={logo} className="w-15" alt="" />
+        <span className="text-xs font-black mt-2">Create Donor Account</span>
       </motion.h1>
 
       <motion.form
         onSubmit={handleSubmit(handleRegistration)}
-        className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-8 rounded-xl bg-base-200 shadow"
+        className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 pt-2 gap-6 px-8 bg-white/10"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
