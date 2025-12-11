@@ -10,11 +10,13 @@ import logo from '../../assets/BloodLink.png'
 import axios from "axios";
 import Loading from "../../loading/Loading";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 export default function Register() {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { registerUser, updateUserProfile } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -65,35 +67,55 @@ export default function Register() {
 
   const handleRegistration = (data) => {
     setLoading(true);
-    // console.log('after register', data.photo[0]);
     const profileImg = data.photo[0];
 
     registerUser(data.email, data.password)
-      .then(result => {
-        // console.log(result.user);
+      .then(() => {
         const formData = new FormData();
         formData.append('image', profileImg);
         const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`
         axios.post(image_API_URL, formData)
           .then(res => {
+            const imageURL = res.data.data.url;
             // console.log('after image upload', res.data.data.url);
 
             const userProfile = {
               displayName: data.name,
-              photoURL: res.data.data.url,
+              photoURL: imageURL,
             }
             updateUserProfile(userProfile)
               .then(() => {
-                setLoading(false);
 
-                Swal.fire({
-                  icon: "success",
-                  title: "Registration Successful!",
-                  text: "Welcome to BloodLink",
-                  timer: 1800,
-                  showConfirmButton: false
-                });
-                navigate(location.state || "/");
+                const savedUser = {
+                  name: data.name,
+                  email: data.email,
+                  photo: imageURL,
+                  bloodGroup: data.bloodGroup,
+                  district: data.district,
+                  upazila: data.upazila,
+                  role: "donor",
+                  status: "active",
+                  createdAt: new Date(),
+                };
+
+                axiosSecure.post('/users', savedUser)
+                  .then(dbRes => {
+
+                    setLoading(false);
+                    Swal.fire({
+                      icon: "success",
+                      title: "Registration Successful!",
+                      text: "Welcome to BloodLink",
+                      timer: 1800,
+                      showConfirmButton: false
+                    });
+                    navigate(location.state || "/");
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    setLoading(false);
+                  })
+
               })
               .catch(error => {
                 console.log(error);
