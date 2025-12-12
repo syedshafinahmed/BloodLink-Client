@@ -48,7 +48,7 @@ export default function CreateDonationRequest() {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: 100 },
+    hidden: { opacity: 0, x: -100 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
   };
 
@@ -86,8 +86,9 @@ export default function CreateDonationRequest() {
     <div className="bg-white/10 pb-10">
       <motion.h1
         className="text-center font-black mb-5 text-3xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
         Create Donation Request
       </motion.h1>

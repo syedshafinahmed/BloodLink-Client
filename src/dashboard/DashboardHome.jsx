@@ -37,9 +37,9 @@ const DashboardHome = () => {
   return (
     <motion.section
       className="pb-5 px-10"
-      initial={{ opacity: 0, x: -100 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
     >
       <motion.h1
         className="text-center font-bold text-gray-900 text-2xl md:text-5xl mb-2"
