@@ -3,7 +3,7 @@ import Select from "react-select";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
-import locations from "../../public/location.json"; 
+import locations from "../../public/location.json";
 
 const bloodOptions = [
   { value: "A+", label: "A+" },
@@ -114,6 +114,7 @@ const SearchDonors = () => {
               <tr>
                 <th className="p-3">Name</th>
                 <th className="p-3">Blood Group</th>
+                <th className="p-3">Status</th>
                 <th className="p-3">District</th>
                 <th className="p-3">Upazila</th>
                 <th className="p-3">Contact</th>
@@ -128,6 +129,7 @@ const SearchDonors = () => {
                 >
                   <td className="p-3">{donor.name}</td>
                   <td className="p-3 font-semibold">{donor.bloodGroup}</td>
+                  <td className="p-3"><span className="badge badge-sm badge-success">{donor.status}</span></td>
                   <td className="p-3">{donor.district}</td>
                   <td className="p-3">{donor.upazila}</td>
                   <td className="p-3">{donor.contact}</td>

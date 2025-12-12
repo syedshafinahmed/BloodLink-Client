@@ -29,6 +29,10 @@ const HomeDonationRequests = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+  const totalPages = Math.ceil(requests.length / itemsPerPage);
+
   useEffect(() => {
     axiosSecure
       .get("/donation-requests")
@@ -43,19 +47,22 @@ const HomeDonationRequests = () => {
       </p>
     );
 
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentRequests = requests.slice(startIndex, startIndex + itemsPerPage);
+
   return (
     <div className="p-6 max-w-7xl mx-auto py-30">
       <h2 className="text-4xl font-black text-center mb-15 text-black">
-        All Donation Requests: {requests.length}
+        Donation Requests
       </h2>
 
       <motion.div
         className="grid grid-cols-1 md:grid-cols-4 gap-10"
         variants={containerVariants}
-        initial="hidden"
+        initial={false}
         animate="visible"
       >
-        {requests.map((req) => (
+        {currentRequests.map((req) => (
           <motion.div
             key={req._id}
             variants={cardVariants}
@@ -80,12 +87,10 @@ const HomeDonationRequests = () => {
               </button>
             </div>
 
-            {/* Request Message */}
-            <p className="mb-4 line-clamp-2">
+            <p className="mb-4 text-sm line-clamp-2">
               {req.requestMessage || "No message provided."}
             </p>
 
-            {/* Location & Contact */}
             <div className="flex flex-col text-xs gap-2 mt-auto text-gray-700">
               <div className="flex items-center gap-2">
                 <FaUserInjured />
@@ -103,6 +108,21 @@ const HomeDonationRequests = () => {
           </motion.div>
         ))}
       </motion.div>
+
+      <div className="flex justify-center mt-20 gap-2">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`px-3 py-1 rounded border ${currentPage === page
+                ? "bg-red-600 text-white border-red-600"
+                : "bg-white text-gray-900 border-gray-400"
+              }`}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

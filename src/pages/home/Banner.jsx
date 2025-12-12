@@ -2,8 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from "framer-motion";
 import banner from '../../assets/banner.jpg'
+import useAuth from '../../hooks/useAuth';
 const Banner = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   return (
     <section className="relative h-[70vh] mt-30">
       <img
@@ -42,8 +44,8 @@ const Banner = () => {
           className="mt-8 flex gap-4"
         >
           <button
-            onClick={() => navigate("/register")}
-            className="btn btn-primary px-6 py-7 text-base-200 font-semibold text-lg rounded-lg shadow-xl backdrop-blur-lg transition-all hover:scale-105"
+            onClick={() => navigate("/register")} disabled={!!user}
+            className="btn btn-primary px-6 py-7 border-primary text-base-200 font-semibold text-lg rounded-lg shadow-xl backdrop-blur-lg transition-all hover:scale-105"
           >
             Join as a Donor
           </button>
