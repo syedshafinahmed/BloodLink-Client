@@ -12,6 +12,8 @@ import DonationRequests from "../dashboard/DonationRequests";
 import CreateDonationRequest from "../dashboard/CreateDonationRequest";
 import EditDonationRequest from "../dashboard/EditDonationRequest";
 import DonationRequestDetails from "../dashboard/DonationRequestDetails";
+import HomeDonationRequests from "../pages/HomeDonationRequests";
+import HomeDonationRequestsDetails from "../pages/HomeDonationRequestsDetails";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home
+      },
+      {
+        path: '/donation-requests',
+        Component: HomeDonationRequests
+      },
+      {
+        path: "/donation-requests/:id",
+        element: <PrivateRoute><HomeDonationRequestsDetails></HomeDonationRequestsDetails></PrivateRoute> 
       }
     ]
   },

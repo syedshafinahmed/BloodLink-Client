@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { FaHospital, FaUser, FaMapMarkerAlt, FaCalendarAlt, FaEnvelopeOpenText, FaTint } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { IoCall } from "react-icons/io5";
 
 const DonationRequestDetails = () => {
   const { id } = useParams();
@@ -77,6 +78,13 @@ const DonationRequestDetails = () => {
           <p className="text-gray-900">{request.recipientDistrict}, {request.recipientUpazila}</p>
         </motion.div>
 
+        {/* Contact */}
+        <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
+          <IoCall className="text-gray-900 text-2xl" />
+          <p className="font-semibold text-gray-700 w-36">Contact:</p>
+          <p className="text-gray-900">{request.contact}</p>
+        </motion.div>
+
         {/* Date */}
         <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
           <FaCalendarAlt className="text-gray-900 text-2xl" />
@@ -96,7 +104,7 @@ const DonationRequestDetails = () => {
           <FaEnvelopeOpenText className="text-gray-900 mt-1" size={100} />
           <div>
             <p className="font-bold text-gray-700 mb-3">Message:</p>
-            <p className="text-gray-900">{request.requestMessage || "No message provided."}</p>
+            <p className="text-gray-900 text-justify">{request.requestMessage || "No message provided."}</p>
           </div>
         </motion.div>
       </motion.div>

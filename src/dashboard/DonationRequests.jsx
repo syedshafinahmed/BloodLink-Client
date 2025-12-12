@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { FaEdit } from "react-icons/fa";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { FiTrash } from "react-icons/fi";
+import { Tooltip } from "@mui/material";
 
 const DonationRequests = () => {
   const { user } = useAuth();
@@ -61,8 +62,8 @@ const DonationRequests = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">My Donation Requests</h1>
+    <div className="bg-white/10 pb-10 px-6">
+      <h1 className="text-center font-black mb-8 text-3xl">My Donation Requests</h1>
 
       {loading && <p className="text-gray-400">Loading...</p>}
 
@@ -85,7 +86,7 @@ const DonationRequests = () => {
               </tr>
             </thead>
 
-            <tbody>
+            <tbody className="text-xs md:text-sm">
               {requests.map((req) => (
                 <tr
                   key={req._id}
@@ -95,43 +96,48 @@ const DonationRequests = () => {
                   <td className="p-3 font-semibold">{req.bloodGroup}</td>
                   <td className="p-3">{req.hospitalName}</td>
                   <td className="p-3">
-                    {req.recipientDistrict}, {req.recipientUpazila}
+                    {req.recipientUpazila}, {req.recipientDistrict}
                   </td>
                   <td className="p-3">{req.donationDate}</td>
 
                   <td className="p-3">
                     <span
-                      className={`badge badge-sm rounded text-white ${
-                        req.donationStatus === "pending"
-                          ? "bg-yellow-600"
-                          : req.donationStatus === "approved"
+                      className={`badge badge-sm rounded text-white ${req.donationStatus === "pending"
+                        ? "bg-yellow-600"
+                        : req.donationStatus === "approved"
                           ? "bg-green-600"
                           : "bg-red-600"
-                      }`}
+                        }`}
                     >
                       {req.donationStatus}
                     </span>
                   </td>
 
                   {/* ACTIONS */}
-                  <td className="flex items-center justify-center mt-4 gap-5 text-gray-900">
+                  <td className="flex items-center justify-center px-3 mt-4 gap-5 text-gray-900">
                     {/* View Details */}
-                    <FaArrowUpRightFromSquare
-                      className="cursor-pointer hover:text-blue-600"
-                      onClick={() => navigate(`/dashboard/donation-request/${req._id}`)}
-                    />
+                    <Tooltip title="View Request">
+                      <FaArrowUpRightFromSquare
+                        className="cursor-pointer hover:text-blue-600"
+                        onClick={() => navigate(`/dashboard/donation-request/${req._id}`)}
+                      />
+                    </Tooltip>
 
                     {/* Edit */}
-                    <FaEdit
-                      className="cursor-pointer hover:text-green-600"
-                      onClick={() => navigate(`/dashboard/donation-request/edit/${req._id}`)}
-                    />
+                    <Tooltip title="Edit Request">
+                      <FaEdit
+                        className="cursor-pointer hover:text-green-600"
+                        onClick={() => navigate(`/dashboard/donation-request/edit/${req._id}`)}
+                      />
+                    </Tooltip>
 
                     {/* Delete */}
-                    <FiTrash
-                      className="cursor-pointer hover:text-red-600"
-                      onClick={() => handleDelete(req._id)}
-                    />
+                    <Tooltip title="Delete Request">
+                      <FiTrash
+                        className="cursor-pointer hover:text-red-600" size={15}
+                        onClick={() => handleDelete(req._id)}
+                      />
+                    </Tooltip>
                   </td>
                 </tr>
               ))}
