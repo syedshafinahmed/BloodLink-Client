@@ -6,16 +6,17 @@ import useAuth from "../hooks/useAuth";
 import locations from "../../public/location.json";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 export default function CreateDonationRequest() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedUpazila, setSelectedUpazila] = useState(null);
 
-  // District options
   const districtOptions = [
     ...new Set(locations.map((loc) => loc.district)),
   ].map((dist) => ({
@@ -23,7 +24,6 @@ export default function CreateDonationRequest() {
     label: dist,
   }));
 
-  // Upazila options
   const upazilaOptions = selectedDistrict
     ? locations
       .filter((loc) => loc.district === selectedDistrict.value)
@@ -52,7 +52,6 @@ export default function CreateDonationRequest() {
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
   };
 
-  // Submit Handler
   const onSubmit = (data) => {
     const donationRequest = {
       requesterName: user?.displayName,
@@ -77,6 +76,8 @@ export default function CreateDonationRequest() {
         text: "We will notify donors in your area.",
         timer: 1800,
         showConfirmButton: false,
+      }).then(() => {
+        navigate("/dashboard/donation-requests");
       });
     });
   };
