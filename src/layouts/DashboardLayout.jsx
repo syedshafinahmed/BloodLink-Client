@@ -38,7 +38,7 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow text-[#f9232c]">
             {/* List item */}
             <li>
-              <Link to='/' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="BLoodLink">
+              <Link to='/' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Home">
                 <img src={logo} className='w-32 pb-5' alt="Logo" />
               </Link>
             </li>
