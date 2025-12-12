@@ -18,7 +18,7 @@ const Footer = () => {
             <h1 className='font-black text-primary text-2xl pb-2'>Quick Links</h1>
             <ul className='space-y-2 flex flex-col'>
               <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/"><FaCaretRight color='#f9232c'></FaCaretRight> Home</NavLink>
-              <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/donation-request"><FaCaretRight color='#f9232c'></FaCaretRight> Donation Requests</NavLink>
+              <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/donation-requests"><FaCaretRight color='#f9232c'></FaCaretRight> Donation Requests</NavLink>
               <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/funding"><FaCaretRight color='#f9232c'></FaCaretRight> Funding</NavLink>
             </ul>
           </div>

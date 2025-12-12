@@ -77,7 +77,7 @@ const EditDonationRequest = () => {
 
       <motion.form
         onSubmit={handleSubmit}
-        className="bg-white shadow-2xl rounded-3xl p-8 grid grid-cols-1 gap-6 border border-gray-100"
+        className="bg-base-200 shadow-2xl rounded-3xl p-8 grid grid-cols-1 gap-6 border border-gray-100"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -163,7 +163,7 @@ const EditDonationRequest = () => {
         <motion.div variants={itemVariants} className="flex flex-col">
           <label className="font-semibold text-gray-700 mb-1">Request Message</label>
           <textarea
-            name="additionalMessage"
+            name="requestMessage"
             value={formData.requestMessage || ""}
             onChange={handleChange}
             placeholder="Request Message"

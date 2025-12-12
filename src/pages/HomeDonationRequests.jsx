@@ -46,7 +46,7 @@ const HomeDonationRequests = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto py-30">
       <h2 className="text-4xl font-black text-center mb-15 text-black">
-        All Donation Requests
+        All Donation Requests: {requests.length}
       </h2>
 
       <motion.div
