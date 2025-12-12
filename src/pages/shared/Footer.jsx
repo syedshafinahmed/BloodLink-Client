@@ -19,7 +19,7 @@ const Footer = () => {
             <ul className='space-y-2 flex flex-col'>
               <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/"><FaCaretRight color='#f9232c'></FaCaretRight> Home</NavLink>
               <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/donation-requests"><FaCaretRight color='#f9232c'></FaCaretRight> Donation Requests</NavLink>
-              <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/funding"><FaCaretRight color='#f9232c'></FaCaretRight> Funding</NavLink>
+              <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/fundings"><FaCaretRight color='#f9232c'></FaCaretRight> Funding</NavLink>
             </ul>
           </div>
           <div className='px-5 md:px-0'>
