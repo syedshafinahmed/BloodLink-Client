@@ -89,7 +89,7 @@ const DonationRequests = () => {
 
       {!loading && requests.length > 0 && (
         <>
-          <div className="h-80">
+          <div className="h-[500px] md:h-[450px] lg:h-80">
             <motion.div
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
