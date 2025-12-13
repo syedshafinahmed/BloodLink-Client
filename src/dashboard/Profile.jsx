@@ -124,11 +124,8 @@ const Profile = () => {
               type="text"
               name="name"
               value={formData.name}
-              disabled={!isEditing}
-              onChange={handleChange}
-              className={`border p-2 rounded outline-none ${
-                isEditing ? "border-primary" : "border-gray-300"
-              }`}
+              disabled
+              className="border border-gray-300 p-2 rounded outline-none bg-gray-100"
             />
           </div>
 
@@ -153,9 +150,8 @@ const Profile = () => {
               value={formData.district}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${
-                isEditing ? "border-primary" : "border-gray-300"
-              }`}
+              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
+                }`}
             />
           </div>
 
@@ -168,9 +164,8 @@ const Profile = () => {
               value={formData.upazila}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${
-                isEditing ? "border-primary" : "border-gray-300"
-              }`}
+              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
+                }`}
             />
           </div>
 
@@ -183,9 +178,8 @@ const Profile = () => {
               value={formData.bloodGroup}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${
-                isEditing ? "border-primary" : "border-gray-300"
-              }`}
+              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
+                }`}
             />
           </div>
 
