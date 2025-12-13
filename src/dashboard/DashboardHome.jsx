@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { GoArrowUpRight } from "react-icons/go";
 import CountUp from 'react-countup';
 import { useNavigate } from 'react-router';
+import { Tooltip } from '@mui/material';
 
 const DashboardHome = () => {
   const { user, loading, setLoading } = useAuth();
@@ -89,17 +90,20 @@ const DashboardHome = () => {
   const cardData = [
     {
       title: "Total Users",
+      tooltip: "View All Users",
       value: totalUsers,
       route: null,
     },
     {
       title: "Total Fundings",
+      tooltip: "View All Fundings",
       value: totalFundings,
       route: "/fundings",
       format: (val) => `৳ ${val.toLocaleString()}`,
     },
     {
       title: "Total Blood Donation Requests",
+      tooltip: "View All Donation Requests",
       value: totalRequests,
       route: "/donation-requests",
     },
@@ -131,7 +135,7 @@ const DashboardHome = () => {
             <motion.div
               key={index}
               whileHover={{ scale: 1.03 }}
-              className="bg-linear-to-tr from-gray-100 via-gray-200 to-gray-300 border-l-10 border-l-gray-900 border border-gray-300 rounded-2xl shadow-lg p-6 transition"
+              className="bg-linear-to-r from-gray-100 via-gray-200 to-gray-300 border-l-10 border-l-gray-900 border border-gray-300 rounded-2xl shadow-lg p-6 transition"
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-4">
@@ -139,16 +143,18 @@ const DashboardHome = () => {
                   {card.title}
                 </h3>
 
-                <button
-                  disabled={!card.route}
-                  onClick={() => card.route && navigate(card.route)}
-                  className={`transition ${card.route
-                    ? "text-gray-900 hover:text-primary"
-                    : "text-gray-400 cursor-not-allowed"
-                    }`}
-                >
-                  <GoArrowUpRight size={25} />
-                </button>
+                <Tooltip title={card.tooltip}>
+                  <button
+                    disabled={!card.route}
+                    onClick={() => card.route && navigate(card.route)}
+                    className={`transition ${card.route
+                      ? "text-gray-900 hover:text-primary"
+                      : "text-gray-400 cursor-not-allowed"
+                      }`}
+                  >
+                    <GoArrowUpRight size={20} />
+                  </button>
+                </Tooltip>
               </div>
 
               {/* Value */}
