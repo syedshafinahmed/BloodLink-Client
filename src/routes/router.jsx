@@ -18,6 +18,8 @@ import SearchDonors from "../pages/SearchDonors";
 import FundingPage from "../pages/FundingPage";
 import FundingCancel from "../pages/FundingCancel";
 import FundingSuccess from "../pages/FundingSuccess";
+import AllUsers from "../dashboard/admin/AllUsers";
+import AllDonationRequests from "../dashboard/admin/AllDonationRequests";
 
 export const router = createBrowserRouter([
   {
@@ -95,7 +97,15 @@ export const router = createBrowserRouter([
       {
         path: "donation-request/edit/:id",
         Component: EditDonationRequest,
-      }
+      },
+      {
+        path: "all-users",
+        Component: AllUsers,
+      },
+      {
+        path: "all-donation-requests",
+        Component: AllDonationRequests,
+      },
     ]
   }
 ])

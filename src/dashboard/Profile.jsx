@@ -20,18 +20,32 @@ const Profile = () => {
     bloodGroup: "",
   });
 
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        name: user.displayName || "",
-        email: user.email || "",
-        role: user.role || "donor",
-        district: user.district || "",
-        upazila: user.upazila || "",
-        bloodGroup: user.bloodGroup || "",
+  const fetchUserData = async () => {
+    if (!user?.email) return;
+    try {
+      const res = await axiosSecure.get("/users", {
+        params: { email: user.email },
       });
+      const backendUser = res.data?.[0];
+
+      if (backendUser) {
+        setFormData({
+          name: backendUser.name || user.displayName || "",
+          email: backendUser.email || user.email || "",
+          role: backendUser.role || "",
+          district: backendUser.district || "",
+          upazila: backendUser.upazila || "",
+          bloodGroup: backendUser.bloodGroup || "",
+        });
+      }
+    } catch (err) {
+      console.error("Failed to fetch user data:", err);
     }
-  }, [user]);
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, [user?.email, axiosSecure]);
 
   const handleChange = (e) => {
     if (!isEditing) return;
@@ -40,21 +54,30 @@ const Profile = () => {
 
   const handleEditToggle = () => setIsEditing(true);
 
-  const handleSave = () => {
-    axiosSecure
-      .put(`/users/${user.email}`, formData)
-      .then((res) => {
-        console.log("Updated:", res.data);
-        setIsEditing(false);
-        Swal.fire({
-          title: "Profile Updated!",
-          text: "Your profile information has been successfully saved.",
-          icon: "success",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "OK",
+  const handleSave = async () => {
+    try {
+      const res = await axiosSecure.put(`/users/${user.email}`, formData);
+      if (res.data) {
+        setFormData({
+          name: res.data.name || "",
+          email: res.data.email || "",
+          role: res.data.role || "",
+          district: res.data.district || "",
+          upazila: res.data.upazila || "",
+          bloodGroup: res.data.bloodGroup || "",
         });
-      })
-      .catch((err) => console.log(err));
+      }
+      setIsEditing(false);
+      Swal.fire({
+        title: "Profile Updated!",
+        text: "Your profile information has been successfully saved.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -84,9 +107,6 @@ const Profile = () => {
               </Button>
             </div>
 
-            {/* <p className="text-lg text-gray-600 mb-1">
-              <strong>Name:</strong> {formData.name}
-            </p> */}
             <p className="text-lg text-gray-600 mb-1">
               <strong>Email:</strong> {formData.email}
             </p>
@@ -97,6 +117,7 @@ const Profile = () => {
         </div>
 
         <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
           <div className="flex flex-col">
             <label className="font-medium text-sm mb-1">Name</label>
             <input
@@ -105,11 +126,13 @@ const Profile = () => {
               value={formData.name}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
-                }`}
+              className={`border p-2 rounded outline-none ${
+                isEditing ? "border-primary" : "border-gray-300"
+              }`}
             />
           </div>
 
+          {/* Email */}
           <div className="flex flex-col">
             <label className="font-medium text-sm mb-1">Email</label>
             <input
@@ -121,6 +144,7 @@ const Profile = () => {
             />
           </div>
 
+          {/* District */}
           <div className="flex flex-col">
             <label className="font-medium text-sm mb-1">District</label>
             <input
@@ -129,11 +153,13 @@ const Profile = () => {
               value={formData.district}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
-                }`}
+              className={`border p-2 rounded outline-none ${
+                isEditing ? "border-primary" : "border-gray-300"
+              }`}
             />
           </div>
 
+          {/* Upazila */}
           <div className="flex flex-col">
             <label className="font-medium text-sm mb-1">Upazila</label>
             <input
@@ -142,11 +168,13 @@ const Profile = () => {
               value={formData.upazila}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
-                }`}
+              className={`border p-2 rounded outline-none ${
+                isEditing ? "border-primary" : "border-gray-300"
+              }`}
             />
           </div>
 
+          {/* Blood Group */}
           <div className="flex flex-col">
             <label className="font-medium text-sm mb-1">Blood Group</label>
             <input
@@ -155,11 +183,13 @@ const Profile = () => {
               value={formData.bloodGroup}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
-                }`}
+              className={`border p-2 rounded outline-none ${
+                isEditing ? "border-primary" : "border-gray-300"
+              }`}
             />
           </div>
 
+          {/* Role */}
           <div className="flex flex-col">
             <label className="font-medium text-sm mb-1">Role</label>
             <input
