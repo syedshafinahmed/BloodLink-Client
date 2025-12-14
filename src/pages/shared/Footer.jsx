@@ -16,7 +16,7 @@ const Footer = () => {
           </div>
           <div className='px-5 md:px-0'>
             <h1 className='font-black text-primary text-2xl pb-2'>Quick Links</h1>
-            <ul className='space-y-2 flex flex-col'>
+            <ul className='space-y-2 flex flex-col text-sm'>
               <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/"><FaCaretRight color='#f9232c'></FaCaretRight> Home</NavLink>
               <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/donation-requests"><FaCaretRight color='#f9232c'></FaCaretRight> Donation Requests</NavLink>
               <NavLink className='flex items-center hover:text-primary hover:font-semibold' to="/fundings"><FaCaretRight color='#f9232c'></FaCaretRight> Funding</NavLink>
@@ -24,7 +24,7 @@ const Footer = () => {
           </div>
           <div className='px-5 md:px-0'>
             <h1 className='font-black text-primary text-2xl pb-2'>BloodLink Support</h1>
-            <ul className='flex flex-col space-y-2'>
+            <ul className='flex flex-col space-y-2 text-sm'>
               <span className='flex items-center gap-2'><PiPhoneCallFill size={25} color='#f9232c' /> +8801630216932</span>
               <span className='flex items-center gap-2'><IoMdMail size={25} color='#f9232c' /> shafinahmed.cse@gmail.com</span>
               <span className='flex items-center gap-2'><FaMapLocationDot size={25} color='#f9232c' /> Mirpur, Dhaka</span>
@@ -32,7 +32,7 @@ const Footer = () => {
           </div>
           <div className='px-5 md:px-0'>
             <h1 className='font-black text-primary text-2xl pb-2'>NewsLetter</h1>
-            <p className='text-xs pb-2'>Subscribe to Our Newsletter to receive the newest updates and info.</p>
+            <p className='text-xs mb-5'>Subscribe to Our Newsletter to receive the newest updates and info.</p>
             <div className='flex items-center px-1'>
               <input type="email" placeholder='  Email' className='py-1 rounded-sm outline outline-primary' />
               <button className='btn btn-primary btn-sm'>Subscribe</button>
