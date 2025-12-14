@@ -17,7 +17,7 @@ const AllDonationRequests = () => {
   const [loading, setLoading] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 7;
   const totalPages = Math.ceil(requests.length / itemsPerPage);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const AllDonationRequests = () => {
   );
 
   return (
-    <div className="bg-white/10 pb-10 px-6">
+    <div className="bg-white/10 px-6">
       <motion.h1
         className="text-start font-black mb-10 text-3xl"
         initial={{ opacity: 0, x: -40 }}

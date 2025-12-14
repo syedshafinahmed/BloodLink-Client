@@ -36,11 +36,11 @@ const DashboardLayout = () => {
   }, [user?.email, axiosSecure]);
 
   return (
-    <div className="drawer lg:drawer-open bg-base-200">
+    <div className="drawer lg:drawer-open h-screen overflow-hidden bg-base-200">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
-      <div className="drawer-content">
-        <nav className="navbar w-full bg-base-200">
+      <div className="drawer-content flex flex-col h-screen">
+        <nav className="navbar w-full bg-base-200 shrink-0">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -63,7 +63,7 @@ const DashboardLayout = () => {
           </label>
         </nav>
 
-        <div className="p-4">
+        <div className="flex-1 overflow-y-auto p-4">
           <Outlet />
         </div>
       </div>
@@ -71,7 +71,7 @@ const DashboardLayout = () => {
       <div className="drawer-side is-drawer-close:overflow-visible">
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
-        <div className="flex h-[1040px] flex-col bg-gray-900 is-drawer-close:w-14 is-drawer-open:w-52">
+        <div className="flex flex-col sticky top-0 transition-all duration-300 h-screen bg-gray-900 is-drawer-close:w-14 is-drawer-open:w-52">
           <ul className="menu w-full grow text-primary">
             <li>
               <Link to="/" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Home">
@@ -94,7 +94,7 @@ const DashboardLayout = () => {
             </li>
 
             {/* admin */}
-            {role === 'admin' && (
+            {(role === 'admin' || role === 'volunteer') && (
               <>
                 <li>
                   <Link to="all-users" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
