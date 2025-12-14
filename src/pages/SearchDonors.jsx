@@ -129,7 +129,7 @@ const SearchDonors = () => {
                 >
                   <td className="p-3">{donor.name}</td>
                   <td className="p-3 font-semibold">{donor.bloodGroup}</td>
-                  <td className="p-3"><span className="badge badge-sm badge-success">{donor.status}</span></td>
+                  <td className="p-3"><span className={`badge badge-sm ${donor.status === "blocked" ? "badge-error" : "badge-success"}`}>{donor.status}</span></td>
                   <td className="p-3">{donor.district}</td>
                   <td className="p-3">{donor.upazila}</td>
                   <td className="p-3">{donor.contact}</td>
