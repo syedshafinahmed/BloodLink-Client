@@ -94,7 +94,7 @@ const DashboardLayout = () => {
             </li>
 
             {/* admin */}
-            {(role === 'admin' || role === 'volunteer') && (
+            {(role === 'admin') && (
               <>
                 <li>
                   <Link to="all-users" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -103,7 +103,12 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden font-black text-xs">All Users</span>
                   </Link>
                 </li>
-
+              </>
+            )}
+            
+            {/* admin */}
+            {(role === 'admin' || role === 'volunteer') && (
+              <>
                 <li>
                   <Link to="all-donation-requests" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="All Donation Requests">
