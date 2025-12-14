@@ -5,6 +5,8 @@ import { TiSocialFacebook } from "react-icons/ti";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
+import { FaClock } from "react-icons/fa6";
+import { FiClock } from "react-icons/fi";
 
 const socials = [
   {
@@ -74,7 +76,7 @@ export default function Contact() {
         className="text-4xl font-bold text-center text-primary mb-16"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }} 
+        viewport={{ once: false, amount: 0.3 }}
         variants={{
           hidden: { opacity: 0, y: 50 },
           visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
@@ -90,15 +92,20 @@ export default function Contact() {
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
       >
-        <motion.div
-          className="flex flex-col items-center gap-8 text-center md:text-left"
-          variants={itemVariants}
-        >
-          <p className="text-black text-2xl font-black text-center max-w-sm">
-            Get in Touch — We’re Here to Help You Save Lives.
-          </p>
+        <motion.div className="flex flex-col gap-8" variants={itemVariants}>
+          <div className="text-right">
+            <p className="text-gray-900 mb-5 text-3xl font-black text-left">Make Someone’s Life Better</p>
+            <p className="text-xs text-justify pr-5 text-gray-900">Your donation can save a life and give someone a chance to recover. Every contribution brings hope to patients and their families during critical times. By reaching out, you become part of a meaningful and life-saving mission. A small step from you can create a lasting impact for someone in need. Contact us today and help make a difference when it matters most.</p>
+          </div>
+          <div className="text-left">
+            <p className="text-primary text-xl font-black">Opening Hours</p>
+            <div className="font-medium text-sm text-gray-900">
+              <p>Sunday - Saturday</p>
+              <span className="flex justify-start gap-2 items-center"><FiClock className="text-primary" /> 00:00 – 23:59</span>
+            </div>
+          </div>
 
-          <div className="flex gap-4">
+          <div className="flex items-center justify-start gap-4">
             {socials.map((item, i) => (
               <motion.a
                 key={i}
@@ -116,9 +123,8 @@ export default function Contact() {
 
         <motion.form
           onSubmit={handleSubmit}
-          className={`backdrop-blur-xl bg-white/10 p-8 rounded-xl flex flex-col gap-5 shadow-lg transition-all duration-300 ${
-            shake ? "animate-[shake_0.4s_ease-in-out]" : ""
-          }`}
+          className={`backdrop-blur-xl bg-white/10 p-8 rounded-xl flex flex-col gap-5 shadow-lg transition-all duration-300 ${shake ? "animate-[shake_0.4s_ease-in-out]" : ""
+            }`}
           variants={itemVariants}
         >
           <motion.input
