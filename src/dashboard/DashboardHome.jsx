@@ -92,7 +92,7 @@ const DashboardHome = () => {
       title: "Total Users",
       tooltip: "View All Users",
       value: totalUsers,
-      route: null,
+      route: "/dashboard/all-users",
     },
     {
       title: "Total Fundings",

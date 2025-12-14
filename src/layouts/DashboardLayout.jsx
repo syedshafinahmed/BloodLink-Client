@@ -118,9 +118,9 @@ const DashboardLayout = () => {
 
             <li>
               <Link to="donation-requests" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Donation Requests">
+                data-tip="My Donation Requests">
                 <FaHourglassEnd />
-                <span className="is-drawer-close:hidden font-black text-xs">Donation Requests</span>
+                <span className="is-drawer-close:hidden font-black text-xs">My Donation Requests</span>
               </Link>
             </li>
 

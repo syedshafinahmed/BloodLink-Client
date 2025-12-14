@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-
+import Loading from '../../loading/Loading'
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
 
@@ -62,7 +62,7 @@ const AllUsers = () => {
       : users.filter((u) => u.status === filterStatus);
 
   if (loading) {
-    return <div className="text-center py-10">Loading users...</div>;
+    return <Loading></Loading>
   }
 
   return (

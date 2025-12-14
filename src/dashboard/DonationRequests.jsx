@@ -171,7 +171,7 @@ const DonationRequests = () => {
           </div>
 
           {/* Pagination Controls */}
-          <div className="flex justify-center mt-4 gap-2">
+          <div className="flex justify-center mt-10 gap-2">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={page}
