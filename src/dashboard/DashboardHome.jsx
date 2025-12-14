@@ -60,7 +60,7 @@ const DashboardHome = () => {
 
   // Admin 
   useEffect(() => {
-    if (role !== 'admin') return;
+    if (role !== 'admin' && role !== 'volunteer') return;
 
     const fetchStats = async () => {
       try {
@@ -93,6 +93,7 @@ const DashboardHome = () => {
       tooltip: "View All Users",
       value: totalUsers,
       route: "/dashboard/all-users",
+      allowedRoles: ["admin"]
     },
     {
       title: "Total Fundings",
@@ -100,12 +101,14 @@ const DashboardHome = () => {
       value: totalFundings,
       route: "/fundings",
       format: (val) => `৳ ${val.toLocaleString()}`,
+      allowedRoles: ["admin", "volunteer"]
     },
     {
       title: "Total Blood Donation Requests",
       tooltip: "View All Donation Requests",
       value: totalRequests,
       route: "/donation-requests",
+      allowedRoles: ["admin", "volunteer"]
     },
   ];
 
@@ -129,45 +132,47 @@ const DashboardHome = () => {
       </motion.p>
 
       {/* admin  */}
-      {role === 'admin' && (
+      {(role === 'admin' || role === 'volunteer') && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-15">
-          {cardData.map((card, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.03 }}
-              className="bg-linear-to-tr from-gray-100 via-gray-200 to-gray-300 border-l-10 border-l-gray-900 border border-gray-300 rounded-2xl shadow-lg p-6 transition"
-            >
-              {/* Header */}
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-black text-gray-900">
-                  {card.title}
-                </h3>
+          {cardData.map((card, index) => {
+            const canNavigate = card.allowedRoles?.includes(role);
+            return (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.03 }}
+                className="bg-linear-to-tr from-gray-100 via-gray-200 to-gray-300 border-l-10 border-l-gray-900 border border-gray-300 rounded-2xl shadow-lg p-6 transition"
+              >
+                {/* Header */}
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-black text-gray-900">
+                    {card.title}
+                  </h3>
 
-                <Tooltip title={card.tooltip}>
-                  <span
-                    disabled={!card.route}
-                    onClick={() => card.route && navigate(card.route)}
-                    className={`transition ${card.route
-                      ? "text-gray-900 hover:text-primary"
-                      : "text-gray-400 cursor-not-allowed"
-                      }`}
-                  >
-                    <GoArrowUpRight size={20} />
-                  </span>
-                </Tooltip>
-              </div>
+                  <Tooltip title={canNavigate ? card.tooltip : "Access restricted"}>
+                    <span
+                      onClick={() => canNavigate && navigate(card.route)}
+                      className={`transition ${canNavigate
+                        ? "text-gray-900 hover:text-primary cursor-pointer"
+                        : "text-gray-400 cursor-not-allowed"
+                        }`}
+                    >
+                      <GoArrowUpRight size={20} />
+                    </span>
+                  </Tooltip>
+                </div>
 
-              {/* Value */}
-              <h2 className="text-4xl font-bold text-gray-900">
-                <CountUp
-                  end={card.value}
-                  duration={1.5}
-                  separator=","
-                  formattingFn={card.format || ((val) => val)}
-                />
-              </h2>
-            </motion.div>
-          ))}
+                {/* Value */}
+                <h2 className="text-4xl font-bold text-gray-900">
+                  <CountUp
+                    end={card.value}
+                    duration={1.5}
+                    separator=","
+                    formattingFn={card.format || ((val) => val)}
+                  />
+                </h2>
+              </motion.div>
+            );
+          })}
         </div>
       )}
 
