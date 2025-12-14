@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
@@ -11,15 +12,32 @@ import Loading from "../../loading/Loading";
 
 const AllDonationRequests = () => {
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const totalPages = Math.ceil(requests.length / itemsPerPage);
 
+  // user role
+  useEffect(() => {
+    if (!user?.email) return;
+
+    axiosSecure
+      .get(`/users?email=${user.email}`)
+      .then((res) => {
+        if (res.data?.length > 0) {
+          setRole(res.data[0].role);
+        }
+      })
+      .catch(() => { });
+  }, [user?.email, axiosSecure]);
+
+  // all donation requests
   useEffect(() => {
     axiosSecure
       .get("/donation-requests")
@@ -33,6 +51,7 @@ const AllDonationRequests = () => {
       });
   }, [axiosSecure]);
 
+  // delete donation request
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -65,7 +84,7 @@ const AllDonationRequests = () => {
   );
 
   return (
-    <div className="bg-white/10 px-6">
+    <div className="bg-base-200/10 px-6">
       <motion.h1
         className="text-start font-black mb-10 text-3xl"
         initial={{ opacity: 0, x: -40 }}
@@ -98,7 +117,7 @@ const AllDonationRequests = () => {
                   <th className="p-3">Hospital</th>
                   <th className="p-3">Location</th>
                   <th className="p-3">Status</th>
-                  <th className="p-3">Actions</th>
+                  {role === "admin" && <th className="p-3">Actions</th>}
                 </tr>
               </thead>
 
@@ -112,53 +131,51 @@ const AllDonationRequests = () => {
                     <td className="p-3">{req.requesterName}</td>
                     <td className="p-3 font-semibold">{req.bloodGroup}</td>
                     <td className="p-3">{req.hospitalName}</td>
-                    <td className="p-3">
-                      {req.recipientUpazila}, {req.recipientDistrict}
-                    </td>
+                    <td className="p-3">{req.recipientUpazila}, {req.recipientDistrict}</td>
                     <td className="p-3">
                       <span
-                        className={`badge badge-sm text-white ${req.donationStatus === "pending"
+                        className={`badge badge-sm text-base-200 ${req.donationStatus === "pending"
                             ? "bg-yellow-600"
                             : req.donationStatus === "approved"
                               ? "bg-green-600"
-                              : "bg-red-600"
+                              : "bg-primary"
                           }`}
                       >
                         {req.donationStatus}
                       </span>
                     </td>
 
-                    {/* ACTIONS */}
-                    <td className="flex justify-center gap-5 mt-4">
-                      <Tooltip title="View Details">
-                        <FaArrowUpRightFromSquare
-                          className="cursor-pointer hover:text-primary"
-                          onClick={() =>
-                            navigate(
-                              `/dashboard/donation-request/${req._id}`
-                            )
-                          }
-                        />
-                      </Tooltip>
+                    {/* Actions: admin */}
+                    {role === "admin" && (
+                      <td className="flex justify-center gap-5 mt-4">
+                        <Tooltip title="View Details">
+                          <FaArrowUpRightFromSquare
+                            className="cursor-pointer hover:text-primary"
+                            onClick={() =>
+                              navigate(`/dashboard/donation-request/${req._id}`)
+                            }
+                          />
+                        </Tooltip>
 
-                      <Tooltip title="Edit Request">
-                        <FaEdit
-                          className="cursor-pointer hover:text-primary"
-                          onClick={() =>
-                            navigate(
-                              `/dashboard/donation-request/edit/${req._id}`
-                            )
-                          }
-                        />
-                      </Tooltip>
+                        <Tooltip title="Edit Request">
+                          <FaEdit
+                            className="cursor-pointer hover:text-primary"
+                            onClick={() =>
+                              navigate(
+                                `/dashboard/donation-request/edit/${req._id}`
+                              )
+                            }
+                          />
+                        </Tooltip>
 
-                      <Tooltip title="Delete Request">
-                        <FiTrash
-                          className="cursor-pointer hover:text-primary"
-                          onClick={() => handleDelete(req._id)}
-                        />
-                      </Tooltip>
-                    </td>
+                        <Tooltip title="Delete Request">
+                          <FiTrash
+                            className="cursor-pointer hover:text-primary"
+                            onClick={() => handleDelete(req._id)}
+                          />
+                        </Tooltip>
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -173,8 +190,8 @@ const AllDonationRequests = () => {
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`px-3 py-1 rounded border ${page === currentPage
-                      ? "bg-red-600 text-white border-red-600"
-                      : "bg-white text-gray-900 border-gray-400"
+                      ? "bg-primary text-base-200 border-primary"
+                      : "bg-base-200 text-gray-900 border-gray-400"
                     }`}
                 >
                   {page}
