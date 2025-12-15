@@ -90,6 +90,15 @@ const HomeDonationRequests = () => {
             <p className="mb-4 text-sm line-clamp-2">
               {req.requestMessage || "No message provided."}
             </p>
+            <span
+              className={`badge badge-xs mb-4 
+              ${req.donationStatus === "pending" && "badge-warning"}
+              ${req.donationStatus === "inprogress" && "badge-accent"}
+              ${req.donationStatus === "done" && "badge-success"}
+              ${req.donationStatus === "canceled" && "badge-error"}`}>
+              {req.donationStatus}
+            </span>
+
 
             <div className="flex flex-col text-xs gap-2 mt-auto text-gray-700">
               <div className="flex items-center gap-2">
@@ -115,8 +124,8 @@ const HomeDonationRequests = () => {
             key={page}
             onClick={() => setCurrentPage(page)}
             className={`px-3 py-1 rounded border ${currentPage === page
-                ? "bg-red-600 text-white border-red-600"
-                : "bg-white text-gray-900 border-gray-400"
+              ? "bg-red-600 text-white border-red-600"
+              : "bg-white text-gray-900 border-gray-400"
               }`}
           >
             {page}

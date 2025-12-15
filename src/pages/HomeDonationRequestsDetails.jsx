@@ -44,20 +44,15 @@ const HomeDonationRequestsDetails = () => {
             {request.bloodGroup}{" "}
             <span className="text-sm font-medium">blood needed</span>
           </h1>
-  
-          <span
-            className={`px-4 py-1 rounded-full font-semibold text-sm ${
-              request.donationStatus === "pending"
-                ? "bg-yellow-500 text-gray-900"
-                : request.donationStatus === "approved"
-                ? "bg-green-500 text-gray-900"
-                : "bg-red-500 text-gray-900"
-            }`}
-          >
+
+          <span className={`px-4 py-1 rounded-full font-semibold text-sm text-base-200 ${request.donationStatus === "pending"
+            ? "bg-yellow-500" : request.donationStatus === "inprogress" ? "bg-teal-500" : request.donationStatus === "done"
+              ? "bg-green-500" : request.donationStatus === "canceled" ? "bg-red-500" : "bg-primary"}`}>
             {request.donationStatus.toUpperCase()}
           </span>
+
         </motion.div>
-  
+
         {/* Request Message */}
         <motion.div
           className="mb-6"
@@ -70,7 +65,7 @@ const HomeDonationRequestsDetails = () => {
             {request.requestMessage}
           </p>
         </motion.div>
-  
+
         {/* BADGES SECTION */}
         <motion.div
           className="flex flex-wrap gap-3 mt-6"
@@ -88,7 +83,7 @@ const HomeDonationRequestsDetails = () => {
               Patient: <strong>{request.recipientName}</strong>
             </span>
           </motion.div>
-  
+
           {/* Donation Date */}
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -99,7 +94,7 @@ const HomeDonationRequestsDetails = () => {
               Date: <strong>{request.donationDate}</strong>
             </span>
           </motion.div>
-  
+
           {/* Hospital / Location */}
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -110,7 +105,7 @@ const HomeDonationRequestsDetails = () => {
               Location: <strong>{request.hospitalName}</strong>
             </span>
           </motion.div>
-  
+
           {/* Contact */}
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -121,7 +116,7 @@ const HomeDonationRequestsDetails = () => {
               Contact: <strong>{request.contact}</strong>
             </span>
           </motion.div>
-  
+
           {/* Requested By */}
           <motion.div
             whileHover={{ scale: 1.05 }}

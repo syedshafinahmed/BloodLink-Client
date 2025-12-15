@@ -10,6 +10,13 @@ import { Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import Loading from "../../loading/Loading";
 
+const STATUS_COLORS = {
+  pending: "bg-yellow-600",
+  inprogress: "bg-teal-500",
+  done: "bg-green-600",
+  canceled: "bg-primary",
+};
+
 const AllDonationRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -27,28 +34,19 @@ const AllDonationRequests = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    axiosSecure
-      .get(`/users?email=${user.email}`)
-      .then((res) => {
-        if (res.data?.length > 0) {
-          setRole(res.data[0].role);
-        }
-      })
-      .catch(() => { });
+    axiosSecure.get(`/users?email=${user.email}`).then((res) => {
+      if (res.data?.length > 0) {
+        setRole(res.data[0].role);
+      }
+    });
   }, [user?.email, axiosSecure]);
 
   // all donation requests
   useEffect(() => {
-    axiosSecure
-      .get("/donation-requests")
-      .then((res) => {
-        setRequests(res.data);
-        setLoading(false);
-      })
-      .catch(() => {
-        Swal.fire("Error", "Failed to load donation requests", "error");
-        setLoading(false);
-      });
+    axiosSecure.get("/donation-requests").then((res) => {
+      setRequests(res.data);
+      setLoading(false);
+    });
   }, [axiosSecure]);
 
   // delete donation request
@@ -62,26 +60,37 @@ const AllDonationRequests = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure
-          .delete(`/donation-requests/${id}`)
-          .then(() => {
-            Swal.fire("Deleted!", "Donation request removed.", "success");
-            setRequests((prev) => prev.filter((r) => r._id !== id));
-          })
-          .catch(() => {
-            Swal.fire("Error", "Failed to delete request", "error");
-          });
+        axiosSecure.delete(`/donation-requests/${id}`).then(() => {
+          Swal.fire("Deleted!", "Donation request removed.", "success");
+          setRequests((prev) => prev.filter((r) => r._id !== id));
+        });
       }
     });
+  };
+
+  // ✅ ADD: volunteer status change
+  const handleStatusChange = async (id, status) => {
+    try {
+      await axiosSecure.patch(`/donation-requests/${id}`, {
+        donationStatus: status,
+      });
+
+      setRequests((prev) =>
+        prev.map((r) =>
+          r._id === id ? { ...r, donationStatus: status } : r
+        )
+      );
+
+      Swal.fire("Updated", "Status updated successfully", "success");
+    } catch {
+      Swal.fire("Error", "Failed to update status", "error");
+    }
   };
 
   if (loading) return <Loading />;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentRequests = requests.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentRequests = requests.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="bg-base-200/10 px-6">
@@ -89,118 +98,108 @@ const AllDonationRequests = () => {
         className="text-start font-black mb-10 text-3xl"
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
       >
         All Donation Requests: {requests.length}
       </motion.h1>
 
-      {requests.length === 0 && (
-        <p className="text-center text-gray-500">
-          No donation requests found.
-        </p>
-      )}
+      <motion.div className="overflow-x-auto rounded-lg border border-gray-700 bg-base-200">
+        <table className="w-full text-center text-gray-900">
+          <thead className="bg-gray-900 text-base-200">
+            <tr>
+              <th className="p-3">Recipient</th>
+              <th className="p-3">Requester</th>
+              <th className="p-3">Blood Group</th>
+              <th className="p-3">Hospital</th>
+              <th className="p-3">Location</th>
+              <th className="p-3">Status</th>
+              {role === "admin" && <th className="p-3">Actions</th>}
+            </tr>
+          </thead>
 
-      {requests.length > 0 && (
-        <>
-          <motion.div
-            initial={{ opacity: 0, x: -80 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="overflow-x-auto rounded-lg border border-gray-700 bg-base-200"
-          >
-            <table className="w-full text-center text-gray-900">
-              <thead className="bg-gray-900 text-base-200">
-                <tr>
-                  <th className="p-3">Recipient</th>
-                  <th className="p-3">Requester</th>
-                  <th className="p-3">Blood Group</th>
-                  <th className="p-3">Hospital</th>
-                  <th className="p-3">Location</th>
-                  <th className="p-3">Status</th>
-                  {role === "admin" && <th className="p-3">Actions</th>}
-                </tr>
-              </thead>
+          <tbody className="text-xs md:text-sm">
+            {currentRequests.map((req) => (
+              <tr key={req._id} className="border-b border-gray-700 hover:bg-gray-300">
+                <td className="p-3">{req.recipientName}</td>
+                <td className="p-3">{req.requesterName}</td>
+                <td className="p-3 font-semibold">{req.bloodGroup}</td>
+                <td className="p-3">{req.hospitalName}</td>
+                <td className="p-3">
+                  {req.recipientUpazila}, {req.recipientDistrict}
+                </td>
 
-              <tbody className="text-xs md:text-sm">
-                {currentRequests.map((req) => (
-                  <tr
-                    key={req._id}
-                    className="border-b border-gray-700 hover:bg-gray-300 transition"
-                  >
-                    <td className="p-3">{req.recipientName}</td>
-                    <td className="p-3">{req.requesterName}</td>
-                    <td className="p-3 font-semibold">{req.bloodGroup}</td>
-                    <td className="p-3">{req.hospitalName}</td>
-                    <td className="p-3">{req.recipientUpazila}, {req.recipientDistrict}</td>
-                    <td className="p-3">
-                      <span
-                        className={`badge badge-sm text-base-200 ${req.donationStatus === "pending"
-                            ? "bg-yellow-600"
-                            : req.donationStatus === "approved"
-                              ? "bg-green-600"
-                              : "bg-primary"
-                          }`}
-                      >
-                        {req.donationStatus}
-                      </span>
-                    </td>
+                {/* ✅ STATUS COLUMN */}
+                <td className="p-3">
+                  {/* ADMIN → VIEW ONLY */}
+                  {role === "admin" && (
+                    <span
+                      className={`badge badge-sm text-base-200 ${STATUS_COLORS[req.donationStatus]}`}
+                    >
+                      {req.donationStatus}
+                    </span>
+                  )}
 
-                    {/* Actions: admin */}
-                    {role === "admin" && (
-                      <td className="flex justify-center gap-5 mt-4">
-                        <Tooltip title="View Details">
-                          <FaArrowUpRightFromSquare
-                            className="cursor-pointer hover:text-primary"
-                            onClick={() =>
-                              navigate(`/dashboard/donation-request/${req._id}`)
-                            }
-                          />
-                        </Tooltip>
+                  {/* VOLUNTEER → CHANGE */}
+                  {role === "volunteer" && (
+                    <select
+                      value={req.donationStatus}
+                      onChange={(e) =>
+                        handleStatusChange(req._id, e.target.value)
+                      }
+                      className="select select-sm bg-base-200 border-gray-500"
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="inprogress">In Progress</option>
+                      <option value="done">Done</option>
+                      <option value="canceled">Canceled</option>
+                    </select>
+                  )}
+                </td>
 
-                        <Tooltip title="Edit Request">
-                          <FaEdit
-                            className="cursor-pointer hover:text-primary"
-                            onClick={() =>
-                              navigate(
-                                `/dashboard/donation-request/edit/${req._id}`
-                              )
-                            }
-                          />
-                        </Tooltip>
+                {/* ADMIN ACTIONS (UNCHANGED) */}
+                {role === "admin" && (
+                  <td className="flex justify-center gap-5 mt-4">
+                    <Tooltip title="View Details">
+                      <FaArrowUpRightFromSquare
+                        onClick={() =>
+                          navigate(`/dashboard/donation-request/${req._id}`)
+                        }
+                      />
+                    </Tooltip>
 
-                        <Tooltip title="Delete Request">
-                          <FiTrash
-                            className="cursor-pointer hover:text-primary"
-                            onClick={() => handleDelete(req._id)}
-                          />
-                        </Tooltip>
-                      </td>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </motion.div>
+                    <Tooltip title="Edit Request">
+                      <FaEdit
+                        onClick={() =>
+                          navigate(`/dashboard/donation-request/edit/${req._id}`)
+                        }
+                      />
+                    </Tooltip>
 
-          {/* Pagination */}
-          <div className="flex justify-center mt-10 gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-              (page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-1 rounded border ${page === currentPage
-                      ? "bg-primary text-base-200 border-primary"
-                      : "bg-base-200 text-gray-900 border-gray-400"
-                    }`}
-                >
-                  {page}
-                </button>
-              )
-            )}
-          </div>
-        </>
-      )}
+                    <Tooltip title="Delete Request">
+                      <FiTrash onClick={() => handleDelete(req._id)} />
+                    </Tooltip>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </motion.div>
+      <div className="flex justify-center mt-10 gap-2">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+          (page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-3 py-1 rounded border ${page === currentPage
+                ? "bg-primary text-base-200 border-primary"
+                : "bg-base-200 text-gray-900 border-gray-400"
+                }`}
+            >
+              {page}
+            </button>
+          )
+        )}
+      </div>
     </div>
   );
 };
