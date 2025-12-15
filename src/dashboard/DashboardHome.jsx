@@ -107,7 +107,7 @@ const DashboardHome = () => {
       title: "Total Blood Donation Requests",
       tooltip: "View All Donation Requests",
       value: totalRequests,
-      route: "/donation-requests",
+      route: "/dashboard/all-donation-requests",
       allowedRoles: ["admin", "volunteer"]
     },
   ];
