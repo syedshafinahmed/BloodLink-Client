@@ -5,6 +5,8 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { FaMapMarkerAlt, FaRegCalendarAlt, FaUserInjured } from "react-icons/fa";
 import { IoCall } from "react-icons/io5";
 import { MdAddModerator } from "react-icons/md";
+import Loading from "../loading/Loading";
+import Swal from "sweetalert2";
 
 const HomeDonationRequestsDetails = () => {
   const { id } = useParams();
@@ -18,7 +20,40 @@ const HomeDonationRequestsDetails = () => {
       .catch((err) => console.error(err));
   }, [id]);
 
-  if (!request) return <p className="text-center mt-10">Loading...</p>;
+  const handleDonateClick = async () => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "This will change status to IN PROGRESS!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, proceed",
+        cancelButtonText: "Cancel",
+      });
+
+      if (result.isConfirmed) {
+        const res = await axiosSecure.patch(`/donation-requests/${id}`, {
+          donationStatus: "inprogress",
+        });
+
+        if (res.data?.message) {
+          setRequest({ ...request, donationStatus: "inprogress" });
+
+          Swal.fire(
+            "Updated!",
+            "Donation status changed to IN PROGRESS",
+            "success"
+          );
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Failed to update status", "error");
+    }
+  };
+
+
+  if (!request) return <Loading></Loading>;
 
   return (
     <motion.div
@@ -128,6 +163,14 @@ const HomeDonationRequestsDetails = () => {
             </span>
           </motion.div>
         </motion.div>
+
+        <div className="flex justify-end" >
+          {request.donationStatus === "pending" &&
+            <>
+              <button onClick={handleDonateClick} className="btn text-base-200 btn-sm rounded bg-primary hover:scale-110 transition-transform duration-300">Donate</button>
+            </>}
+        </div>
+
       </motion.div>
     </motion.div>
   );

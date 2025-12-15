@@ -140,7 +140,8 @@ const DashboardHome = () => {
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.03 }}
-                className="bg-linear-to-tr from-gray-100 via-gray-200 to-gray-300 border-l-10 border-l-gray-900 border border-gray-300 rounded-2xl shadow-lg p-6 transition"
+                className="bg-white/10 backdrop-blur-3xl from-gray-100 via-gray-200 to-gray-300 border-l-10 border-l-gray-900 border border-gray-300 rounded-2xl shadow-lg p-6 transition"
+
               >
                 {/* Header */}
                 <div className="flex justify-between items-center mb-4">
