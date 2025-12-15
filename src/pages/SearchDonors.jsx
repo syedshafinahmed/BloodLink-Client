@@ -4,6 +4,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import locations from "../../public/location.json";
+import Loading from "../loading/Loading";
 
 const bloodOptions = [
   { value: "A+", label: "A+" },
@@ -22,6 +23,7 @@ const SearchDonors = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedUpazila, setSelectedUpazila] = useState(null);
   const [donors, setDonors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // District options
   const districtOptions = [
@@ -37,6 +39,7 @@ const SearchDonors = () => {
 
   const handleSearch = async () => {
     try {
+      setLoading(true);
       const params = {};
       if (selectedBlood) params.bloodGroup = selectedBlood.value;
       if (selectedDistrict) params.district = selectedDistrict.value;
@@ -59,8 +62,14 @@ const SearchDonors = () => {
         title: "Search Failed",
         text: "Could not fetch donors. Try again later.",
       });
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <Loading></Loading>
+  }
 
   return (
     <div className="max-w-7xl min-h-screen mx-auto mt-20 p-6">
@@ -115,6 +124,7 @@ const SearchDonors = () => {
                 <th className="p-3">Name</th>
                 <th className="p-3">Blood Group</th>
                 <th className="p-3">Status</th>
+                <th className="p-3">Role</th>
                 <th className="p-3">District</th>
                 <th className="p-3">Upazila</th>
                 <th className="p-3">Contact</th>
@@ -129,7 +139,8 @@ const SearchDonors = () => {
                 >
                   <td className="p-3">{donor.name}</td>
                   <td className="p-3 font-semibold">{donor.bloodGroup}</td>
-                  <td className="p-3"><span className={`badge badge-sm ${donor.status === "blocked" ? "badge-error" : "badge-success"}`}>{donor.status}</span></td>
+                  <td className="p-3"><span className={`badge badge-sm rounded-full ${donor.status === "blocked" ? "badge-error" : "badge-success"}`}>{donor.status}</span></td>
+                  <td className="p-3">{donor.role}</td>
                   <td className="p-3">{donor.district}</td>
                   <td className="p-3">{donor.upazila}</td>
                   <td className="p-3">{donor.contact}</td>
@@ -140,7 +151,7 @@ const SearchDonors = () => {
         </motion.div>
       )}
 
-      {donors.length === 0 && (
+      {!loading && donors.length === 0 && (
         <p className="text-center text-gray-500 mt-10">
           No donors to display. Fill the form above and click search.
         </p>

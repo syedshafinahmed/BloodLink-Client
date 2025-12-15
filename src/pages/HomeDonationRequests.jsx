@@ -6,6 +6,7 @@ import { GoArrowUpRight } from "react-icons/go";
 import { useNavigate } from "react-router";
 import { IoCall } from "react-icons/io5";
 import { Tooltip } from "@mui/material";
+import Loading from "../loading/Loading";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -29,16 +30,28 @@ const HomeDonationRequests = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const totalPages = Math.ceil(requests.length / itemsPerPage);
 
   useEffect(() => {
+    setLoading(true);
     axiosSecure
       .get("/donation-requests")
-      .then((res) => setRequests(res.data))
-      .catch((err) => console.error(err));
-  }, [axiosSecure]);
+      .then((res) => {
+        setRequests(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [axiosSecure, setLoading]);
+
+  if (loading) {
+    return <Loading></Loading>
+  }
 
   if (!requests.length)
     return (

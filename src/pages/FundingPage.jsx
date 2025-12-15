@@ -121,7 +121,7 @@ const FundingPage = () => {
                       <strong>৳ {fund.amount}</strong>
                     </td>
                     <td className="p-3">
-                      <span className="badge badge-base badge-success">
+                      <span className="badge badge-sm rounded-full badge-success">
                         card
                       </span>
                     </td>
