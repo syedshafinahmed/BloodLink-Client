@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router';
 import logo from '../../assets/BloodLink.png'
 import useAuth from '../../hooks/useAuth';
+import { MdDashboard } from 'react-icons/md';
+import { IoLogOut } from 'react-icons/io5';
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const handleLogout = () => {
@@ -32,7 +34,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-36 p-2 shadow">
                 {links}
               </ul>
             </div>
@@ -45,12 +47,35 @@ const Navbar = () => {
           </div>
           <div className="navbar-end">
             {user ?
-              <div className='flex gap-5 items-center'>
-                <img src={user.photoURL} referrerPolicy="no-referrer" className='w-10 h-10 object-cover border rounded border-primary' alt="" />
-                <button onClick={handleLogout} className="btn btn-outline font-black btn-primary">Logout</button>
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-30 rounded border border-primary">
+                    <img
+                      src={user.photoURL}
+                      referrerPolicy="no-referrer"
+                      alt="user"
+                    />
+                  </div>
+                </div>
+
+                <ul
+                  tabIndex={-1}
+                  className="menu menu-sm dropdown-content bg-base-200 rounded-box w-36 p-2 shadow mt-3"
+                >
+                  <li className="pointer-events-none text-xl mb-2 font-black pl-2">
+                    {user.displayName || 'User'}
+                  </li>
+                  <li className='text-gray-900'>
+                    <NavLink to="/dashboard/dhome"><MdDashboard></MdDashboard>Dashboard</NavLink>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout} className="text-primary"><IoLogOut></IoLogOut>Logout</button>
+                  </li>
+                </ul>
               </div>
               :
-              <NavLink to='/login'><button className="btn btn-outline font-black btn-primary">Login</button></NavLink>}
+              <NavLink to='/login'><button className="btn btn-outline font-black btn-primary">Login</button></NavLink>
+            }
           </div>
         </div>
       </div>
