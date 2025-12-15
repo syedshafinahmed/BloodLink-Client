@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div className='w-full border-t-2 border-primary bg-gray-900 text-base-200'>
       <div className='max-w-7xl mx-auto'>
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-7 py-5 items-center'>
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-7 py-5 items-center'>
           <div className='flex flex-row md:flex-col items-center md:items-start'>
             <img src={logo} className='w-32' alt="" />
             <p className='text-justify px-4 text-base md:text-xs mt-4'>BloodLink connects blood donors with recipients in need. It ensures fast access to verified donors, making the donation process simple and dependable.</p>
@@ -39,17 +39,17 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <hr className='text-primary' />
-        <div className='flex justify-between px-5 py-5'>
-          <p className='text-sm'>&copy; 2025 <strong>BloodLink</strong> — All Rights Reserved</p>
-          <div className='flex gap-4'>
-            <a href="https://github.com/syedshafinahmed" className="hover:scale-110 hover:text-[#f9232c] transition-transform duration-200">
+        <hr className='text-primary mt-5 md:mt-0 mb-5 md:mb-0' />
+        <div className='flex justify-between items-center px-5 py-5'>
+          <p className='text-xs md:text-sm'>&copy; 2025 <strong>BloodLink</strong> — All Rights Reserved</p>
+          <div className='flex gap-2 md:gap-4'>
+            <a href="https://github.com/syedshafinahmed" className="hover:scale-110 hover:text-primary transition-transform duration-200">
               <FaGithub size={20} />
             </a>
-            <a href="https://www.linkedin.com/in/syed-shafin-ahmed/" className="hover:scale-110 hover:text-[#f9232c] transition-transform duration-200">
+            <a href="https://www.linkedin.com/in/syed-shafin-ahmed/" className="hover:scale-110 hover:text-primary transition-transform duration-200">
               <FaLinkedin size={20} />
             </a>
-            <a href="https://syedshafinahmed.pages.dev/" className="hover:scale-110 hover:text-[#f9232c] transition-transform duration-200">
+            <a href="https://syedshafinahmed.pages.dev/" className="hover:scale-110 hover:text-primary transition-transform duration-200">
               <FaGlobe size={20} />
             </a>
           </div>

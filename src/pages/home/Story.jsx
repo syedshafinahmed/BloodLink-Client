@@ -23,25 +23,25 @@ const Story = () => {
           transition={{ duration: 0.6 }}>
           <div className='flex justify-center gap-10'>
             <section className='flex flex-col items-center hover:scale-110'>
-              <h1 className='font-black text-5xl'>50+</h1>
-              <p className='text-primary font-bold'>Blood Cooperations</p>
+              <h1 className='font-black text-2xl md:text-5xl'>50+</h1>
+              <p className='text-primary  text-xs md:text-lg font-bold'>Blood Cooperations</p>
             </section>
             <section className='flex flex-col items-center hover:scale-110'>
-              <h1 className='font-black text-5xl'>100+</h1>
-              <p className='text-primary font-bold'>Expert Volunteers</p>
+              <h1 className='font-black text-2xl md:text-5xl'>100+</h1>
+              <p className='text-primary  text-xs md:text-lg font-bold'>Expert Volunteers</p>
             </section>
             <section className='flex flex-col items-center hover:scale-110'>
-              <h1 className='font-black text-5xl'>500+</h1>
-              <p className='text-primary font-bold'>Blood Donations</p>
+              <h1 className='font-black text-2xl md:text-5xl'>500+</h1>
+              <p className='text-primary  text-xs md:text-lg font-bold'>Blood Donations</p>
             </section>
           </div>
 
           <div className='flex gap-5 px-5 md:px-0 mt-10'>
-            <motion.section className='w-1/2 p-10 bg-primary h-80 text-base-200 flex flex-col rounded overflow-hidden' initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+            <motion.section className='w-1/2 py-10 px-5 md:p-10 bg-primary md:h-80 text-base-200 flex flex-col rounded overflow-hidden' initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
               <div className='transition-transform duration-300 ease-out hover:scale-110'>
-                <h1 className='text-4xl font-black'>Why we need you?</h1>
+                <h1 className='text-xl md:text-4xl font-black'>Why we need you?</h1>
                 <hr className='mt-5 mb-5' />
-                <p className='text-sm text-justify'>A blood transfusion is required every two seconds. However, less than 5% donate blood. Our goal is to close that gap by making donations easy, secure, and fulfilling.</p>
+                <p className='text-xs md:text-sm text-justify'>A blood transfusion is required every two seconds. However, less than 5% donate blood. Our goal is to close that gap by making donations easy, secure, and fulfilling.</p>
               </div>
             </motion.section>
 

@@ -79,7 +79,7 @@ const HomeDonationRequests = () => {
           <motion.div
             key={req._id}
             variants={cardVariants}
-            className="relative p-6 rounded-2xl shadow-lg cursor-pointer bg-red-100 text-gray-900 flex flex-col justify-between border border-red-200"
+            className="relative p-6 rounded-2xl shadow-lg cursor-pointer bg-red-100/50 text-gray-900 flex flex-col justify-between border border-red-200"
             whileHover={{
               scale: 1.03,
               boxShadow: "0px 15px 30px rgba(0,0,0,0.2)",

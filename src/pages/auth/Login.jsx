@@ -57,11 +57,11 @@ const Login = () => {
 
           <TextField label="Password" type="password" color="error" size="small" sx={{ mb: 1 }} {...register("password", { required: "Password is required" })} error={!!errors.password} helperText={errors.password ? errors.password.message : ""} />
 
-          {loginError && (<p className="text-[#f9232c] text-xs mb-2">{loginError}</p>)}
+          {loginError && (<p className="text-primary text-xs mb-2">{loginError}</p>)}
 
           <Button type='submit' variant="outlined" color="error" sx={{ mb: 2, mt: 2, borderColor: "#f9232c", color: "#f9232c" }}>Login</Button>
 
-          <span className="text-sm text-center">Don't have an account?{" "}<Link state={location.state} to="/register" className="text-[#f9232c] font-black">Register</Link>
+          <span className="text-sm text-center">Don't have an account?{" "}<Link state={location.state} to="/register" className="text-primary font-black">Register</Link>
           </span>
         </form>
       </motion.div>

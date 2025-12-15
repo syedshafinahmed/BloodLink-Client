@@ -62,7 +62,7 @@ const FundingPage = () => {
 
   return (
     <div className="max-w-7xl min-h-screen mx-auto mt-40 p-6">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row space-y-3 justify-between items-center mb-8">
         <h2 className="text-3xl font-bold">Funding History</h2>
 
         <div className="flex gap-2">
@@ -93,12 +93,12 @@ const FundingPage = () => {
         <p>No fundings found.</p>
       ) : (
         <>
-          <div className="h-72">
+          <div className="h-72 overflow-x-auto">
             <motion.table
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
-              className="w-full border-collapse text-center text-sm rounded-lg overflow-hidden shadow-md"
+              className="w-full min-w-[600px] border-collapse text-center text-sm rounded-lg overflow-hidden shadow-md"
             >
               <thead className="bg-gray-900 text-base-200">
                 <tr>
@@ -141,8 +141,8 @@ const FundingPage = () => {
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`px-3 py-1 rounded border ${currentPage === page
-                      ? "bg-primary text-base-200 border-primary"
-                      : "bg-base-200 text-gray-900 border-gray-400"
+                    ? "bg-primary text-base-200 border-primary"
+                    : "bg-base-200 text-gray-900 border-gray-400"
                     }`}
                 >
                   {page}

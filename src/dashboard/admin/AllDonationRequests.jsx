@@ -99,7 +99,7 @@ const AllDonationRequests = () => {
 
   return (
     <div className="bg-base-200/10 px-6">
-      <motion.div className="flex justify-between items-center mb-6">
+      <motion.div className="flex flex-col md:flex-row gap-6 md:gap-0 justify-between items-center mb-6">
         <motion.h1
           className="text-start font-black text-3xl"
           initial={{ opacity: 0, x: -40 }}

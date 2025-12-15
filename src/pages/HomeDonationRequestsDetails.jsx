@@ -63,7 +63,7 @@ const HomeDonationRequestsDetails = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <motion.div
-        className="p-8 bg-red-100 rounded-2xl shadow-lg border border-red-200 relative"
+        className="p-8 bg-red-100/50 rounded-2xl shadow-lg border border-red-200 relative"
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -164,7 +164,7 @@ const HomeDonationRequestsDetails = () => {
           </motion.div>
         </motion.div>
 
-        <div className="flex justify-end" >
+        <div className="flex justify-end mt-5">
           {request.donationStatus === "pending" &&
             <>
               <button onClick={handleDonateClick} className="btn text-base-200 btn-sm rounded bg-primary hover:scale-110 transition-transform duration-300">Donate</button>

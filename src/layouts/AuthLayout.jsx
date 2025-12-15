@@ -4,7 +4,7 @@ import auth from '../assets/auth.jpg';
 
 const AuthLayout = () => {
   return (
-    <div className="min-h-screen bg-[#f9232c]/15 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-primary/15 flex items-center justify-center p-6">
       <div className="w-full max-w-6xl rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2">
         <div className="relative flex items-center justify-center bg-black/40 h-[300px] md:h-[615px]">
           <img src={auth} alt="Blood Donation" className="w-full h-full object-cover" />
