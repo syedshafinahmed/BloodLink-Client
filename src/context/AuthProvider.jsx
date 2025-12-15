@@ -26,6 +26,13 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, profile)
   }
 
+  const getToken = async () => {
+    if (auth.currentUser) {
+      return await auth.currentUser.getIdToken();
+    }
+    return null;
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -42,7 +49,8 @@ const AuthProvider = ({ children }) => {
     signInUser,
     logOut,
     updateUserProfile,
-    loading, setLoading
+    loading, setLoading,
+    getToken
   }
   return (
     <AuthContext.Provider value={authInfo}>

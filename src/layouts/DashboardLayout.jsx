@@ -12,12 +12,13 @@ const DashboardLayout = () => {
   const { user, logOut } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [role, setRole] = useState(null);
+  const [status, setStatus] = useState(null);
 
   const handleLogout = () => {
     logOut().then().catch();
   };
 
-  // role 
+  // role & status
   useEffect(() => {
     if (!user?.email) return;
 
@@ -26,6 +27,7 @@ const DashboardLayout = () => {
         const res = await axiosSecure.get(`/users?email=${user.email}`);
         if (res.data?.length > 0) {
           setRole(res.data[0].role);
+          setStatus(res.data[0].status);
         }
       } catch (err) {
         console.error("Failed to fetch role:", err);
@@ -105,7 +107,7 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
-            
+
             {/* admin */}
             {(role === 'admin' || role === 'volunteer') && (
               <>
@@ -129,15 +131,17 @@ const DashboardLayout = () => {
               </Link>
             </li>
 
-            <li>
-              <Link to="create-donation-request" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Create Donation Request">
-                <MdAddToPhotos />
-                <span className="is-drawer-close:hidden font-black text-xs">
-                  Create Donation Request
-                </span>
-              </Link>
-            </li>
+            {status === "active" && (
+              <li>
+                <Link to="create-donation-request" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Create Donation Request">
+                  <MdAddToPhotos />
+                  <span className="is-drawer-close:hidden font-black text-xs">
+                    Create Donation Request
+                  </span>
+                </Link>
+              </li>
+            )}
 
             <li>
               <button onClick={handleLogout} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Logout">
