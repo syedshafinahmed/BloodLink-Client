@@ -45,9 +45,9 @@ const HomeDonationRequestsDetails = () => {
             <span className="text-sm font-medium">blood needed</span>
           </h1>
 
-          <span className={`px-4 py-1 rounded-full font-semibold text-sm text-base-200 ${request.donationStatus === "pending"
-            ? "bg-yellow-500" : request.donationStatus === "inprogress" ? "bg-teal-500" : request.donationStatus === "done"
-              ? "bg-green-500" : request.donationStatus === "canceled" ? "bg-red-500" : "bg-primary"}`}>
+          <span className={`badge badge-sm rounded-full ${request.donationStatus === "pending"
+            ? "badge-warning" : request.donationStatus === "inprogress" ? "badge-info" : request.donationStatus === "done"
+              ? "badge-success" : request.donationStatus === "canceled" ? "badge-error" : "bg-primary"}`}>
             {request.donationStatus.toUpperCase()}
           </span>
 

@@ -11,10 +11,10 @@ import { motion } from "framer-motion";
 import Loading from "../../loading/Loading";
 
 const STATUS_COLORS = {
-  pending: "bg-yellow-600",
-  inprogress: "bg-teal-500",
-  done: "bg-green-600",
-  canceled: "bg-primary",
+  pending: "badge-warning",
+  inprogress: "badge-info",
+  done: "badge-success",
+  canceled: "badge-error",
 };
 
 const AllDonationRequests = () => {
@@ -132,7 +132,7 @@ const AllDonationRequests = () => {
                   {/* ADMIN → VIEW ONLY */}
                   {role === "admin" && (
                     <span
-                      className={`badge badge-sm text-base-200 ${STATUS_COLORS[req.donationStatus]}`}
+                      className={`badge badge-sm rounded-full ${STATUS_COLORS[req.donationStatus]}`}
                     >
                       {req.donationStatus}
                     </span>

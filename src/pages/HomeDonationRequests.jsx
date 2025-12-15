@@ -91,9 +91,9 @@ const HomeDonationRequests = () => {
               {req.requestMessage || "No message provided."}
             </p>
             <span
-              className={`badge badge-xs mb-4 
+              className={`badge badge-xs mb-4 rounded-full
               ${req.donationStatus === "pending" && "badge-warning"}
-              ${req.donationStatus === "inprogress" && "badge-accent"}
+              ${req.donationStatus === "inprogress" && "badge-info"}
               ${req.donationStatus === "done" && "badge-success"}
               ${req.donationStatus === "canceled" && "badge-error"}`}>
               {req.donationStatus}

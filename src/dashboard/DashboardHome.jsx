@@ -6,7 +6,7 @@ import Loading from '../loading/Loading';
 import { motion } from 'framer-motion';
 import { GoArrowUpRight } from "react-icons/go";
 import CountUp from 'react-countup';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Tooltip } from '@mui/material';
 
 const DashboardHome = () => {
@@ -210,21 +210,30 @@ const DashboardHome = () => {
                     <td className="p-3">{req.donationDate}</td>
                     <td className="p-3">
                       <span
-                        className={`badge badge-sm text-white ${req.donationStatus === "pending"
-                          ? "bg-yellow-600"
-                          : req.donationStatus === "approved"
-                            ? "bg-green-600"
-                            : "bg-red-600"
+                        className={`badge badge-sm rounded-full ${req.donationStatus === "pending"
+                          ? "badge-warning"
+                          : req.donationStatus === "inprogress"
+                            ? "badge-info"
+                            : req.donationStatus === "done"
+                              ? "badge-success"
+                              : req.donationStatus === "canceled"
+                                ? "badge-error"
+                                : "bg-gray-500"
                           }`}
                       >
                         {req.donationStatus}
                       </span>
+
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          <Link to='/dashboard/donation-requests' className='flex justify-end'>
+            <button className='btn bg-primary btn-sm text-base-200 mt-10'>View All</button>
+          </Link>
         </>
       )}
     </motion.section>

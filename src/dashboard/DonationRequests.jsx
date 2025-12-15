@@ -125,15 +125,20 @@ const DonationRequests = () => {
 
                       <td className="p-3">
                         <span
-                          className={`badge badge-sm rounded text-white ${req.donationStatus === "pending"
-                            ? "bg-yellow-600"
-                            : req.donationStatus === "approved"
-                              ? "bg-green-600"
-                              : "bg-red-600"
+                          className={`badge badge-sm rounded-full ${req.donationStatus === "pending"
+                            ? "badge-warning"
+                            : req.donationStatus === "inprogress"
+                              ? "badge-info"
+                              : req.donationStatus === "done"
+                                ? "badge-success"
+                                : req.donationStatus === "canceled"
+                                  ? "badge-error"
+                                  : "bg-gray-500"
                             }`}
                         >
                           {req.donationStatus}
                         </span>
+
                       </td>
 
                       {/* ACTIONS */}
