@@ -73,7 +73,7 @@ const AllUsers = () => {
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-black mb-6">All Users: {users.length}</h2>
+        <h2 className="text-3xl font-black mb-6">All Users: {filteredUsers.length}</h2>
         <div className="mb-4 flex gap-3">
           <select
             className="border p-2 rounded"

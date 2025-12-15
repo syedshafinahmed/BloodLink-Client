@@ -17,6 +17,8 @@ const STATUS_COLORS = {
   canceled: "badge-error",
 };
 
+const STATUS_OPTIONS = ["all", "pending", "inprogress", "done", "canceled"];
+
 const AllDonationRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -25,12 +27,13 @@ const AllDonationRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState(null);
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
-  const totalPages = Math.ceil(requests.length / itemsPerPage);
+  const [statusFilter, setStatusFilter] = useState("all");
 
-  // user role
+  const totalPages = Math.ceil(requests.length / itemsPerPage) || 1;
+
+  // fetch user role
   useEffect(() => {
     if (!user?.email) return;
 
@@ -41,13 +44,21 @@ const AllDonationRequests = () => {
     });
   }, [user?.email, axiosSecure]);
 
-  // all donation requests
+  // fetch requests by status
   useEffect(() => {
-    axiosSecure.get("/donation-requests").then((res) => {
-      setRequests(res.data);
-      setLoading(false);
-    });
-  }, [axiosSecure]);
+    setLoading(true);
+    axiosSecure
+      .get(`/donation-requests/status/${statusFilter}`)
+      .then((res) => {
+        setRequests(res.data);
+        setCurrentPage(1);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [statusFilter, setLoading, axiosSecure]);
 
   // delete donation request
   const handleDelete = (id) => {
@@ -68,19 +79,13 @@ const AllDonationRequests = () => {
     });
   };
 
-  // ✅ ADD: volunteer status change
+  // volunteer status change
   const handleStatusChange = async (id, status) => {
     try {
-      await axiosSecure.patch(`/donation-requests/${id}`, {
-        donationStatus: status,
-      });
-
+      await axiosSecure.patch(`/donation-requests/${id}`, { donationStatus: status });
       setRequests((prev) =>
-        prev.map((r) =>
-          r._id === id ? { ...r, donationStatus: status } : r
-        )
+        prev.map((r) => (r._id === id ? { ...r, donationStatus: status } : r))
       );
-
       Swal.fire("Updated", "Status updated successfully", "success");
     } catch {
       Swal.fire("Error", "Failed to update status", "error");
@@ -94,13 +99,27 @@ const AllDonationRequests = () => {
 
   return (
     <div className="bg-base-200/10 px-6">
-      <motion.h1
-        className="text-start font-black mb-10 text-3xl"
-        initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
-      >
-        All Donation Requests: {requests.length}
-      </motion.h1>
+      <motion.div className="flex justify-between items-center mb-6">
+        <motion.h1
+          className="text-start font-black text-3xl"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          All Donation Requests: {requests.length}
+        </motion.h1>
+
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="select select-sm bg-base-200 border-gray-400"
+        >
+          {STATUS_OPTIONS.map((status) => (
+            <option key={status} value={status}>
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+            </option>
+          ))}
+        </select>
+      </motion.div>
 
       <motion.div className="overflow-x-auto rounded-lg border border-gray-700 bg-base-200">
         <table className="w-full text-center text-gray-900">
@@ -115,7 +134,6 @@ const AllDonationRequests = () => {
               {role === "admin" && <th className="p-3">Actions</th>}
             </tr>
           </thead>
-
           <tbody className="text-xs md:text-sm">
             {currentRequests.map((req) => (
               <tr key={req._id} className="border-b border-gray-700 hover:bg-gray-300">
@@ -127,9 +145,7 @@ const AllDonationRequests = () => {
                   {req.recipientUpazila}, {req.recipientDistrict}
                 </td>
 
-                {/* ✅ STATUS COLUMN */}
                 <td className="p-3">
-                  {/* ADMIN → VIEW ONLY */}
                   {role === "admin" && (
                     <span
                       className={`badge badge-sm rounded-full ${STATUS_COLORS[req.donationStatus]}`}
@@ -137,14 +153,10 @@ const AllDonationRequests = () => {
                       {req.donationStatus}
                     </span>
                   )}
-
-                  {/* VOLUNTEER → CHANGE */}
                   {role === "volunteer" && (
                     <select
                       value={req.donationStatus}
-                      onChange={(e) =>
-                        handleStatusChange(req._id, e.target.value)
-                      }
+                      onChange={(e) => handleStatusChange(req._id, e.target.value)}
                       className="select select-sm bg-base-200 border-gray-500"
                     >
                       <option value="pending">Pending</option>
@@ -155,14 +167,11 @@ const AllDonationRequests = () => {
                   )}
                 </td>
 
-                {/* ADMIN ACTIONS (UNCHANGED) */}
                 {role === "admin" && (
                   <td className="flex justify-center gap-5 mt-4">
                     <Tooltip title="View Details">
                       <FaArrowUpRightFromSquare
-                        onClick={() =>
-                          navigate(`/dashboard/donation-request/${req._id}`)
-                        }
+                        onClick={() => navigate(`/dashboard/donation-request/${req._id}`)}
                       />
                     </Tooltip>
 
@@ -184,21 +193,20 @@ const AllDonationRequests = () => {
           </tbody>
         </table>
       </motion.div>
+
       <div className="flex justify-center mt-10 gap-2">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-          (page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`px-3 py-1 rounded border ${page === currentPage
-                ? "bg-primary text-base-200 border-primary"
-                : "bg-base-200 text-gray-900 border-gray-400"
-                }`}
-            >
-              {page}
-            </button>
-          )
-        )}
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`px-3 py-1 rounded border ${page === currentPage
+              ? "bg-primary text-base-200 border-primary"
+              : "bg-base-200 text-gray-900 border-gray-400"
+              }`}
+          >
+            {page}
+          </button>
+        ))}
       </div>
     </div>
   );
