@@ -7,7 +7,7 @@ const Banner = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   return (
-    <section className="relative h-[70vh] mt-30">
+    <section className="relative h-[70vh] mt-25">
       <img
         src={banner}
         alt="Blood Donation"

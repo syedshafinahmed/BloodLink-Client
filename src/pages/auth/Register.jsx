@@ -142,7 +142,7 @@ export default function Register() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src={logo} className="w-15" alt="" />
+        <img src={logo} className="w-15 mt-5" alt="BloodLink Logo" />
         <span className="text-xs font-black mt-2">Create Donor Account</span>
       </motion.h1>
 

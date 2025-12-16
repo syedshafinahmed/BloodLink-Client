@@ -7,8 +7,10 @@ import { IoCall } from "react-icons/io5";
 import { MdAddModerator } from "react-icons/md";
 import Loading from "../loading/Loading";
 import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 
 const HomeDonationRequestsDetails = () => {
+  const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const [request, setRequest] = useState(null);
@@ -20,7 +22,53 @@ const HomeDonationRequestsDetails = () => {
       .catch((err) => console.error(err));
   }, [id]);
 
+  // const handleDonateClick = async () => {
+  //   try {
+  //     const result = await Swal.fire({
+  //       title: "Are you sure?",
+  //       text: "This will change status to IN PROGRESS!",
+  //       icon: "warning",
+  //       showCancelButton: true,
+  //       confirmButtonText: "Yes, proceed",
+  //       cancelButtonText: "Cancel",
+  //     });
+
+  //     if (result.isConfirmed) {
+  //       const res = await axiosSecure.patch(`/donation-requests/${id}`, {
+  //         donationStatus: "inprogress",
+  //       });
+
+  //       if (res.data?.message) {
+  //         setRequest({ ...request, donationStatus: "inprogress" });
+
+  //         Swal.fire(
+  //           "Updated!",
+  //           "Donation status changed to IN PROGRESS",
+  //           "success"
+  //         );
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     Swal.fire("Error", "Failed to update status", "error");
+  //   }
+  // };
+
   const handleDonateClick = async () => {
+    if (!user) {
+      const result = await Swal.fire({
+        title: "Login required",
+        text: "You need to log in to donate blood.",
+        icon: "warning",
+        confirmButtonText: "Go to Login",
+      });
+
+      if (result.isConfirmed) {
+        window.location.href = "/login";
+      }
+      return;
+    }
+
     try {
       const result = await Swal.fire({
         title: "Are you sure?",

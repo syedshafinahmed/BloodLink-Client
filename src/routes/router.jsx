@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/donation-requests/:id",
-        element: <PrivateRoute><HomeDonationRequestsDetails></HomeDonationRequestsDetails></PrivateRoute> 
+        element: <HomeDonationRequestsDetails></HomeDonationRequestsDetails>
       },
       {
         path: '/search',
