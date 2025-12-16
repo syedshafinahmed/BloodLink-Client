@@ -20,6 +20,8 @@ import FundingCancel from "../pages/FundingCancel";
 import FundingSuccess from "../pages/FundingSuccess";
 import AllUsers from "../dashboard/admin/AllUsers";
 import AllDonationRequests from "../dashboard/admin/AllDonationRequests";
+import AboutUs from "../pages/AboutUs";
+import Services from "../pages/Services";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home
+      },
+      {
+        path: '/about-us',
+        Component: AboutUs
+      },
+      {
+        path: '/services',
+        Component: Services
       },
       {
         path: '/donation-requests',
