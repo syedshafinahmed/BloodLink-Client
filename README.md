@@ -1,17 +1,21 @@
-# 🩸 BloodLink
+# [🩸](https://bloodlink-ssa.pages.dev/) BloodLink 
 
 <div align="center">
   <img src="src/assets/BloodLink.png" alt="BloodLink Logo" width="200"/>
   
   **Saving Lives Made Simple — Join or Find Donors Instantly**
-
-   🌐 **Live Demo:** https://bloodlink-ssa.pages.dev/
   
   [![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat-square&logo=react)](https://react.dev/)
   [![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
   [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.17-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
   [![Firebase](https://img.shields.io/badge/Firebase-12.6.0-FFCA28?style=flat-square&logo=firebase)](https://firebase.google.com/)
 </div>
+
+---
+
+## 🌐 Live Demo
+
+https://bloodlink-ssa.pages.dev/
 
 ---
 
