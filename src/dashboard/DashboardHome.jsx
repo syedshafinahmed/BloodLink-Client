@@ -8,6 +8,18 @@ import { GoArrowUpRight } from "react-icons/go";
 import CountUp from 'react-countup';
 import { Link, useNavigate } from 'react-router';
 import { Tooltip } from '@mui/material';
+import { Bar, Doughnut } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip as ChartTooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, ChartTooltip, Legend);
 
 const DashboardHome = () => {
   const { user, loading, setLoading } = useAuth();
@@ -21,6 +33,14 @@ const DashboardHome = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalFundings, setTotalFundings] = useState(0);
   const [totalRequests, setTotalRequests] = useState(0);
+  const [statusCounts, setStatusCounts] = useState({
+    pending: 0,
+    inprogress: 0,
+    done: 0,
+    canceled: 0,
+  });
+  const [dailyFundings, setDailyFundings] = useState([]);
+  const [chartLoading, setChartLoading] = useState(true);
 
   // role
   useEffect(() => {
@@ -62,6 +82,7 @@ const DashboardHome = () => {
   useEffect(() => {
     if (role !== 'admin' && role !== 'volunteer') return;
 
+    setChartLoading(true);
     const fetchStats = async () => {
       try {
         const usersRes = await axiosSecure.get('/users');
@@ -73,11 +94,37 @@ const DashboardHome = () => {
           0
         );
         setTotalFundings(totalAmount);
+        const dailyMap = {};
+        fundingsRes.data.forEach((fund) => {
+          if (!fund.createdAt) return;
+          const date = new Date(fund.createdAt);
+          const key = date.toISOString().slice(0, 10); // YYYY-MM-DD
+          dailyMap[key] = (dailyMap[key] || 0) + fund.amount;
+        });
+        const sortedDaily = Object.entries(dailyMap)
+          .sort((a, b) => new Date(a[0]) - new Date(b[0]))
+          .slice(-14) // last 14 days
+          .map(([key, amount]) => ({
+            label: new Date(key).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
+            amount,
+          }));
+        setDailyFundings(sortedDaily);
 
         const requestsRes = await axiosSecure.get('/donation-requests');
         setTotalRequests(requestsRes.data.length);
+        const statusCounter = requestsRes.data.reduce(
+          (acc, req) => {
+            const status = req.donationStatus || 'pending';
+            acc[status] = (acc[status] || 0) + 1;
+            return acc;
+          },
+          { pending: 0, inprogress: 0, done: 0, canceled: 0 }
+        );
+        setStatusCounts(statusCounter);
       } catch (err) {
         console.error("Failed to fetch admin stats:", err);
+      } finally {
+        setChartLoading(false);
       }
     };
 
@@ -111,6 +158,40 @@ const DashboardHome = () => {
       allowedRoles: ["admin", "volunteer"]
     },
   ];
+
+  const statusChartData = {
+    labels: ["Pending", "In Progress", "Done", "Canceled"],
+    datasets: [
+      {
+        label: "Requests",
+        data: [
+          statusCounts.pending || 0,
+          statusCounts.inprogress || 0,
+          statusCounts.done || 0,
+          statusCounts.canceled || 0,
+        ],
+        backgroundColor: [
+          "#fbbf24",   // pending — matches badge-warning
+          "#38bdf8",   // in progress — matches badge-info
+          "#22c55e",   // done — matches badge-success
+          "#f9232c",   // canceled — project primary red
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const fundingChartData = {
+    labels: dailyFundings.map((item) => item.label),
+    datasets: [
+      {
+        label: "৳ Funded",
+        data: dailyFundings.map((item) => item.amount),
+        backgroundColor: "#f9232c",
+        borderRadius: 8,
+      },
+    ],
+  };
 
   return (
     <motion.section
@@ -174,6 +255,82 @@ const DashboardHome = () => {
               </motion.div>
             );
           })}
+        </div>
+      )}
+
+      {role === 'admin' && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-12">
+          <div className="bg-white/10 backdrop-blur-3xl border border-gray-200 rounded-2xl shadow-lg p-6 h-[360px]">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-black text-gray-900">Donation Requests by Status</h3>
+              <span className="text-xs text-gray-600">Last synced: live</span>
+            </div>
+            {chartLoading ? (
+              <div className="flex items-center justify-center h-[260px]">
+                <Loading />
+              </div>
+            ) : Object.values(statusCounts).some((val) => val > 0) ? (
+              <Doughnut
+                key={`status-${Object.values(statusCounts).join('-')}`}
+                data={statusChartData}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: { legend: { position: 'bottom' } },
+                  animation: {
+                    duration: 900,
+                    easing: 'easeOutExpo',
+                    animateRotate: true,
+                    animateScale: true,
+                  },
+                  responsiveAnimationDuration: 400,
+                  animations: {
+                    radius: { duration: 600, easing: 'easeOutExpo' },
+                  },
+                }}
+              />
+            ) : (
+              <p className="text-gray-600 text-sm">No request data yet.</p>
+            )}
+          </div>
+
+          <div className="bg-white/10 backdrop-blur-3xl border border-gray-200 rounded-2xl shadow-lg p-6 h-[360px]">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-black text-gray-900">Funding (Last 14 Days)</h3>
+              <span className="text-xs text-gray-600">৳ Total: {totalFundings.toLocaleString()}</span>
+            </div>
+            {chartLoading ? (
+              <div className="flex items-center justify-center h-[260px]">
+                <Loading />
+              </div>
+            ) : dailyFundings.length > 0 ? (
+              <Bar
+                key={`fund-${dailyFundings.map((d) => `${d.label}-${d.amount}`).join('|')}`}
+                data={fundingChartData}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { display: false },
+                  },
+                  animation: {
+                    duration: 950,
+                    easing: 'easeOutExpo',
+                  },
+                  responsiveAnimationDuration: 400,
+                  animations: {
+                    x: { duration: 700, easing: 'easeOutExpo' },
+                    y: { duration: 700, easing: 'easeOutExpo' },
+                  },
+                  scales: {
+                    y: {
+                      ticks: { beginAtZero: true },
+                    },
+                  },
+                }}
+              />
+            ) : (
+              <p className="text-gray-600 text-sm">No funding data yet.</p>
+            )}
+          </div>
         </div>
       )}
 
