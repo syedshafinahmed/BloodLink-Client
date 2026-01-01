@@ -43,7 +43,7 @@ const Footer = () => {
         </div>
         <hr className='text-primary mt-5 md:mt-0 mb-5 md:mb-0' />
         <div className='flex justify-between items-center px-5 py-5'>
-          <p className='text-xs md:text-sm'>&copy; 2025 <strong>BloodLink</strong> — All Rights Reserved</p>
+          <p className='text-xs md:text-sm'>&copy; {new Date().getFullYear()} <strong>BloodLink</strong> — All Rights Reserved</p>
           <div className='flex gap-2 md:gap-4'>
             <a href="https://github.com/syedshafinahmed" className="hover:scale-110 hover:text-primary transition-transform duration-200">
               <FaGithub size={20} />
