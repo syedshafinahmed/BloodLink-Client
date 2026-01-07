@@ -75,44 +75,27 @@ const DonorCard = ({ donor }) => {
       "
     >
       <div className="absolute inset-x-0 top-0 h-1 bg-primary/15" />
-
-      {/* Header */}
       <div className="flex justify-between items-start mb-6">
         <div>
-          <h3 className="text-xs font-black text-gray-900">
-            {donor.name}
-          </h3>
-
+          <h3 className="text-xs font-black text-gray-900">{donor.name}</h3>
           <span
-            className={`
-              inline-block mt-2 px-3 py-1 rounded-full
-              text-xs font-bold
-              ${available
-                ? "bg-emerald-100 text-emerald-700"
-                : "bg-red-100 text-red-700"}
-            `}
+            className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold ${
+              available ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"
+            }`}
           >
             {available ? "Available" : "Not Available"}
           </span>
         </div>
-
-        <div className="
-          h-12 w-12 rounded-2xl
-          flex items-center justify-center
-          bg-primary/15 text-primary
-          text-xl font-black
-        ">
+        <div className="h-12 w-12 rounded-2xl flex items-center justify-center bg-primary/15 text-primary text-xl font-black">
           {donor.bloodgroup}
         </div>
       </div>
 
-      {/* Info */}
       <div className="space-y-2 text-xs text-gray-600">
         <p className="flex items-center gap-3">
           <FaMapMarkerAlt className="text-primary/60" />
           {donor.upazila}, {donor.district}
         </p>
-
         <p className="flex items-center gap-3">
           <FaTint className="text-primary/60" />
           Last Donated:
@@ -122,37 +105,22 @@ const DonorCard = ({ donor }) => {
         </p>
       </div>
 
-      {/* CTA */}
       <div
-        className={`
-          absolute inset-x-0 bottom-0
-          translate-y-full group-hover:translate-y-0
-          transition-transform duration-300
-          bg-white border-t border-gray-200
-          p-4 flex gap-3
-          ${!available && "pointer-events-none opacity-60"}
-        `}
+        className={`absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-white border-t border-gray-200 p-4 flex gap-3 ${
+          !available && "pointer-events-none opacity-60"
+        }`}
       >
         <a
           href={available ? `tel:${donor.phone}` : undefined}
-          className="
-            flex-1 flex items-center justify-center gap-1
-            rounded-xl bg-primary text-white
-            py-2 text-xs font-semibold
-          "
+          className="flex-1 flex items-center justify-center gap-1 rounded-xl bg-primary text-white py-2 text-xs font-semibold"
         >
           Call
         </a>
-
         <a
           href={available ? `https://wa.me/88${donor.phone}` : undefined}
           target="_blank"
           rel="noreferrer"
-          className="
-            flex-1 flex items-center justify-center gap-1
-            rounded-xl bg-emerald-500 text-white
-            py-2 text-xs font-semibold
-          "
+          className="flex-1 flex items-center justify-center gap-1 rounded-xl bg-emerald-500 text-white py-2 text-xs font-semibold"
         >
           WhatsApp
         </a>
@@ -168,27 +136,20 @@ const Donors = () => {
   const [bloodgroup, setBloodgroup] = useState("");
   const [availability, setAvailability] = useState("");
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
+
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(t);
   }, []);
 
-  const districts = useMemo(
-    () => [...new Set(donors.map(d => d.district))],
-    []
-  );
-
+  const districts = useMemo(() => [...new Set(donors.map(d => d.district))], []);
   const upazilas = useMemo(() => {
     if (!district) return [];
-    return [...new Set(
-      donors.filter(d => d.district === district).map(d => d.upazila)
-    )];
+    return [...new Set(donors.filter(d => d.district === district).map(d => d.upazila))];
   }, [district]);
-
-  const bloodGroups = useMemo(
-    () => [...new Set(donors.map(d => d.bloodgroup))],
-    []
-  );
+  const bloodGroups = useMemo(() => [...new Set(donors.map(d => d.bloodgroup))], []);
 
   const filteredDonors = useMemo(() => {
     return donors.filter(d => {
@@ -206,11 +167,19 @@ const Donors = () => {
     });
   }, [district, upazila, bloodgroup, availability]);
 
+  const totalPages = Math.ceil(filteredDonors.length / itemsPerPage);
+  const currentDonors = filteredDonors.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [district, upazila, bloodgroup, availability]);
+
   return (
     <section className="py-40 bg-base-200">
       <div className="max-w-7xl mx-auto px-6 md:px-0">
-
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -226,9 +195,13 @@ const Donors = () => {
           </p>
         </motion.div>
 
-        {/* Filters */}
         <div className="flex flex-wrap justify-center gap-4 mb-6">
-          <SelectField value={district} onChange={(v) => { setDistrict(v); setUpazila(""); }} options={districts} placeholder="District" />
+          <SelectField
+            value={district}
+            onChange={(v) => { setDistrict(v); setUpazila(""); }}
+            options={districts}
+            placeholder="District"
+          />
           <SelectField value={upazila} onChange={setUpazila} options={upazilas} placeholder="Upazila" disabled={!district} />
           <SelectField value={bloodgroup} onChange={setBloodgroup} options={bloodGroups} placeholder="Blood Group" />
           <SelectField
@@ -242,26 +215,40 @@ const Donors = () => {
           />
         </div>
 
-        {/* Count Badge */}
         <div className="text-center mb-10">
           <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-semibold text-sm">
             {filteredDonors.length} donor{filteredDonors.length !== 1 && "s"} found
           </span>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <DonorSkeleton key={i} />)
             : (
               <AnimatePresence>
-                {filteredDonors.map(d => (
-                  <DonorCard key={d.id} donor={d} />
-                ))}
+                {currentDonors.map(d => <DonorCard key={d.id} donor={d} />)}
               </AnimatePresence>
             )
           }
         </div>
+
+        {/* Pagination */}
+        {!loading && totalPages > 1 && (
+          <div className="flex justify-center mt-10 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`px-3 py-1 rounded border ${currentPage === page
+                  ? "bg-primary text-white border-primary"
+                  : "bg-white text-gray-900 border-gray-400"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
