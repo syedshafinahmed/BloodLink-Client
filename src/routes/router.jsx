@@ -22,6 +22,7 @@ import AllUsers from "../dashboard/admin/AllUsers";
 import AllDonationRequests from "../dashboard/admin/AllDonationRequests";
 import AboutUs from "../pages/AboutUs";
 import Services from "../pages/Services";
+import Donors from "../pages/home/Donors";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: '/services',
         Component: Services
+      },
+      {
+        path: '/donors',
+        Component: Donors
       },
       {
         path: '/donation-requests',
