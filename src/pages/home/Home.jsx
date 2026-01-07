@@ -3,12 +3,14 @@ import Banner from './Banner';
 import Feature from './Feature';
 import Story from './Story';
 import Contact from './Contact';
+import BloodCompatibility from './BloodCompatibility';
 
 const Home = () => {
   return (
     <div className=''>
       <Banner></Banner>
       <Feature></Feature>
+      <BloodCompatibility></BloodCompatibility>
       <Story></Story>
       <Contact></Contact>
     </div>

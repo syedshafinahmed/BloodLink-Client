@@ -69,11 +69,11 @@ export default function Contact() {
   };
 
   return (
-    <section id="connect" className="pb-40 px-6 max-w-7xl mx-auto">
+    <section id="connect" className="pb-20 px-6 md:px-0 max-w-7xl mx-auto">
       <ToastContainer />
 
       <motion.h2
-        className="text-4xl font-bold text-center text-primary mb-16"
+        className="text-2xl md:text-4xl font-bold text-center text-primary mb-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}

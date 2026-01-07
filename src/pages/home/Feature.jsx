@@ -39,7 +39,7 @@ const Feature = () => {
 
   return (
     <div className='max-w-7xl mx-auto'>
-      <section className="p-10 mt-30 mb-15">
+      <section className="py-10 mt-10">
         <motion.div
           className="text-center mb-10"
           initial={{ opacity: 0, y: 20 }}
