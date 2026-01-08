@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import logo from '../../assets/BloodLink.png'
 import useAuth from '../../hooks/useAuth';
@@ -6,6 +6,18 @@ import { MdDashboard } from 'react-icons/md';
 import { IoLogOut } from 'react-icons/io5';
 const Navbar = () => {
   const { user, logOut } = useAuth();
+
+  const [blur, setBlur] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const bannerHeight = window.innerHeight; // h-screen banner
+      setBlur(window.scrollY >= bannerHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleLogout = () => {
     logOut()
       .then()
@@ -13,21 +25,24 @@ const Navbar = () => {
   }
   const links =
     <>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/about-us">About Us</NavLink></li>
-      <li><NavLink to="/services">Services</NavLink></li>
-      <li><NavLink to="/donors">Donors</NavLink></li>
-      <li><NavLink to="/donation-requests">Donation Requests</NavLink></li>
-      <li><NavLink to="/fundings">Funding</NavLink></li>
+      <li className='text-primary'><NavLink to="/">Home</NavLink></li>
+      <li className='text-primary'><NavLink to="/about-us">About Us</NavLink></li>
+      <li className='text-primary'><NavLink to="/services">Services</NavLink></li>
+      <li className='text-primary'><NavLink to="/donors">Donors</NavLink></li>
+      <li className='text-primary'><NavLink to="/donation-requests">Donation Requests</NavLink></li>
+      <li className='text-primary'><NavLink to="/fundings">Funding</NavLink></li>
       {
         user &&
         <>
-          <li><NavLink to="/dashboard/dhome">Dashboard</NavLink></li>
+          <li className='text-primary'><NavLink to="/dashboard/dhome">Dashboard</NavLink></li>
         </>
       }
     </>
   return (
-    <div className='w-full fixed top-0 z-50 backdrop-blur-xl bg-white/20'>
+    <div
+      className={`w-full fixed top-0 z-50 transition-all duration-300 ${blur ? 'backdrop-blur-xl bg-primary/10 shadow-sm' : 'bg-transparent'
+        }`}
+    >
       <div className='max-w-7xl mx-auto'>
         <div className="navbar">
           <div className="navbar-start">
@@ -41,7 +56,7 @@ const Navbar = () => {
                 {links}
               </ul>
             </div>
-            <img className='w-20' src={logo} alt="" />
+            <img className='w-15' src={logo} alt="" />
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
