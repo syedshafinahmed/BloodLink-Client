@@ -26,7 +26,7 @@ const AboutUs = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl font-black text-gray-900">
-            About <span className="text-primary">BloodLink</span>
+            About <span className="text-[#f9232c]">BloodLink</span>
           </h1>
           <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
             A technology-driven platform connecting blood donors and patients
@@ -111,7 +111,7 @@ const AboutUs = () => {
           viewport={{ once: false }}
           className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-32"
         >
-          {[ 
+          {[
             { label: "Registered Donors", value: "12,000+" },
             { label: "Successful Donations", value: "8,500+" },
             { label: "Emergency Requests Fulfilled", value: "6,200+" },
@@ -120,7 +120,7 @@ const AboutUs = () => {
               key={i}
               className="bg-base-200 rounded-2xl p-8 text-center shadow-2xl border border-red-200"
             >
-              <h3 className="text-4xl font-black text-primary mb-2">
+              <h3 className="text-4xl font-black text-[#f9232c] mb-2">
                 {stat.value}
               </h3>
               <p className="text-gray-600 font-medium">{stat.label}</p>

@@ -60,7 +60,7 @@ const Services = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl font-black text-gray-900">
-            Our <span className="text-primary">Services</span>
+            Our <span className="text-[#f9232c]">Services</span>
           </h1>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             BloodLink is dedicated to making blood donation and emergency
@@ -84,7 +84,7 @@ const Services = () => {
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 10 }}
-                className="w-20 h-20 flex items-center justify-center rounded-xl bg-red-50 text-primary text-2xl mb-6 group-hover:bg-red-600 group-hover:text-base-200 transition"
+                className="w-20 h-20 flex items-center justify-center rounded-xl bg-red-50 text-[#f9232c] text-2xl mb-6 group-hover:bg-red-600 group-hover:text-base-200 transition"
               >
                 {service.icon}
               </motion.div>
@@ -104,7 +104,7 @@ const Services = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: false }}
-          className="mt-20 bg-primary rounded-xl px-10 py-20 text-center text-base-200"
+          className="mt-20 bg-[#f9232c] rounded-xl px-10 py-20 text-center text-base-200"
         >
           <h2 className="text-3xl font-bold mb-4">
             Together, We Save Lives
@@ -117,7 +117,7 @@ const Services = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/register"
-              className="bg-base-200 text-primary font-bold px-8 py-3 rounded-xl shadow-xl hover:bg-red-50 transition inline-block"
+              className="bg-base-200 text-[#f9232c] font-bold px-8 py-3 rounded-xl shadow-xl hover:bg-red-50 transition inline-block"
             >
               Become a Donor
             </Link>

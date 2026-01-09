@@ -160,10 +160,10 @@ export default function Register() {
             type="email"
             placeholder="Email"
             {...register("email", { required: "Email is required" })}
-            className="border border-primary p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none"
           />
           {errors.email && (
-            <p className="text-primary text-xs">{errors.email.message}</p>
+            <p className="text-[#f9232c] text-xs">{errors.email.message}</p>
           )}
         </motion.div>
 
@@ -174,10 +174,10 @@ export default function Register() {
             type="text"
             placeholder="Name"
             {...register("name", { required: "Name is required" })}
-            className="border border-primary p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none"
           />
           {errors.name && (
-            <p className="text-primary text-xs">{errors.name.message}</p>
+            <p className="text-[#f9232c] text-xs">{errors.name.message}</p>
           )}
         </motion.div>
 
@@ -187,10 +187,10 @@ export default function Register() {
           <input
             type="file"
             {...register("photo", { required: "photo is required" })}
-            className="border border-primary p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none"
           />
           {errors.photo && (
-            <p className="text-primary text-xs">{errors.photo.message}</p>
+            <p className="text-[#f9232c] text-xs">{errors.photo.message}</p>
           )}
         </motion.div>
 
@@ -199,7 +199,7 @@ export default function Register() {
           <label className="font-medium text-xs mb-1">Blood Group</label>
           <select
             {...register("bloodGroup", { required: "Blood group is required" })}
-            className="border border-primary p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none"
           >
             <option value="">Select blood group</option>
             <option>A+</option>
@@ -212,7 +212,7 @@ export default function Register() {
             <option>O-</option>
           </select>
           {errors.bloodGroup && (
-            <p className="text-primary text-xs">{errors.bloodGroup.message}</p>
+            <p className="text-[#f9232c] text-xs">{errors.bloodGroup.message}</p>
           )}
         </motion.div>
 
@@ -233,7 +233,7 @@ export default function Register() {
           />
           <input type="hidden" {...register("district", { required: "District is required" })} />
           {errors.district && (
-            <p className="text-primary text-xs">{errors.district.message}</p>
+            <p className="text-[#f9232c] text-xs">{errors.district.message}</p>
           )}
         </motion.div>
 
@@ -256,7 +256,7 @@ export default function Register() {
           />
           <input type="hidden" {...register("upazila", { required: "Upazila is required" })} />
           {errors.upazila && (
-            <p className="text-primary text-xs">{errors.upazila.message}</p>
+            <p className="text-[#f9232c] text-xs">{errors.upazila.message}</p>
           )}
         </motion.div>
 
@@ -278,10 +278,10 @@ export default function Register() {
                   "Weak Password"
               }
             })}
-            className="border p-2 rounded border-primary outline-none"
+            className="border p-2 rounded border-[#f9232c] outline-none"
           />
           {errors.password && (
-            <p className="text-primary text-xs">{errors.password.message}</p>
+            <p className="text-[#f9232c] text-xs">{errors.password.message}</p>
           )}
         </motion.div>
 
@@ -296,10 +296,10 @@ export default function Register() {
               validate: (value) =>
                 value === watch("password") || "Passwords do not match",
             })}
-            className="border p-2 rounded border-primary outline-none"
+            className="border p-2 rounded border-[#f9232c] outline-none"
           />
           {errors.confirmPassword && (
-            <p className="text-primary text-xs">
+            <p className="text-[#f9232c] text-xs">
               {errors.confirmPassword.message}
             </p>
           )}
@@ -320,7 +320,7 @@ export default function Register() {
 
           <span className="text-sm py-5 border-none text-center">
             Already have an account?{" "}
-            <Link state={location.state} to="/login" className="text-primary font-black">
+            <Link state={location.state} to="/login" className="text-[#f9232c] font-black">
               Login
             </Link>
           </span>

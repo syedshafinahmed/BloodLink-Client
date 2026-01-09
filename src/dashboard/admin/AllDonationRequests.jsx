@@ -200,7 +200,7 @@ const AllDonationRequests = () => {
             key={page}
             onClick={() => setCurrentPage(page)}
             className={`px-3 py-1 rounded border ${page === currentPage
-              ? "bg-primary text-base-200 border-primary"
+              ? "bg-[#f9232c] text-base-200 border-[#f9232c]"
               : "bg-base-200 text-gray-900 border-gray-400"
               }`}
           >

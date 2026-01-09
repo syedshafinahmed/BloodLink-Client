@@ -21,7 +21,7 @@ const SelectField = ({ value, onChange, options, placeholder, disabled }) => (
       rounded-xl border border-gray-300 bg-white
       px-4 py-2
       text-sm font-semibold text-gray-900
-      focus:outline-none focus:ring-2 focus:ring-primary
+      focus:outline-none focus:ring-2 focus:ring-[#f9232c]
       disabled:opacity-50
     "
   >
@@ -70,34 +70,33 @@ const DonorCard = ({ donor }) => {
         border border-red-200
         p-6
         shadow-sm
-        hover:shadow-xl hover:shadow-primary/15
+        hover:shadow-xl hover:shadow-[#f9232c]/15
         transition-all
       "
     >
-      <div className="absolute inset-x-0 top-0 h-1 bg-primary/15" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-[#f9232c]/15" />
       <div className="flex justify-between items-start mb-6">
         <div>
           <h3 className="text-xs font-black text-gray-900">{donor.name}</h3>
           <span
-            className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold ${
-              available ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"
-            }`}
+            className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold ${available ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"
+              }`}
           >
             {available ? "Available" : "Not Available"}
           </span>
         </div>
-        <div className="h-12 w-12 rounded-2xl flex items-center justify-center bg-primary/15 text-primary text-xl font-black">
+        <div className="h-12 w-12 rounded-2xl flex items-center justify-center bg-[#f9232c]/15 text-[#f9232c] text-xl font-black">
           {donor.bloodgroup}
         </div>
       </div>
 
       <div className="space-y-2 text-xs text-gray-600">
         <p className="flex items-center gap-3">
-          <FaMapMarkerAlt className="text-primary/60" />
+          <FaMapMarkerAlt className="text-[#f9232c]/60" />
           {donor.upazila}, {donor.district}
         </p>
         <p className="flex items-center gap-3">
-          <FaTint className="text-primary/60" />
+          <FaTint className="text-[#f9232c]/60" />
           Last Donated:
           <strong className="text-gray-700 ml-1">
             {new Date(donor.lastDonation).toLocaleDateString()}
@@ -106,13 +105,12 @@ const DonorCard = ({ donor }) => {
       </div>
 
       <div
-        className={`absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-white border-t border-gray-200 p-4 flex gap-3 ${
-          !available && "pointer-events-none opacity-60"
-        }`}
+        className={`absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-white border-t border-gray-200 p-4 flex gap-3 ${!available && "pointer-events-none opacity-60"
+          }`}
       >
         <a
           href={available ? `tel:${donor.phone}` : undefined}
-          className="flex-1 flex items-center justify-center gap-1 rounded-xl bg-primary text-white py-2 text-xs font-semibold"
+          className="flex-1 flex items-center justify-center gap-1 rounded-xl bg-[#f9232c] text-white py-2 text-xs font-semibold"
         >
           Call
         </a>
@@ -188,7 +186,7 @@ const Donors = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-black text-gray-900">
-            Blood <span className="text-primary">Donors</span>
+            Blood <span className="text-[#f9232c]">Donors</span>
           </h2>
           <p className="mt-3 text-gray-600">
             Find verified and available donors near you.
@@ -216,7 +214,7 @@ const Donors = () => {
         </div>
 
         <div className="text-center mb-10">
-          <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-semibold text-sm">
+          <span className="inline-block px-4 py-1 rounded-full bg-[#f9232c]/10 text-[#f9232c] font-semibold text-sm">
             {filteredDonors.length} donor{filteredDonors.length !== 1 && "s"} found
           </span>
         </div>
@@ -240,9 +238,9 @@ const Donors = () => {
                 key={page}
                 onClick={() => setCurrentPage(page)}
                 className={`px-3 py-1 rounded border ${currentPage === page
-                  ? "bg-primary text-white border-primary"
+                  ? "bg-[#f9232c] text-white border-[#f9232c]"
                   : "bg-white text-gray-900 border-gray-400"
-                }`}
+                  }`}
               >
                 {page}
               </button>

@@ -74,7 +74,7 @@ const DashboardLayout = () => {
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
         <div className="flex flex-col sticky top-0 transition-all duration-300 h-screen bg-gray-900 is-drawer-close:w-14 is-drawer-open:w-52">
-          <ul className="menu w-full grow text-primary">
+          <ul className="menu w-full grow text-[#f9232c]">
             <li>
               <Link to="/" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Home">
                 <img src={logo} className="w-32 pb-5" alt="Logo" />

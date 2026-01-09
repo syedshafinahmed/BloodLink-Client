@@ -174,7 +174,7 @@ const DashboardHome = () => {
           "#fbbf24",   // pending — matches badge-warning
           "#38bdf8",   // in progress — matches badge-info
           "#22c55e",   // done — matches badge-success
-          "#f9232c",   // canceled — project primary red
+          "#f9232c",   // canceled — project [#f9232c] red
         ],
         borderWidth: 1,
       },
@@ -203,7 +203,7 @@ const DashboardHome = () => {
       <motion.h1
         className="text-center font-bold text-gray-900 text-2xl md:text-5xl mb-2"
       >
-        Welcome, <span className="text-primary">{user.displayName}</span>
+        Welcome, <span className="text-[#f9232c]">{user.displayName}</span>
       </motion.h1>
 
       <motion.p
@@ -234,7 +234,7 @@ const DashboardHome = () => {
                     <span
                       onClick={() => canNavigate && navigate(card.route)}
                       className={`transition ${canNavigate
-                        ? "text-gray-900 hover:text-primary cursor-pointer"
+                        ? "text-gray-900 hover:text-[#f9232c] cursor-pointer"
                         : "text-gray-400 cursor-not-allowed"
                         }`}
                     >
@@ -390,7 +390,7 @@ const DashboardHome = () => {
           </div>
 
           <Link to='/dashboard/donation-requests' className='flex justify-end'>
-            <button className='btn bg-primary btn-sm text-base-200 mt-10'>View All</button>
+            <button className='btn bg-[#f9232c] btn-sm text-base-200 mt-10'>View All</button>
           </Link>
         </>
       )}

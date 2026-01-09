@@ -91,7 +91,7 @@ const EditDonationRequest = () => {
             value={formData.recipientName || ""}
             onChange={handleChange}
             placeholder="Recipient Name"
-            className="input input-bordered w-full outline-none focus:border-primary"
+            className="input input-bordered w-full outline-none focus:border-[#f9232c]"
           />
         </motion.div>
 
@@ -104,7 +104,7 @@ const EditDonationRequest = () => {
             value={formData.bloodGroup || ""}
             onChange={handleChange}
             placeholder="Blood Group"
-            className="input input-bordered w-full outline-none focus:border-primary"
+            className="input input-bordered w-full outline-none focus:border-[#f9232c]"
           />
         </motion.div>
 
@@ -117,7 +117,7 @@ const EditDonationRequest = () => {
             value={formData.hospitalName || ""}
             onChange={handleChange}
             placeholder="Hospital Name"
-            className="input input-bordered w-full outline-none focus:border-primary"
+            className="input input-bordered w-full outline-none focus:border-[#f9232c]"
           />
         </motion.div>
 
@@ -130,7 +130,7 @@ const EditDonationRequest = () => {
             value={formData.recipientDistrict || ""}
             onChange={handleChange}
             placeholder="District"
-            className="input input-bordered w-full outline-none focus:border-primary"
+            className="input input-bordered w-full outline-none focus:border-[#f9232c]"
           />
         </motion.div>
 
@@ -143,7 +143,7 @@ const EditDonationRequest = () => {
             value={formData.recipientUpazila || ""}
             onChange={handleChange}
             placeholder="Upazila"
-            className="input input-bordered w-full outline-none focus:border-primary"
+            className="input input-bordered w-full outline-none focus:border-[#f9232c]"
           />
         </motion.div>
 
@@ -155,7 +155,7 @@ const EditDonationRequest = () => {
             name="donationDate"
             value={formData.donationDate ? formData.donationDate.split("T")[0] : ""}
             onChange={handleChange}
-            className="input input-bordered w-full outline-none focus:border-primary"
+            className="input input-bordered w-full outline-none focus:border-[#f9232c]"
           />
         </motion.div>
 
@@ -167,13 +167,13 @@ const EditDonationRequest = () => {
             value={formData.requestMessage || ""}
             onChange={handleChange}
             placeholder="Request Message"
-            className="textarea textarea-bordered w-full outline-none focus:border-primary"
+            className="textarea textarea-bordered w-full outline-none focus:border-[#f9232c]"
           />
         </motion.div>
 
         {/* Submit Button */}
         <motion.div variants={itemVariants}>
-          <button type="submit" className="btn btn-primary w-full py-3 text-lg font-semibold">
+          <button type="submit" className="btn btn-[#f9232c] w-full py-3 text-lg font-semibold">
             Update Request
           </button>
         </motion.div>

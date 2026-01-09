@@ -146,7 +146,7 @@ const DonationRequests = () => {
                         {/* View Details */}
                         <Tooltip title="View Request">
                           <FaArrowUpRightFromSquare
-                            className="cursor-pointer hover:text-primary"
+                            className="cursor-pointer hover:text-[#f9232c]"
                             onClick={() => navigate(`/dashboard/donation-request/${req._id}`)}
                           />
                         </Tooltip>
@@ -154,7 +154,7 @@ const DonationRequests = () => {
                         {/* Edit */}
                         <Tooltip title="Edit Request">
                           <FaEdit
-                            className="cursor-pointer hover:text-primary"
+                            className="cursor-pointer hover:text-[#f9232c]"
                             onClick={() => navigate(`/dashboard/donation-request/edit/${req._id}`)}
                           />
                         </Tooltip>
@@ -162,7 +162,7 @@ const DonationRequests = () => {
                         {/* Delete */}
                         <Tooltip title="Delete Request">
                           <FiTrash
-                            className="cursor-pointer hover:text-primary"
+                            className="cursor-pointer hover:text-[#f9232c]"
                             size={15}
                             onClick={() => handleDelete(req._id)}
                           />

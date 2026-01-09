@@ -100,7 +100,7 @@ const Profile = () => {
 
               <Button
                 variant="outlined"
-                color={isEditing ? "success" : "primary"}
+                color={isEditing ? "success" : "[#f9232c]"}
                 onClick={isEditing ? handleSave : handleEditToggle}
               >
                 {isEditing ? "Save" : "Edit"}
@@ -150,7 +150,7 @@ const Profile = () => {
               value={formData.district}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
+              className={`border p-2 rounded outline-none ${isEditing ? "border-[#f9232c]" : "border-gray-300"
                 }`}
             />
           </div>
@@ -164,7 +164,7 @@ const Profile = () => {
               value={formData.upazila}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
+              className={`border p-2 rounded outline-none ${isEditing ? "border-[#f9232c]" : "border-gray-300"
                 }`}
             />
           </div>
@@ -178,7 +178,7 @@ const Profile = () => {
               value={formData.bloodGroup}
               disabled={!isEditing}
               onChange={handleChange}
-              className={`border p-2 rounded outline-none ${isEditing ? "border-primary" : "border-gray-300"
+              className={`border p-2 rounded outline-none ${isEditing ? "border-[#f9232c]" : "border-gray-300"
                 }`}
             />
           </div>

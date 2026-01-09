@@ -125,7 +125,7 @@ const AllUsers = () => {
                 <td>
                   <span
                     className={`px-2 py-1 rounded text-base-200 text-xs ${user.status === "blocked"
-                      ? "bg-primary"
+                      ? "bg-[#f9232c]"
                       : "bg-green-600"
                       }`}
                   >
@@ -147,7 +147,7 @@ const AllUsers = () => {
                           "User blocked successfully"
                         )
                       }
-                      className="btn btn-xs bg-primary text-base-200"
+                      className="btn btn-xs bg-[#f9232c] text-base-200"
                     >
                       Block
                     </motion.button>

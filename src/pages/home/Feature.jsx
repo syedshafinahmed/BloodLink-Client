@@ -38,7 +38,7 @@ const Feature = () => {
   };
 
   return (
-    <div className='max-w-7xl mx-auto'>
+    <div className='bg-base-100 max-w-7xl mx-auto'>
       <section className="py-10 mt-10">
         <motion.div
           className="text-center mb-10"

@@ -76,7 +76,7 @@ const FundingPage = () => {
           />
           <button
             onClick={handleFund}
-            className="px-6 py-2 bg-primary text-sm text-base-200 rounded-lg hover:bg-red-700 transition"
+            className="px-6 py-2 bg-[#f9232c] text-sm text-base-200 rounded-lg hover:bg-red-700 transition"
           >
             Give Fund
           </button>
@@ -141,7 +141,7 @@ const FundingPage = () => {
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`px-3 py-1 rounded border ${currentPage === page
-                    ? "bg-primary text-base-200 border-primary"
+                    ? "bg-[#f9232c] text-base-200 border-[#f9232c]"
                     : "bg-base-200 text-gray-900 border-gray-400"
                     }`}
                 >

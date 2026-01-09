@@ -73,7 +73,7 @@ export default function Contact() {
       <ToastContainer />
 
       <motion.h2
-        className="text-2xl md:text-4xl font-bold text-center text-primary mb-8"
+        className="text-2xl md:text-4xl font-bold text-center text-[#f9232c] mb-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
@@ -98,10 +98,10 @@ export default function Contact() {
             <p className="text-xs text-justify pr-5 text-gray-900">Your donation can save a life and give someone a chance to recover. Every contribution brings hope to patients and their families during critical times. By reaching out, you become part of a meaningful and life-saving mission. A small step from you can create a lasting impact for someone in need. Contact us today and help make a difference when it matters most.</p>
           </div>
           <div className="text-left">
-            <p className="text-primary text-xl font-black">Opening Hours</p>
+            <p className="text-[#f9232c] text-xl font-black">Opening Hours</p>
             <div className="font-medium text-sm text-gray-900">
               <p>Sunday - Saturday</p>
-              <span className="flex justify-start gap-2 items-center"><FiClock className="text-primary" /> 00:00 – 23:59</span>
+              <span className="flex justify-start gap-2 items-center"><FiClock className="text-[#f9232c]" /> 00:00 – 23:59</span>
             </div>
           </div>
 
@@ -112,7 +112,7 @@ export default function Contact() {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center rounded-full border border-primary text-primary hover:bg-primary hover:text-base-200 transition-all duration-200 shadow-sm"
+                className="w-12 h-12 flex items-center justify-center rounded-full border border-[#f9232c] text-[#f9232c] hover:bg-[#f9232c] hover:text-base-200 transition-all duration-200 shadow-sm"
                 whileHover={{ scale: 1.1 }}
               >
                 {item.icon}
@@ -134,7 +134,7 @@ export default function Contact() {
             placeholder="Your Name"
             onChange={handleChange}
             value={formData.name}
-            className="border border-primary rounded-lg px-4 py-2 w-full bg-transparent placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+            className="border border-[#f9232c] rounded-lg px-4 py-2 w-full bg-transparent placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f9232c] transition-all"
             variants={itemVariants}
           />
 
@@ -145,7 +145,7 @@ export default function Contact() {
             placeholder="Your Email"
             onChange={handleChange}
             value={formData.email}
-            className="border border-primary rounded-lg px-4 py-2 w-full bg-transparent placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+            className="border border-[#f9232c] rounded-lg px-4 py-2 w-full bg-transparent placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f9232c] transition-all"
             variants={itemVariants}
           />
 
@@ -156,14 +156,14 @@ export default function Contact() {
             placeholder="Your Message"
             onChange={handleChange}
             value={formData.message}
-            className="border border-primary rounded-lg px-4 py-2 w-full bg-transparent placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none"
+            className="border border-[#f9232c] rounded-lg px-4 py-2 w-full bg-transparent placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f9232c] transition-all resize-none"
             variants={itemVariants}
           ></motion.textarea>
 
           <motion.button
             type="submit"
             disabled={loading}
-            className="bg-primary text-white rounded-lg py-2 w-full hover:bg-[#d71b1b] transition-all shadow-md hover:shadow-lg"
+            className="bg-[#f9232c] text-white rounded-lg py-2 w-full hover:bg-[#d71b1b] transition-all shadow-md hover:shadow-lg"
             variants={itemVariants}
           >
             {loading ? (

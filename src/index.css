@@ -19,8 +19,13 @@ html {
   name: "light";
   default: true;
   --color-primary: #f9232c;
-  --color-secondary: #8f1d21;
 }
+
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 
 li .active {
@@ -31,14 +36,21 @@ li .active {
 
 
 .conic-spin {
-  border-radius: 2rem; /* match rounded-3xl */
+  border-radius: 2rem;
+  /* match rounded-3xl */
   background: conic-gradient(from 0deg, #f9232c, transparent, transparent, #f9232c);
-  mask: linear-gradient(#fff 0 0) content-box; /* ensures inner area is transparent */
+  mask: linear-gradient(#fff 0 0) content-box;
+  /* ensures inner area is transparent */
   -webkit-mask: linear-gradient(#fff 0 0) content-box;
   animation: conic-spin-anim 6s linear infinite;
 }
 
 @keyframes conic-spin-anim {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -107,7 +107,7 @@ export default function CreateDonationRequest() {
             type="text"
             value={user?.displayName}
             readOnly
-            className="border border-primary p-2 rounded bg-gray-100"
+            className="border border-[#f9232c] p-2 rounded bg-gray-100"
           />
         </motion.div>
 
@@ -118,7 +118,7 @@ export default function CreateDonationRequest() {
             type="email"
             value={user?.email}
             readOnly
-            className="border border-primary p-2 rounded bg-gray-100"
+            className="border border-[#f9232c] p-2 rounded bg-gray-100"
           />
         </motion.div>
 
@@ -127,7 +127,7 @@ export default function CreateDonationRequest() {
           <label className="font-medium text-xs mb-1">Recipient Name</label>
           <input
             {...register("recipientName", { required: "Recipient name is required" })}
-            className="border border-primary p-2 rounded"
+            className="border border-[#f9232c] p-2 rounded"
             placeholder="Recipient Name"
           />
         </motion.div>
@@ -171,7 +171,7 @@ export default function CreateDonationRequest() {
           <label className="font-medium text-xs mb-1">Hospital Name</label>
           <input
             {...register("hospitalName", { required: true })}
-            className="border border-primary p-2 rounded"
+            className="border border-[#f9232c] p-2 rounded"
             placeholder="Dhaka Medical College Hospital"
           />
         </motion.div>
@@ -181,7 +181,7 @@ export default function CreateDonationRequest() {
           <label className="font-medium text-xs mb-1">Full Address</label>
           <input
             {...register("fullAddress", { required: true })}
-            className="border border-primary p-2 rounded"
+            className="border border-[#f9232c] p-2 rounded"
             placeholder="Zahir Raihan Rd, Dhaka"
           />
         </motion.div>
@@ -191,7 +191,7 @@ export default function CreateDonationRequest() {
           <label className="font-medium text-xs mb-1">Blood Group</label>
           <select
             {...register("bloodGroup", { required: true })}
-            className="border border-primary p-2 rounded"
+            className="border border-[#f9232c] p-2 rounded"
           >
             <option value="">Select Blood Group</option>
             <option>A+</option><option>A-</option>
@@ -207,7 +207,7 @@ export default function CreateDonationRequest() {
           <input
             type="date"
             {...register("donationDate", { required: true })}
-            className="border border-primary p-2 rounded"
+            className="border border-[#f9232c] p-2 rounded"
           />
         </motion.div>
 
@@ -217,7 +217,7 @@ export default function CreateDonationRequest() {
           <input
             type="time"
             {...register("donationTime", { required: true })}
-            className="border border-primary p-2 rounded"
+            className="border border-[#f9232c] p-2 rounded"
           />
         </motion.div>
 
@@ -226,7 +226,7 @@ export default function CreateDonationRequest() {
           <label className="font-medium text-xs mb-1">Request Message</label>
           <textarea
             {...register("requestMessage", { required: true })}
-            className="border border-primary p-2 rounded h-28"
+            className="border border-[#f9232c] p-2 rounded h-28"
             placeholder="Explain why you need the blood..."
           ></textarea>
         </motion.div>
@@ -235,7 +235,7 @@ export default function CreateDonationRequest() {
         <motion.div variants={itemVariants} className="md:col-span-2">
           <button
             type="submit"
-            className="w-full py-2 border border-primary text-primary rounded"
+            className="w-full py-2 border border-[#f9232c] text-[#f9232c] rounded"
           >
             Submit Request
           </button>

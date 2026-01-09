@@ -130,7 +130,7 @@ const HomeDonationRequestsDetails = () => {
 
           <span className={`badge badge-sm rounded-full ${request.donationStatus === "pending"
             ? "badge-warning" : request.donationStatus === "inprogress" ? "badge-info" : request.donationStatus === "done"
-              ? "badge-success" : request.donationStatus === "canceled" ? "badge-error" : "bg-primary"}`}>
+              ? "badge-success" : request.donationStatus === "canceled" ? "badge-error" : "bg-[#f9232c]"}`}>
             {request.donationStatus.toUpperCase()}
           </span>
 
@@ -215,7 +215,7 @@ const HomeDonationRequestsDetails = () => {
         <div className="flex justify-end mt-5">
           {request.donationStatus === "pending" &&
             <>
-              <button onClick={handleDonateClick} className="btn text-base-200 btn-sm rounded bg-primary hover:scale-110 transition-transform duration-300">Donate</button>
+              <button onClick={handleDonateClick} className="btn text-base-200 btn-sm rounded bg-[#f9232c] hover:scale-110 transition-transform duration-300">Donate</button>
             </>}
         </div>
 

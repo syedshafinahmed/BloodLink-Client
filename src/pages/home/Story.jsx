@@ -31,7 +31,7 @@ const Story = () => {
               <h1 className='font-black text-center text-2xl md:text-5xl'>
                 <CountUp end={50} duration={2} enableScrollSpy />+
               </h1>
-              <p className='text-primary text-center text-xs md:text-lg font-bold'>
+              <p className='text-[#f9232c] text-center text-xs md:text-lg font-bold'>
                 Blood Cooperations
               </p>
             </section>
@@ -40,7 +40,7 @@ const Story = () => {
               <h1 className='font-black text-center text-2xl md:text-5xl'>
                 <CountUp end={100} duration={2} enableScrollSpy />+
               </h1>
-              <p className='text-primary text-center text-xs md:text-lg font-bold'>
+              <p className='text-[#f9232c] text-center text-xs md:text-lg font-bold'>
                 Expert Volunteers
               </p>
             </section>
@@ -49,7 +49,7 @@ const Story = () => {
               <h1 className='font-black text-center text-2xl md:text-5xl'>
                 <CountUp end={500} duration={2} enableScrollSpy />+
               </h1>
-              <p className='text-primary text-center text-xs md:text-lg font-bold'>
+              <p className='text-[#f9232c] text-center text-xs md:text-lg font-bold'>
                 Blood Donations
               </p>
             </section>
@@ -57,7 +57,7 @@ const Story = () => {
 
           <div className='flex gap-5 px-5 md:px-0 mt-10'>
             <motion.section
-              className='w-1/2 py-10 px-5 md:p-10 bg-primary md:h-80 text-base-200 flex flex-col rounded overflow-hidden'
+              className='w-1/2 py-10 px-5 md:p-10 bg-[#f9232c] md:h-80 text-base-200 flex flex-col rounded overflow-hidden'
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -94,7 +94,7 @@ const Story = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className='text-primary font-black text-2xl text-center md:text-left mb-2 pl-2'>
+          <h1 className='text-[#f9232c] font-black text-2xl text-center md:text-left mb-2 pl-2'>
             Our Story
           </h1>
           <p className='font-black text-3xl mb-7 text-center md:text-left leading-tight pl-2'>
