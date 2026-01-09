@@ -12,12 +12,12 @@ const Navbar = () => {
   const [blur, setBlur] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      const bannerHeight = window.innerHeight;
-      setBlur(window.scrollY >= bannerHeight);
+      const triggerPoint = window.innerHeight * 0.05; 
+      setBlur(window.scrollY >= triggerPoint);
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll(); 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const [theme, setTheme] = useState(localStorage.getItem('theme') || "light");
@@ -37,15 +37,15 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li><NavLink className="text-[#f9232c] font-bold" to="/">Home</NavLink></li>
-      <li><NavLink className="text-[#f9232c] font-bold" to="/about-us">About Us</NavLink></li>
-      <li><NavLink className="text-[#f9232c] font-bold" to="/services">Services</NavLink></li>
-      <li><NavLink className="text-[#f9232c] font-bold" to="/donors">Donors</NavLink></li>
-      <li><NavLink className="text-[#f9232c] font-bold" to="/donation-requests">Donation Requests</NavLink></li>
-      <li><NavLink className="text-[#f9232c] font-bold" to="/fundings">Funding</NavLink></li>
+      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/">Home</NavLink></li>
+      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/about-us">About Us</NavLink></li>
+      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/services">Services</NavLink></li>
+      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/donors">Donors</NavLink></li>
+      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/donation-requests">Donation Requests</NavLink></li>
+      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/fundings">Funding</NavLink></li>
       {user && (
         <li>
-          <NavLink className="text-base-content" to="/dashboard/dhome">
+          <NavLink className="text-[#f9232c] text-sm font-bold" to="/dashboard/dhome">
             Dashboard
           </NavLink>
         </li>
