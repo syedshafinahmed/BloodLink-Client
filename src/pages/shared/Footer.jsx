@@ -1,63 +1,145 @@
-import React from 'react';
-import logo from '../../assets/BloodLink.png'
-import { NavLink } from 'react-router';
-import { FaCaretRight, FaGithub, FaGlobe, FaLinkedin } from 'react-icons/fa';
-import { PiPhoneCallFill } from 'react-icons/pi';
-import { IoMdMail } from 'react-icons/io';
-import { FaMapLocationDot } from 'react-icons/fa6';
+import React from "react";
+import logo from "../../assets/BloodLink.png";
+import { NavLink } from "react-router";
+import { FaCaretRight, FaGithub, FaGlobe, FaLinkedin } from "react-icons/fa";
+import { PiPhoneCallFill } from "react-icons/pi";
+import { IoMdMail } from "react-icons/io";
+import { FaMapLocationDot } from "react-icons/fa6";
+
 const Footer = () => {
   return (
-    <div className='w-full border-t-2 border-[#f9232c] bg-gray-900 text-base-200'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-7 py-5 items-center'>
-          <div className='flex flex-row md:flex-col items-center md:items-start'>
-            <img src={logo} className='w-32' alt="" />
-            <p className='text-justify px-4 text-base md:text-xs mt-4'>BloodLink connects blood donors with recipients in need. It ensures fast access to verified donors, making the donation process simple and dependable.</p>
+    <footer className="w-full border-t border-[#f9232c]/60 bg-base-200 text-base-content">
+      <div className="relative max-w-7xl mx-auto px-6 md:px-0">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
+        </div>
+        {/* MAIN GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 py-14">
+          {/* BRAND */}
+          <div className="flex flex-col items-start">
+            <img src={logo} className="w-20 mb-4" alt="BloodLink Logo" />
+            <p className="text-sm leading-relaxed text-justify text-base-content/70">
+              BloodLink connects blood donors with recipients in need, ensuring
+              fast access to verified donors and making the donation process
+              simple, safe, and dependable.
+            </p>
           </div>
-          <div className='px-5 md:px-0'>
-            <h1 className='font-black text-[#f9232c] text-2xl pb-2'>Quick Links</h1>
-            <ul className='space-y-2 flex flex-col text-sm'>
-              <NavLink className='flex items-center hover:text-[#f9232c] hover:font-semibold' to="/"><FaCaretRight color='#f9232c'></FaCaretRight> Home</NavLink>
-              <NavLink className='flex items-center hover:text-[#f9232c] hover:font-semibold' to="/about-us"><FaCaretRight color='#f9232c'></FaCaretRight> About Us</NavLink>
-              <NavLink className='flex items-center hover:text-[#f9232c] hover:font-semibold' to="/services"><FaCaretRight color='#f9232c'></FaCaretRight> Services</NavLink>
-              <NavLink className='flex items-center hover:text-[#f9232c] hover:font-semibold' to="/donation-requests"><FaCaretRight color='#f9232c'></FaCaretRight> Donation Requests</NavLink>
-              <NavLink className='flex items-center hover:text-[#f9232c] hover:font-semibold' to="/fundings"><FaCaretRight color='#f9232c'></FaCaretRight> Funding</NavLink>
+
+          {/* QUICK LINKS */}
+          <div>
+            <h3 className="font-black text-[#f9232c] text-xl mb-4">
+              Quick Links
+            </h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                { to: "/", label: "Home" },
+                { to: "/about-us", label: "About Us" },
+                { to: "/services", label: "Services" },
+                { to: "/donation-requests", label: "Donation Requests" },
+                { to: "/fundings", label: "Funding" },
+              ].map((item, i) => (
+                <NavLink
+                  key={i}
+                  to={item.to}
+                  className="flex items-center gap-2 text-base-content/70 hover:text-[#f9232c] transition"
+                >
+                  <FaCaretRight className="text-[#f9232c]" />
+                  {item.label}
+                </NavLink>
+              ))}
             </ul>
           </div>
-          <div className='px-5 md:px-0'>
-            <h1 className='font-black text-[#f9232c] text-2xl pb-2'>BloodLink Support</h1>
-            <ul className='flex flex-col space-y-2 text-sm'>
-              <span className='flex items-center gap-2'><PiPhoneCallFill size={25} color='#f9232c' /> +8801630216932</span>
-              <span className='flex items-center gap-2'><IoMdMail size={25} color='#f9232c' /> shafinahmed.cse@gmail.com</span>
-              <span className='flex items-center gap-2'><FaMapLocationDot size={25} color='#f9232c' /> Mirpur, Dhaka</span>
+
+          {/* SUPPORT */}
+          <div>
+            <h3 className="font-black text-[#f9232c] text-xl mb-4">
+              BloodLink Support
+            </h3>
+            <ul className="space-y-3 text-sm text-base-content/70">
+              <li className="flex items-center gap-3">
+                <PiPhoneCallFill className="text-[#f9232c]" size={20} />
+                +8801630216932
+              </li>
+              <li className="flex items-center gap-3">
+                <IoMdMail className="text-[#f9232c]" size={20} />
+                shafinahmed.cse@gmail.com
+              </li>
+              <li className="flex items-center gap-3">
+                <FaMapLocationDot className="text-[#f9232c]" size={20} />
+                Mirpur, Dhaka
+              </li>
             </ul>
           </div>
-          <div className='px-5 md:px-0'>
-            <h1 className='font-black text-[#f9232c] text-2xl pb-2'>NewsLetter</h1>
-            <p className='text-xs mb-5'>Subscribe to Our Newsletter to receive the newest updates and info.</p>
-            <div className='flex items-center px-1'>
-              <input type="email" placeholder='  Email' className='py-1 rounded-sm outline outline-[#f9232c]' />
-              <button className='btn btn-[#f9232c] btn-sm'>Subscribe</button>
+
+          {/* NEWSLETTER */}
+          <div>
+            <h3 className="font-black text-[#f9232c] text-xl mb-4">
+              Newsletter
+            </h3>
+            <p className="text-xs text-base-content/70 mb-5">
+              Subscribe to receive updates and platform news.
+            </p>
+
+            <div className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="
+                  w-full px-4 py-2 rounded-lg
+                  bg-base-100 text-base-content
+                  border border-base-content/20
+                  focus:outline-none focus:ring-2 focus:ring-[#f9232c]
+                "
+              />
+              <button
+                className="
+                  px-4 py-2 rounded-lg
+                  bg-[#f9232c] text-white font-semibold
+                  hover:bg-[#d71b1b]
+                  transition
+                "
+              >
+                Subscribe
+              </button>
             </div>
           </div>
         </div>
-        <hr className='text-[#f9232c] mt-5 md:mt-0 mb-5 md:mb-0' />
-        <div className='flex justify-between items-center px-5 py-5'>
-          <p className='text-xs md:text-sm'>&copy; {new Date().getFullYear()} <strong>BloodLink</strong> — All Rights Reserved</p>
-          <div className='flex gap-2 md:gap-4'>
-            <a href="https://github.com/syedshafinahmed" className="hover:scale-110 hover:text-[#f9232c] transition-transform duration-200">
+
+        {/* DIVIDER */}
+        <div className="h-px bg-linear-to-r from-transparent via-[#f9232c]/40 to-transparent" />
+
+        {/* BOTTOM BAR */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 py-6">
+          <p className="text-xs md:text-sm text-base-content/70">
+            © {new Date().getFullYear()}{" "}
+            <strong className="text-base-content">BloodLink</strong> — All Rights
+            Reserved
+          </p>
+
+          <div className="flex gap-5 text-base-content/70">
+            <a
+              href="https://github.com/syedshafinahmed"
+              className="hover:text-[#f9232c] hover:scale-110 transition"
+            >
               <FaGithub size={20} />
             </a>
-            <a href="https://www.linkedin.com/in/syed-shafin-ahmed/" className="hover:scale-110 hover:text-[#f9232c] transition-transform duration-200">
+            <a
+              href="https://www.linkedin.com/in/syed-shafin-ahmed/"
+              className="hover:text-[#f9232c] hover:scale-110 transition"
+            >
               <FaLinkedin size={20} />
             </a>
-            <a href="https://syedshafinahmed.pages.dev/" className="hover:scale-110 hover:text-[#f9232c] transition-transform duration-200">
+            <a
+              href="https://syedshafinahmed.pages.dev/"
+              className="hover:text-[#f9232c] hover:scale-110 transition"
+            >
               <FaGlobe size={20} />
             </a>
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
