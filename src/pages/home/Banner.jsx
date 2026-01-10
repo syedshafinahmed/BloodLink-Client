@@ -34,7 +34,7 @@ const Banner = () => {
             className="flex flex-col justify-center"
           >
             <span
-              className="inline-flex w-fit items-center px-4 py-1.5 rounded-full bg-[#f9232c]/10 text-[#f9232c] text-xs mb-3 font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 shadow-sm whitespace-nowrap animate-pulse"
+              className="inline-flex w-fit items-center px-4 py-1.5 rounded-full bg-[#f9232c]/10 text-[#f9232c] text-xs mb-3 font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 shadow-sm whitespace-nowrap"
             >
               BloodLink Platform
             </span>

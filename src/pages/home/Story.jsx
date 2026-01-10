@@ -98,7 +98,7 @@ const Story = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className='inline-flex w-fit items-center px-4 py-1.5 rounded-full bg-[#f9232c]/10 font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 shadow-sm whitespace-nowrap text-[#f9232c] text-xs text-center md:text-left mb-2 animate-pulse'>
+          <h1 className='inline-flex w-fit items-center px-4 py-1.5 rounded-full bg-[#f9232c]/10 font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 shadow-sm whitespace-nowrap text-[#f9232c] text-xs text-center md:text-left mb-2'>
             Our Story
           </h1>
           <p className='font-black text-4xl mb-4.5 text-center md:text-left leading-tight pl-2'>
