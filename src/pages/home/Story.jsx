@@ -18,7 +18,11 @@ const Story = () => {
   const images = [gal1, gal2, gal3, gal4, gal5, gal6];
 
   return (
-    <div className='max-w-7xl mx-auto py-20 mb-10'>
+    <div className='relative max-w-7xl mx-auto py-20 mb-10'>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
+      </div>
       <div className='flex flex-col md:flex-row gap-10'>
         <motion.div
           className='flex-1'
@@ -94,11 +98,11 @@ const Story = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className='text-[#f9232c] font-black text-2xl text-center md:text-left mb-2 pl-2'>
+          <h1 className='inline-flex w-fit items-center px-4 py-1.5 rounded-full bg-[#f9232c]/10 font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 shadow-sm whitespace-nowrap text-[#f9232c] text-xs text-center md:text-left mb-2 animate-pulse'>
             Our Story
           </h1>
-          <p className='font-black text-3xl mb-7 text-center md:text-left leading-tight pl-2'>
-            Dedicated to Life,<br />The Story of Our Blood Drive Initiative.
+          <p className='font-black text-4xl mb-4.5 text-center md:text-left leading-tight pl-2'>
+            Dedicated to Life,<br />The Story of Our Initiative.
           </p>
 
           <Swiper

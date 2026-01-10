@@ -33,9 +33,13 @@ const Banner = () => {
             transition={{ duration: 1 }}
             className="flex flex-col justify-center"
           >
-            <span className="uppercase font-bold tracking-[0.3em] text-sm text-[#f9232c] mb-5">
+            <span
+              className="inline-flex w-fit items-center px-4 py-1.5 rounded-full bg-[#f9232c]/10 text-[#f9232c] text-xs mb-3 font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 shadow-sm whitespace-nowrap animate-pulse"
+            >
               BloodLink Platform
             </span>
+
+
 
             <h1 className="text-4xl font-black text-base-content">
               Saving Lives Made Simple
@@ -96,7 +100,7 @@ const Banner = () => {
 
                 <div className="mt-2 flex items-baseline gap-2">
                   <span className="text-4xl font-black text-[#f9232c]">
-                    <CountUp end={12500} duration={2.5} separator="," /> 
+                    <CountUp end={12500} duration={2.5} separator="," />
                   </span>
                 </div>
 

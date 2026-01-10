@@ -114,13 +114,14 @@ const BloodCompatibility = () => {
   const [receiveGroup, setReceiveGroup] = useState("");
 
   return (
-    <section className=" relative py-20">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
-      </div>
+    <section className="py-20">
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-0">
+
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-0">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
+        </div>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

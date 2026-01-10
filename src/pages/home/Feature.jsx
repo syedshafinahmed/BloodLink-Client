@@ -38,14 +38,15 @@ const item = {
 
 const Feature = () => {
   return (
-    <section className="relative bg-base-100 py-20">
+    <section className="bg-base-100 py-20">
       {/* Subtle background accents */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
-      </div>
+
 
       <div className="relative max-w-7xl mx-auto px-6">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
+        </div>
         {/* Heading */}
         <motion.div
           className="text-center mb-16"
