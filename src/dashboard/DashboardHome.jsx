@@ -18,6 +18,7 @@ import {
   Tooltip as ChartTooltip,
   Legend,
 } from 'chart.js';
+import DashboardSkeleton from './DashboardSkeleton';
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, ChartTooltip, Legend);
 
@@ -126,7 +127,9 @@ const DashboardHome = () => {
     fetchStats();
   }, [role, axiosSecure]);
 
-  if (loading) return <Loading />;
+  if (loading || !role) {
+    return <DashboardSkeleton />;
+  }
 
   // Admin cards
   const cardData = [
@@ -187,7 +190,7 @@ const DashboardHome = () => {
     <div>
       <div className='flex justify-center'>
         <span className="inline-block mx-auto px-4 py-1.5 rounded-full bg-[#f9232c]/10 text-[#f9232c] text-xs font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 text-center mb-4">
-          About BloodLink
+          {(role === 'admin' || role === 'volunteer' ? role : 'Donor').toUpperCase()} DASHBOARD
         </span>
       </div>
       <motion.section
@@ -315,12 +318,12 @@ const DashboardHome = () => {
                 <tbody className="text-xs md:text-sm">
                   {requests.slice(0, 3).map((req) => (
                     <tr key={req._id} className="border-b border-base-300 dark:border-base-700 hover:bg-gray-300 dark:hover:bg-base-700 transition-colors">
-                      <td className="p-3">{req.recipientName}</td>
-                      <td className="p-3 font-semibold">{req.bloodGroup}</td>
-                      <td className="p-3">{req.hospitalName}</td>
-                      <td className="p-3">{req.recipientUpazila}, {req.recipientDistrict}</td>
-                      <td className="p-3">{req.donationDate}</td>
-                      <td className="p-3">
+                      <td className="p-3 text-base-content">{req.recipientName}</td>
+                      <td className="p-3 text-base-content font-semibold">{req.bloodGroup}</td>
+                      <td className="p-3 text-base-content">{req.hospitalName}</td>
+                      <td className="p-3 text-base-content">{req.recipientUpazila}, {req.recipientDistrict}</td>
+                      <td className="p-3 text-base-content">{req.donationDate}</td>
+                      <td className="p-3 text-base-content">
                         <span className={`badge badge-sm rounded-full ${req.donationStatus === "pending" ? "badge-warning" : req.donationStatus === "inprogress" ? "badge-info" : req.donationStatus === "done" ? "badge-success" : req.donationStatus === "canceled" ? "badge-error" : "bg-gray-500"}`}>
                           {req.donationStatus}
                         </span>
