@@ -7,6 +7,7 @@ import BloodCompatibility from './BloodCompatibility';
 import Testimonials from './Testimonials';
 import ImpactStats from './ImpactStats';
 import HowItWorks from './HowItWorks';
+import Coverage from './Coverage';
 
 const Home = () => {
   return (
@@ -16,8 +17,7 @@ const Home = () => {
       <Feature></Feature>
       <BloodCompatibility></BloodCompatibility>
       <Story></Story>
-      {/* <Testimonials></Testimonials> */}
-      {/* <ImpactStats></ImpactStats> */}
+      <Coverage></Coverage>
       <Contact></Contact>
     </div>
   );

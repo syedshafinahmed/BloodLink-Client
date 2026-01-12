@@ -23,6 +23,7 @@ import AllDonationRequests from "../dashboard/admin/AllDonationRequests";
 import AboutUs from "../pages/AboutUs";
 import Services from "../pages/Services";
 import Donors from "../pages/home/Donors";
+import Coverage from "../pages/home/Coverage";
 
 export const router = createBrowserRouter([
   {
