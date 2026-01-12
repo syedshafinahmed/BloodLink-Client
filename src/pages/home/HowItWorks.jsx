@@ -44,7 +44,7 @@ export default function HowItWorks() {
   };
 
   return (
-    <section className="py-28 relative px-15">
+    <section className="py-28 relative px-5 md:px-15">
       <div className="relative max-w-7xl mx-auto px-6 md:px-0">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
