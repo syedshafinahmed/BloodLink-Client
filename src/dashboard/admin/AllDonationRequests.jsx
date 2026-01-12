@@ -8,7 +8,6 @@ import { FaEdit } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
-import Loading from "../../loading/Loading";
 
 const STATUS_COLORS = {
   pending: "badge-warning",
@@ -18,6 +17,17 @@ const STATUS_COLORS = {
 };
 
 const STATUS_OPTIONS = ["all", "pending", "inprogress", "done", "canceled"];
+
+const TableSkeleton = ({ rows = 7 }) => (
+  <div className="animate-pulse space-y-4">
+    {[...Array(rows)].map((_, i) => (
+      <div
+        key={i}
+        className="h-14 rounded-lg bg-base-300/60 dark:bg-base-700/50"
+      />
+    ))}
+  </div>
+);
 
 const AllDonationRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -33,18 +43,13 @@ const AllDonationRequests = () => {
 
   const totalPages = Math.ceil(requests.length / itemsPerPage) || 1;
 
-  // fetch user role
   useEffect(() => {
     if (!user?.email) return;
-
     axiosSecure.get(`/users?email=${user.email}`).then((res) => {
-      if (res.data?.length > 0) {
-        setRole(res.data[0].role);
-      }
+      if (res.data?.length) setRole(res.data[0].role);
     });
   }, [user?.email, axiosSecure]);
 
-  // fetch requests by status
   useEffect(() => {
     setLoading(true);
     axiosSecure
@@ -52,66 +57,70 @@ const AllDonationRequests = () => {
       .then((res) => {
         setRequests(res.data);
         setCurrentPage(1);
-        setLoading(false);
       })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [statusFilter, setLoading, axiosSecure]);
+      .finally(() => setLoading(false));
+  }, [statusFilter, axiosSecure]);
 
-  // delete donation request
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "This donation request will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#f9232c",
+      confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/donation-requests/${id}`).then(() => {
-          Swal.fire("Deleted!", "Donation request removed.", "success");
           setRequests((prev) => prev.filter((r) => r._id !== id));
+          Swal.fire("Deleted", "Request removed", "success");
         });
       }
     });
   };
 
-  // volunteer status change
   const handleStatusChange = async (id, status) => {
     try {
-      await axiosSecure.patch(`/donation-requests/${id}`, { donationStatus: status });
+      await axiosSecure.patch(`/donation-requests/${id}`, {
+        donationStatus: status,
+      });
       setRequests((prev) =>
         prev.map((r) => (r._id === id ? { ...r, donationStatus: status } : r))
       );
-      Swal.fire("Updated", "Status updated successfully", "success");
+      Swal.fire("Updated", "Status updated", "success");
     } catch {
       Swal.fire("Error", "Failed to update status", "error");
     }
   };
 
-  if (loading) return <Loading />;
-
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentRequests = requests.slice(startIndex, startIndex + itemsPerPage);
+  const currentRequests = requests.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   return (
-    <div className="bg-base-200/10 px-6">
-      <motion.div className="flex flex-col md:flex-row gap-6 md:gap-0 justify-between items-center mb-6">
-        <motion.h1
-          className="text-start font-black text-3xl"
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          All Donation Requests: {requests.length}
-        </motion.h1>
+    <section className="px-6 py-6">
+      <span className="inline-block mb-4 px-4 py-1.5 rounded-full
+        bg-[#f9232c]/10 text-[#f9232c] text-xs font-extrabold
+        uppercase tracking-[0.3em] border border-[#f9232c]/30">
+        Donation Requests
+      </span>
+
+      <motion.div
+        className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6"
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <h1 className="text-3xl font-black text-base-content">
+          All Requests: {requests.length}
+        </h1>
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="select select-sm bg-base-200 border-gray-400"
+          className="select select-sm bg-base-100 dark:bg-base-900
+            border-base-300 dark:border-base-700"
         >
           {STATUS_OPTIONS.map((status) => (
             <option key={status} value={status}>
@@ -121,94 +130,125 @@ const AllDonationRequests = () => {
         </select>
       </motion.div>
 
-      <motion.div className="overflow-x-auto rounded-lg border border-gray-700 bg-base-200">
-        <table className="w-full text-center text-gray-900">
-          <thead className="bg-gray-900 text-base-200">
-            <tr>
-              <th className="p-3">Recipient</th>
-              <th className="p-3">Requester</th>
-              <th className="p-3">Blood Group</th>
-              <th className="p-3">Hospital</th>
-              <th className="p-3">Location</th>
-              <th className="p-3">Status</th>
-              {role === "admin" && <th className="p-3">Actions</th>}
-            </tr>
-          </thead>
-          <tbody className="text-xs md:text-sm">
-            {currentRequests.map((req) => (
-              <tr key={req._id} className="border-b border-gray-700 hover:bg-gray-300">
-                <td className="p-3">{req.recipientName}</td>
-                <td className="p-3">{req.requesterName}</td>
-                <td className="p-3 font-semibold">{req.bloodGroup}</td>
-                <td className="p-3">{req.hospitalName}</td>
-                <td className="p-3">
-                  {req.recipientUpazila}, {req.recipientDistrict}
-                </td>
+      <div className="overflow-x-auto rounded-xl border
+        border-base-300 dark:border-base-700
+        bg-base-100 dark:bg-base-900">
 
-                <td className="p-3">
-                  {role === "admin" && (
-                    <span
-                      className={`badge badge-sm rounded-full ${STATUS_COLORS[req.donationStatus]}`}
-                    >
-                      {req.donationStatus}
-                    </span>
-                  )}
-                  {role === "volunteer" && (
-                    <select
-                      value={req.donationStatus}
-                      onChange={(e) => handleStatusChange(req._id, e.target.value)}
-                      className="select select-sm bg-base-200 border-gray-500"
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="inprogress">In Progress</option>
-                      <option value="done">Done</option>
-                      <option value="canceled">Canceled</option>
-                    </select>
-                  )}
-                </td>
-
-                {role === "admin" && (
-                  <td className="flex justify-center gap-5 mt-4">
-                    <Tooltip title="View Details">
-                      <FaArrowUpRightFromSquare
-                        onClick={() => navigate(`/dashboard/donation-request/${req._id}`)}
-                      />
-                    </Tooltip>
-
-                    <Tooltip title="Edit Request">
-                      <FaEdit
-                        onClick={() =>
-                          navigate(`/dashboard/donation-request/edit/${req._id}`)
-                        }
-                      />
-                    </Tooltip>
-
-                    <Tooltip title="Delete Request">
-                      <FiTrash onClick={() => handleDelete(req._id)} />
-                    </Tooltip>
-                  </td>
-                )}
+        {loading ? (
+          <div className="p-6">
+            <TableSkeleton />
+          </div>
+        ) : (
+          <table className="w-full text-center text-base-content">
+            <thead className="bg-base-200 dark:bg-base-800">
+              <tr className="h-16">
+                <th className="align-middle">Recipient</th>
+                <th className="align-middle">Requester</th>
+                <th className="align-middle">Blood</th>
+                <th className="align-middle">Hospital</th>
+                <th className="align-middle">Location</th>
+                <th className="align-middle">Status</th>
+                {role === "admin" && <th className="align-middle">Actions</th>}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </motion.div>
+            </thead>
 
-      <div className="flex justify-center mt-10 gap-2">
+            <tbody className="text-sm">
+              {currentRequests.map((req) => (
+                <tr
+                  key={req._id}
+                  className="h-16 border-b border-base-300
+                    dark:border-base-700 hover:bg-base-200
+                    dark:hover:bg-base-800 transition"
+                >
+                  <td className="align-middle">{req.recipientName}</td>
+                  <td className="align-middle">{req.requesterName}</td>
+                  <td className="align-middle font-semibold">
+                    {req.bloodGroup}
+                  </td>
+                  <td className="align-middle">{req.hospitalName}</td>
+                  <td className="align-middle">
+                    {req.recipientUpazila}, {req.recipientDistrict}
+                  </td>
+
+                  <td className="align-middle">
+                    {role === "admin" && (
+                      <span
+                        className={`badge badge-sm rounded-full ${STATUS_COLORS[req.donationStatus]}`}
+                      >
+                        {req.donationStatus}
+                      </span>
+                    )}
+
+                    {role === "volunteer" && (
+                      <select
+                        value={req.donationStatus}
+                        onChange={(e) =>
+                          handleStatusChange(req._id, e.target.value)
+                        }
+                        className="select select-xs bg-base-100
+                          dark:bg-base-900 border-base-300"
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="inprogress">In Progress</option>
+                        <option value="done">Done</option>
+                        <option value="canceled">Canceled</option>
+                      </select>
+                    )}
+                  </td>
+
+                  {role === "admin" && (
+                    <td className="align-middle">
+                      <div className="flex justify-center items-center gap-4">
+                        <Tooltip title="View">
+                          <FaArrowUpRightFromSquare
+                            className="cursor-pointer hover:text-[#f9232c]"
+                            onClick={() =>
+                              navigate(`/dashboard/donation-request/${req._id}`)
+                            }
+                          />
+                        </Tooltip>
+
+                        <Tooltip title="Edit">
+                          <FaEdit
+                            className="cursor-pointer hover:text-blue-500"
+                            onClick={() =>
+                              navigate(`/dashboard/donation-request/edit/${req._id}`)
+                            }
+                          />
+                        </Tooltip>
+
+                        <Tooltip title="Delete">
+                          <FiTrash
+                            className="cursor-pointer hover:text-[#f9232c]"
+                            onClick={() => handleDelete(req._id)}
+                          />
+                        </Tooltip>
+                      </div>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      <div className="flex justify-center mt-8 gap-2">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`px-3 py-1 rounded border ${page === currentPage
-              ? "bg-[#f9232c] text-base-200 border-[#f9232c]"
-              : "bg-base-200 text-gray-900 border-gray-400"
+            className={`px-3 py-1 rounded border transition
+              ${page === currentPage
+                ? "bg-[#f9232c] text-white border-[#f9232c]"
+                : "bg-base-100 dark:bg-base-900 border-base-300"
               }`}
           >
             {page}
           </button>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
