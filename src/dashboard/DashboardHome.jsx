@@ -42,10 +42,9 @@ const DashboardHome = () => {
   const [dailyFundings, setDailyFundings] = useState([]);
   const [chartLoading, setChartLoading] = useState(true);
 
-  // role
+  // Fetch role
   useEffect(() => {
     if (!user?.email) return;
-
     const fetchRole = async () => {
       try {
         const res = await axiosSecure.get(`/users?email=${user.email}`);
@@ -54,11 +53,10 @@ const DashboardHome = () => {
         console.error("Failed to fetch role:", err);
       }
     };
-
     fetchRole();
   }, [user?.email, axiosSecure]);
 
-  // Donor 
+  // Donor requests
   useEffect(() => {
     if (!user?.email || role !== 'donor') return;
 
@@ -78,7 +76,7 @@ const DashboardHome = () => {
       });
   }, [user?.email, role, setLoading, axiosSecure]);
 
-  // Admin 
+  // Admin stats
   useEffect(() => {
     if (role !== 'admin' && role !== 'volunteer') return;
 
@@ -89,21 +87,19 @@ const DashboardHome = () => {
         setTotalUsers(usersRes.data.length);
 
         const fundingsRes = await axiosSecure.get('/fundings');
-        const totalAmount = fundingsRes.data.reduce(
-          (sum, item) => sum + item.amount,
-          0
-        );
+        const totalAmount = fundingsRes.data.reduce((sum, item) => sum + item.amount, 0);
         setTotalFundings(totalAmount);
+
         const dailyMap = {};
         fundingsRes.data.forEach((fund) => {
           if (!fund.createdAt) return;
           const date = new Date(fund.createdAt);
-          const key = date.toISOString().slice(0, 10); // YYYY-MM-DD
+          const key = date.toISOString().slice(0, 10);
           dailyMap[key] = (dailyMap[key] || 0) + fund.amount;
         });
         const sortedDaily = Object.entries(dailyMap)
           .sort((a, b) => new Date(a[0]) - new Date(b[0]))
-          .slice(-14) // last 14 days
+          .slice(-14)
           .map(([key, amount]) => ({
             label: new Date(key).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
             amount,
@@ -127,13 +123,12 @@ const DashboardHome = () => {
         setChartLoading(false);
       }
     };
-
     fetchStats();
   }, [role, axiosSecure]);
 
   if (loading) return <Loading />;
 
-  // Admin card 
+  // Admin cards
   const cardData = [
     {
       title: "Total Users",
@@ -170,12 +165,7 @@ const DashboardHome = () => {
           statusCounts.done || 0,
           statusCounts.canceled || 0,
         ],
-        backgroundColor: [
-          "#fbbf24",   // pending — matches badge-warning
-          "#38bdf8",   // in progress — matches badge-info
-          "#22c55e",   // done — matches badge-success
-          "#f9232c",   // canceled — project [#f9232c] red
-        ],
+        backgroundColor: ["#fbbf24", "#38bdf8", "#22c55e", "#f9232c"],
         borderWidth: 1,
       },
     ],
@@ -194,207 +184,160 @@ const DashboardHome = () => {
   };
 
   return (
-    <motion.section
-      className="pb-5 px-10"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <motion.h1
-        className="text-center font-bold text-gray-900 text-2xl md:text-5xl mb-2"
+    <div>
+      <div className='flex justify-center'>
+        <span className="inline-block mx-auto px-4 py-1.5 rounded-full bg-[#f9232c]/10 text-[#f9232c] text-xs font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 text-center mb-4">
+          About BloodLink
+        </span>
+      </div>
+      <motion.section
+        className="pb-5 px-4 md:px-10 dark:bg-base-900 transition-colors duration-300"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
-        Welcome, <span className="text-[#f9232c]">{user.displayName}</span>
-      </motion.h1>
 
-      <motion.p
-        className="text-center text-lg md:text-xl text-gray-600 mb-10"
-      >
-        Your generosity helps save lives everyday.
-      </motion.p>
+        {/* Heading */}
+        <motion.h1 className="text-center font-bold text-base-content text-2xl md:text-5xl mb-2 transition-colors">
+          Welcome, <span className="text-[#f9232c]">{user.displayName}</span>
+        </motion.h1>
+        <motion.p className="text-center text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 transition-colors">
+          Your generosity helps save lives everyday.
+        </motion.p>
 
-      {/* admin  */}
-      {(role === 'admin' || role === 'volunteer') && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-15">
-          {cardData.map((card, index) => {
-            const canNavigate = card.allowedRoles?.includes(role);
-            return (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.03 }}
-                className="bg-white/10 backdrop-blur-3xl from-gray-100 via-gray-200 to-gray-300 border-l-10 border-l-gray-900 border border-gray-300 rounded-2xl shadow-lg p-6 transition"
-
-              >
-                {/* Header */}
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-black text-gray-900">
-                    {card.title}
-                  </h3>
-
-                  <Tooltip title={canNavigate ? card.tooltip : "Access restricted"}>
-                    <span
-                      onClick={() => canNavigate && navigate(card.route)}
-                      className={`transition ${canNavigate
-                        ? "text-gray-900 hover:text-[#f9232c] cursor-pointer"
-                        : "text-gray-400 cursor-not-allowed"
-                        }`}
-                    >
-                      <GoArrowUpRight size={20} />
-                    </span>
-                  </Tooltip>
-                </div>
-
-                {/* Value */}
-                <h2 className="text-4xl font-bold text-gray-900">
-                  <CountUp
-                    end={card.value}
-                    duration={1.5}
-                    separator=","
-                    formattingFn={card.format || ((val) => val)}
-                  />
-                </h2>
-              </motion.div>
-            );
-          })}
-        </div>
-      )}
-
-      {role === 'admin' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-12">
-          <div className="bg-white/10 backdrop-blur-3xl border border-gray-200 rounded-2xl shadow-lg p-6 h-[360px]">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-black text-gray-900">Donation Requests by Status</h3>
-              <span className="text-xs text-gray-600">Last synced: live</span>
-            </div>
-            {chartLoading ? (
-              <div className="flex items-center justify-center h-[260px]">
-                <Loading />
-              </div>
-            ) : Object.values(statusCounts).some((val) => val > 0) ? (
-              <Doughnut
-                key={`status-${Object.values(statusCounts).join('-')}`}
-                data={statusChartData}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: { legend: { position: 'bottom' } },
-                  animation: {
-                    duration: 900,
-                    easing: 'easeOutExpo',
-                    animateRotate: true,
-                    animateScale: true,
-                  },
-                  responsiveAnimationDuration: 400,
-                  animations: {
-                    radius: { duration: 600, easing: 'easeOutExpo' },
-                  },
-                }}
-              />
-            ) : (
-              <p className="text-gray-600 text-sm">No request data yet.</p>
-            )}
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-3xl border border-gray-200 rounded-2xl shadow-lg p-6 h-[360px]">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-black text-gray-900">Funding (Last 14 Days)</h3>
-              <span className="text-xs text-gray-600">৳ Total: {totalFundings.toLocaleString()}</span>
-            </div>
-            {chartLoading ? (
-              <div className="flex items-center justify-center h-[260px]">
-                <Loading />
-              </div>
-            ) : dailyFundings.length > 0 ? (
-              <Bar
-                key={`fund-${dailyFundings.map((d) => `${d.label}-${d.amount}`).join('|')}`}
-                data={fundingChartData}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: { display: false },
-                  },
-                  animation: {
-                    duration: 950,
-                    easing: 'easeOutExpo',
-                  },
-                  responsiveAnimationDuration: 400,
-                  animations: {
-                    x: { duration: 700, easing: 'easeOutExpo' },
-                    y: { duration: 700, easing: 'easeOutExpo' },
-                  },
-                  scales: {
-                    y: {
-                      ticks: { beginAtZero: true },
-                    },
-                  },
-                }}
-              />
-            ) : (
-              <p className="text-gray-600 text-sm">No funding data yet.</p>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* donor  */}
-      {role === 'donor' && (
-        <>
-          <h2 className="text-xl mb-4 text-left">
-            Your Recent Donation Requests
-          </h2>
-
-          <div className="overflow-x-auto rounded-lg border border-gray-700 bg-base-200">
-            <table className="w-full text-center text-gray-900">
-              <thead className="bg-gray-900 text-base-200">
-                <tr>
-                  <th className="p-3">Recipient</th>
-                  <th className="p-3">Blood Group</th>
-                  <th className="p-3">Hospital</th>
-                  <th className="p-3">Location</th>
-                  <th className="p-3">Date</th>
-                  <th className="p-3">Status</th>
-                </tr>
-              </thead>
-              <tbody className="text-xs md:text-sm">
-                {requests.slice(0, 3).map((req) => (
-                  <tr
-                    key={req._id}
-                    className="border-b border-gray-700 hover:bg-gray-300 transition"
-                  >
-                    <td className="p-3">{req.recipientName}</td>
-                    <td className="p-3 font-semibold">{req.bloodGroup}</td>
-                    <td className="p-3">{req.hospitalName}</td>
-                    <td className="p-3">
-                      {req.recipientUpazila}, {req.recipientDistrict}
-                    </td>
-                    <td className="p-3">{req.donationDate}</td>
-                    <td className="p-3">
+        {/* Admin Cards */}
+        {(role === 'admin' || role === 'volunteer') && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-6">
+            {cardData.map((card, index) => {
+              const canNavigate = card.allowedRoles?.includes(role);
+              return (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.03 }}
+                  className="bg-base-100 dark:bg-base-800/80 backdrop-blur-3xl border border-[#f9232c]/20 hover:bg-linear-to-br hover:from-[#f9232c]/50 hover:via-[#f9232c]/20 hover:to-transparent rounded-2xl shadow-lg p-6 transition-colors"
+                >
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-black text-base-content transition-colors">{card.title}</h3>
+                    <Tooltip title={canNavigate ? card.tooltip : "Access restricted"}>
                       <span
-                        className={`badge badge-sm rounded-full ${req.donationStatus === "pending"
-                          ? "badge-warning"
-                          : req.donationStatus === "inprogress"
-                            ? "badge-info"
-                            : req.donationStatus === "done"
-                              ? "badge-success"
-                              : req.donationStatus === "canceled"
-                                ? "badge-error"
-                                : "bg-gray-500"
+                        onClick={() => canNavigate && navigate(card.route)}
+                        className={`transition ${canNavigate
+                          ? "text-base-content hover:text-[#f9232c] cursor-pointer"
+                          : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
                           }`}
                       >
-                        {req.donationStatus}
+                        <GoArrowUpRight size={20} />
                       </span>
-
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </Tooltip>
+                  </div>
+                  <h2 className="text-4xl font-bold text-[#f9232c] transition-colors">
+                    <CountUp
+                      end={card.value}
+                      duration={1.5}
+                      separator=","
+                      formattingFn={card.format || ((val) => val)}
+                    />
+                  </h2>
+                </motion.div>
+              );
+            })}
           </div>
+        )}
 
-          <Link to='/dashboard/donation-requests' className='flex justify-end'>
-            <button className='btn bg-[#f9232c] btn-sm text-base-200 mt-10'>View All</button>
-          </Link>
-        </>
-      )}
-    </motion.section>
+        {/* Admin Charts */}
+        {role === 'admin' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 mt-10">
+            {/* Status Chart */}
+            <div className="rounded-2xl p-6 h-[360px] transition-colors">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-black text-[#f9232c] transition-colors">Donation Requests by Status</h3>
+                <span className="text-xs text-gray-600 dark:text-gray-400 transition-colors">Last synced: live</span>
+              </div>
+              {chartLoading ? (
+                <div className="flex items-center justify-center h-[260px]"><Loading /></div>
+              ) : Object.values(statusCounts).some((val) => val > 0) ? (
+                <Doughnut
+                  key={`status-${Object.values(statusCounts).join('-')}`}
+                  data={statusChartData}
+                  options={{
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { color: 'inherit' } } },
+                    animation: { duration: 900, easing: 'easeOutExpo', animateRotate: true, animateScale: true },
+                  }}
+                />
+              ) : (
+                <p className="text-gray-600 dark:text-gray-300 text-sm">No request data yet.</p>
+              )}
+            </div>
+
+            {/* Funding Chart */}
+            <div className="rounded-2xl  p-6 h-[360px] transition-colors">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-black text-[#f9232c] transition-colors">Funding (Last 14 Days)</h3>
+                <span className="text-xs text-gray-600 dark:text-gray-400 transition-colors">৳ Total: {totalFundings.toLocaleString()}</span>
+              </div>
+              {chartLoading ? (
+                <div className="flex items-center justify-center h-[260px]"><Loading /></div>
+              ) : dailyFundings.length > 0 ? (
+                <Bar
+                  key={`fund-${dailyFundings.map((d) => `${d.label}-${d.amount}`).join('|')}`}
+                  data={fundingChartData}
+                  options={{
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    animation: { duration: 950, easing: 'easeOutExpo' },
+                    scales: { y: { ticks: { beginAtZero: true, color: 'inherit' } }, x: { ticks: { color: 'inherit' } } },
+                  }}
+                />
+              ) : (
+                <p className="text-gray-600 dark:text-gray-300 text-sm">No funding data yet.</p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Donor Table */}
+        {role === 'donor' && (
+          <>
+            <h2 className="text-xl mb-4 text-left text-gray-900 dark:text-base-200 transition-colors">Your Recent Donation Requests</h2>
+            <div className="overflow-x-auto rounded-lg border border-base-300 dark:border-base-700 bg-base-200 dark:bg-base-900 transition-colors">
+              <table className="w-full text-center text-gray-900 dark:text-base-200 transition-colors">
+                <thead className="bg-gray-200 dark:bg-base-800 transition-colors">
+                  <tr>
+                    <th className="p-3">Recipient</th>
+                    <th className="p-3">Blood Group</th>
+                    <th className="p-3">Hospital</th>
+                    <th className="p-3">Location</th>
+                    <th className="p-3">Date</th>
+                    <th className="p-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="text-xs md:text-sm">
+                  {requests.slice(0, 3).map((req) => (
+                    <tr key={req._id} className="border-b border-base-300 dark:border-base-700 hover:bg-gray-300 dark:hover:bg-base-700 transition-colors">
+                      <td className="p-3">{req.recipientName}</td>
+                      <td className="p-3 font-semibold">{req.bloodGroup}</td>
+                      <td className="p-3">{req.hospitalName}</td>
+                      <td className="p-3">{req.recipientUpazila}, {req.recipientDistrict}</td>
+                      <td className="p-3">{req.donationDate}</td>
+                      <td className="p-3">
+                        <span className={`badge badge-sm rounded-full ${req.donationStatus === "pending" ? "badge-warning" : req.donationStatus === "inprogress" ? "badge-info" : req.donationStatus === "done" ? "badge-success" : req.donationStatus === "canceled" ? "badge-error" : "bg-gray-500"}`}>
+                          {req.donationStatus}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <Link to='/dashboard/donation-requests' className='flex justify-end'>
+              <button className='btn bg-[#f9232c] btn-sm text-base-200 mt-10'>View All</button>
+            </Link>
+          </>
+        )}
+      </motion.section>
+    </div>
   );
 };
 

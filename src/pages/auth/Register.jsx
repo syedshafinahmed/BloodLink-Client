@@ -135,7 +135,7 @@ export default function Register() {
   }
 
   return (
-    <div className="bg-white/10">
+    <div className="">
       <motion.h1
         className="text-center mb-5 flex flex-col items-center justify-center"
         initial={{ opacity: 0, x: 100 }}
@@ -148,7 +148,7 @@ export default function Register() {
 
       <motion.form
         onSubmit={handleSubmit(handleRegistration)}
-        className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 pt-2 gap-6 px-8 bg-white/10"
+        className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 pt-2 gap-6 px-8"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

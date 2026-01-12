@@ -51,22 +51,114 @@ const Login = () => {
           <p className="text-sm text-center">Your impact starts here — <strong>Log in</strong></p>
         </div>
 
-        <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col mt-10">
+        <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col mt-10 w-full max-w-md mx-auto">
+          {/* Email Field */}
+          <TextField
+            label="Email"
+            color="error"
+            size="small"
+            {...register("email", { required: "Email is required" })}
+            error={!!errors.email}
+            helperText={errors.email ? errors.email.message : ""}
+            sx={{
+              mb: 2,
+              input: {
+                color: 'text.primary', // adapts to dark/light
+              },
+              label: {
+                color: 'text.secondary',
+              },
+              '.MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#f9232c',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#f9232c',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#f9232c',
+                },
+              },
+            }}
+          />
 
-          <TextField label="Email" color="error" size="small" sx={{ mb: 2 }} {...register("email", { required: "Email is required" })} error={!!errors.email} helperText={errors.email ? errors.email.message : ""} />
+          {/* Password Field */}
+          <TextField
+            label="Password"
+            type="password"
+            color="error"
+            size="small"
+            {...register("password", { required: "Password is required" })}
+            error={!!errors.password}
+            helperText={errors.password ? errors.password.message : ""}
+            sx={{
+              mb: 1,
+              input: {
+                color: 'text.primary',
+              },
+              label: {
+                color: 'text.secondary',
+              },
+              '.MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#f9232c',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#f9232c',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#f9232c',
+                },
+              },
+            }}
+          />
 
-          <TextField label="Password" type="password" color="error" size="small" sx={{ mb: 1 }} {...register("password", { required: "Password is required" })} error={!!errors.password} helperText={errors.password ? errors.password.message : ""} />
+          {/* Login Error */}
+          {loginError && (
+            <p className="text-[#f9232c] text-xs mb-2">{loginError}</p>
+          )}
 
-          {loginError && (<p className="text-[#f9232c] text-xs mb-2">{loginError}</p>)}
+          {/* Login Button */}
+          <Button
+            type="submit"
+            variant="outlined"
+            color="error"
+            sx={{
+              mb: 2,
+              mt: 2,
+              borderColor: '#f9232c',
+              color: '#f9232c',
+              '&:hover': {
+                backgroundColor: 'rgba(249,35,44,0.1)',
+                borderColor: '#f9232c',
+              },
+            }}
+          >
+            Login
+          </Button>
 
-          <Button type='submit' variant="outlined" color="error" sx={{ mb: 2, mt: 2, borderColor: "#f9232c", color: "#f9232c" }}>Login</Button>
-
-          <span className="text-sm text-center">Don't have an account?{" "}<Link state={location.state} to="/register" className="text-[#f9232c] font-black">Register</Link>
+          {/* Register Link */}
+          <span className="text-sm text-center text-base-content">
+            Don't have an account?{" "}
+            <Link
+              state={location.state}
+              to="/register"
+              className="text-[#f9232c] font-black"
+            >
+              Register
+            </Link>
           </span>
         </form>
+
       </motion.div>
     </div>
   );
 };
 
 export default Login;
+
+
+
+
+
+
