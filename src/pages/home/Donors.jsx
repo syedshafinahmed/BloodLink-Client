@@ -38,12 +38,12 @@ const SelectField = ({ value, onChange, options, placeholder, disabled }) => (
 
 const DonorSkeleton = () => (
   <div className="rounded-2xl border border-base-content/10 bg-base-100 p-6 animate-pulse">
-    <div className="h-4 w-2/3 bg-base-300 rounded mb-3" />
-    <div className="h-3 w-1/3 bg-base-300 rounded mb-5" />
+    <div className="h-4 w-2/3 bg-base-content/20 rounded mb-3" />
+    <div className="h-3 w-1/3 bg-base-content/20 rounded mb-5" />
     <div className="space-y-3">
-      <div className="h-3 w-full bg-base-300 rounded" />
-      <div className="h-3 w-5/6 bg-base-300 rounded" />
-      <div className="h-3 w-4/6 bg-base-300 rounded" />
+      <div className="h-3 w-full bg-base-content/20 rounded" />
+      <div className="h-3 w-5/6 bg-base-content/20 rounded" />
+      <div className="h-3 w-4/6 bg-base-content/20 rounded" />
     </div>
   </div>
 );
