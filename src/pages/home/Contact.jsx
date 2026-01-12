@@ -111,7 +111,7 @@ export default function Contact() {
             <div className="absolute inset-0 bg-linear-to-br from-[#f9232c]/5 via-transparent to-transparent pointer-events-none" />
 
             <div className="relative space-y-5">
-              <span className="inline-flex w-fit px-4 py-1.5 rounded-full bg-[#f9232c]/10 text-[#f9232c] text-xs font-extrabold uppercase tracking-[0.3em] mb-4">
+              <span className="inline-flex w-fit items-center px-4 py-1.5 rounded-full bg-[#f9232c]/10 font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 shadow-sm whitespace-nowrap text-[#f9232c] text-xs text-center md:text-left mb-2">
                 Get In Touch
               </span>
 

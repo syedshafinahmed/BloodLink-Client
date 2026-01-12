@@ -54,3 +54,39 @@ li .active {
     transform: rotate(360deg);
   }
 }
+
+.spin-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+
+  /* Theme variables */
+  --spin-accent: rgba(249, 35, 44, 0.55);
+  --spin-fade: rgba(249, 35, 44, 0.05);
+
+  background: conic-gradient(
+    from 0deg,
+    var(--spin-accent),
+    transparent 35%,
+    transparent 65%,
+    var(--spin-accent)
+  );
+
+  filter: blur(0.3px);
+  animation: spin 7s linear infinite;
+  will-change: transform;
+}
+
+[data-theme="dark"] .spin-border {
+  --spin-accent: rgba(249, 35, 44, 0.8);
+  --spin-fade: rgba(249, 35, 44, 0.15);
+
+  filter: blur(0.6px);
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
