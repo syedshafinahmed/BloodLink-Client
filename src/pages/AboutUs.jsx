@@ -6,8 +6,7 @@ import { FaHeart, FaShieldAlt, FaUserCheck } from "react-icons/fa";
 import { RiCommunityFill } from "react-icons/ri";
 import { MapPin } from "lucide-react";
 import { SiLinkedin } from "react-icons/si";
-
-
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { FaSquareXTwitter } from "react-icons/fa6";
 
@@ -96,6 +95,17 @@ const members = [
     instagram: '#'
   },
 ];
+
+const redMarkerIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 
 const AboutUs = () => {
@@ -240,17 +250,17 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <form
-            onSubmit={handleSearch}
-            className="relative w-full md:w-1/3"
-          >
+          <form onSubmit={handleSearch} className="relative w-full md:w-1/3 mb-8">
             <input
               type="text"
-              name="location"
-              placeholder="Search district..."
-              className="input input-bordered w-full rounded-xl pr-28"
+              name='location'
+              placeholder="Search your district..."
+              className="input border border-base-content/20 h-12 outline-none input-bordered w-full rounded-xl pr-32 bg-base-100 dark:bg-base-300 text-base-content"
             />
-            <button className="absolute right-1 top-1/2 -translate-y-1/2 px-6 py-2 rounded-lg bg-[#f9232c] text-white font-bold text-sm hover:bg-[#f9232c]/90 transition">
+            <button
+              type="submit"
+              className="absolute top-1/2 right-1 btn -translate-y-1/2 z-10 bg-[#f9232c] text-white dark:text-gray-900 text-xs font-bold px-6 py-1 rounded-xl hover:bg-red-600 transition"
+            >
               Search
             </button>
           </form>
@@ -269,6 +279,7 @@ const AboutUs = () => {
                 <Marker
                   key={i}
                   position={[center.latitude, center.longitude]}
+                  icon={redMarkerIcon}
                 >
                   <Popup>
                     <strong>{center.district}</strong>
