@@ -61,16 +61,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="connect" className="relative py-24 px-6">
+    <section id="connect" className="py-24 px-6">
       <ToastContainer />
-
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
-      </div>
-
       <div className="relative max-w-7xl mx-auto">
+        {/* Background glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
+        </div>
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
