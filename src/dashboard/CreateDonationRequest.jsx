@@ -83,7 +83,7 @@ export default function CreateDonationRequest() {
   };
 
   return (
-    <div className="bg-white/10 pb-10">
+    <div className="pb-10">
       <motion.h1
         className="text-center font-black mb-5 text-3xl"
         initial={{ opacity: 0, y: -20 }}

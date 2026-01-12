@@ -36,7 +36,7 @@ const DonationRequestDetails = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <motion.h2
-        className="text-4xl font-bold mb-8 text-center text-gray-800"
+        className="text-4xl font-bold mb-8 text-center text-base-content"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -45,51 +45,51 @@ const DonationRequestDetails = () => {
       </motion.h2>
 
       <motion.div
-        className="bg-white shadow-2xl rounded-3xl p-8 space-y-6 border border-gray-100 hover:shadow-3xl transition-shadow duration-500"
+        className="shadow-2xl rounded-3xl p-8 space-y-6 border border-gray-100 hover:shadow-3xl transition-shadow duration-500"
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         {/* Recipient */}
         <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
-          <FaUser className="text-gray-900 text-2xl" />
-          <p className="font-semibold text-gray-700 w-36">Recipient:</p>
-          <p className="text-gray-900">{request.recipientName}</p>
+          <FaUser className="text-base-content text-2xl" />
+          <p className="font-semibold text-gray-700 dark:text-white w-36">Recipient:</p>
+          <p className="text-base-content">{request.recipientName}</p>
         </motion.div>
 
         {/* Blood Group */}
         <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
-          <FaTint className="text-gray-900 text-2xl" />
-          <p className="font-semibold text-gray-700 w-36">Blood Group:</p>
-          <p className="text-gray-900">{request.bloodGroup}</p>
+          <FaTint className="text-base-content text-2xl" />
+          <p className="font-semibold text-gray-700 dark:text-white w-36">Blood Group:</p>
+          <p className="text-base-content">{request.bloodGroup}</p>
         </motion.div>
 
         {/* Hospital */}
         <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
-          <FaHospital className="text-gray-900 text-2xl" />
-          <p className="font-semibold text-gray-700 w-36">Hospital:</p>
-          <p className="text-gray-900">{request.hospitalName}</p>
+          <FaHospital className="text-base-content text-2xl" />
+          <p className="font-semibold text-gray-700 dark:text-white w-36">Hospital:</p>
+          <p className="text-base-content">{request.hospitalName}</p>
         </motion.div>
 
         {/* Location */}
         <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
-          <FaMapMarkerAlt className="text-gray-900 text-2xl" />
-          <p className="font-semibold text-gray-700 w-36">Location:</p>
-          <p className="text-gray-900">{request.recipientDistrict}, {request.recipientUpazila}</p>
+          <FaMapMarkerAlt className="text-base-content text-2xl" />
+          <p className="font-semibold text-gray-700 dark:text-white w-36">Location:</p>
+          <p className="text-base-content">{request.recipientDistrict}, {request.recipientUpazila}</p>
         </motion.div>
 
         {/* Contact */}
         <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
-          <IoCall className="text-gray-900 text-2xl" />
-          <p className="font-semibold text-gray-700 w-36">Contact:</p>
-          <p className="text-gray-900">{request.contact}</p>
+          <IoCall className="text-base-content text-2xl" />
+          <p className="font-semibold text-gray-700 dark:text-white w-36">Contact:</p>
+          <p className="text-base-content">{request.contact}</p>
         </motion.div>
 
         {/* Date */}
         <motion.div className="flex items-center gap-4" whileHover={{ scale: 1.02 }}>
-          <FaCalendarAlt className="text-gray-900 text-2xl" />
-          <p className="font-semibold text-gray-700 w-36">Date:</p>
-          <p className="text-gray-900">{request.donationDate}</p>
+          <FaCalendarAlt className="text-base-content text-2xl" />
+          <p className="font-semibold text-gray-700 dark:text-white w-36">Date:</p>
+          <p className="text-base-content">{request.donationDate}</p>
         </motion.div>
 
         {/* Status */}
@@ -101,10 +101,10 @@ const DonationRequestDetails = () => {
 
         {/* Message */}
         <motion.div className="flex items-start gap-4" whileHover={{ scale: 1.02 }}>
-          <FaEnvelopeOpenText className="text-gray-900 mt-1" size={100} />
+          <FaEnvelopeOpenText className="text-base-content mt-1" size={100} />
           <div>
-            <p className="font-bold text-gray-700 mb-3">Message:</p>
-            <p className="text-gray-900 text-justify">{request.requestMessage || "No message provided."}</p>
+            <p className="font-bold text-gray-700 dark:text-white mb-3">Message:</p>
+            <p className="text-base-content text-justify">{request.requestMessage || "No message provided."}</p>
           </div>
         </motion.div>
       </motion.div>

@@ -19,7 +19,7 @@ const TableSkeleton = () => {
         <Skeleton className="h-10 w-40 rounded-md" />
       </div>
 
-      <div className="border rounded-lg overflow-hidden">
+      <div className="rounded-lg overflow-hidden">
         <div className="grid grid-cols-7 gap-4 p-4 bg-base-200">
           {[...Array(7)].map((_, i) => (
             <Skeleton key={i} className="h-4" />
@@ -29,7 +29,7 @@ const TableSkeleton = () => {
         {[...Array(6)].map((_, row) => (
           <div
             key={row}
-            className="grid grid-cols-7 gap-4 p-4 border-t"
+            className="grid grid-cols-7 gap-4 p-4"
           >
             {[...Array(7)].map((_, col) => (
               <Skeleton key={col} className="h-6" />
