@@ -44,7 +44,7 @@ const Login = () => {
   }
 
   return (
-    <div className='w-80 md:w-130 bg-base-200/20 backdrop-blur-2xl border border-base-200/20 rounded-2xl shadow-2xl p-10'>
+    <div className='w-80 md:w-130 bg-white/20 backdrop-blur-2xl border border-base-200/20 rounded-2xl shadow-2xl p-10'>
       <motion.div initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.6, ease: "easeOut" }}>
         <div className="flex flex-col gap-3 items-center justify-center">
           <img src={logo} className="w-30" alt="BloodLink Logo" />

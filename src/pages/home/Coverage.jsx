@@ -89,6 +89,7 @@ const Coverage = () => {
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              // https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png
             />
             {serviceCenters.map((center, index) => (
               <Marker key={index} position={[center.latitude, center.longitude]} icon={redMarkerIcon}>
