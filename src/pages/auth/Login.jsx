@@ -44,11 +44,11 @@ const Login = () => {
   }
 
   return (
-    <div className='w-80 md:w-130 bg-white/20 backdrop-blur-2xl border border-base-200/20 rounded-2xl shadow-2xl p-10'>
+    <div className='w-80 md:w-100 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl p-10'>
       <motion.div initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.6, ease: "easeOut" }}>
         <div className="flex flex-col gap-3 items-center justify-center">
           <img src={logo} className="w-30" alt="BloodLink Logo" />
-          <p className="text-sm text-center">Your impact starts here — <strong>Login</strong></p>
+          <p className="text-md text-center">Your impact starts here — <strong>Login</strong></p>
         </div>
 
         <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col mt-10 w-full mx-auto">
@@ -63,7 +63,7 @@ const Login = () => {
             sx={{
               mb: 2,
               input: {
-                color: 'text.primary', // adapts to dark/light
+                color: 'text.primary', 
               },
               label: {
                 color: 'text.secondary',
@@ -121,16 +121,14 @@ const Login = () => {
           {/* Login Button */}
           <Button
             type="submit"
-            variant="outlined"
-            color="error"
+            variant="contained" 
             sx={{
               mb: 2,
               mt: 2,
-              borderColor: '#f9232c',
-              color: '#f9232c',
+              backgroundColor: '#f9232c',
+              color: 'var(--tw-text-base-content)', 
               '&:hover': {
-                backgroundColor: 'rgba(249,35,44,0.1)',
-                borderColor: '#f9232c',
+                backgroundColor: '#e31b24', 
               },
             }}
           >

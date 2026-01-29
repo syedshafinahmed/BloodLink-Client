@@ -135,7 +135,7 @@ export default function Register() {
   }
 
   return (
-    <div className="w-80 md:w-full bg-white/20 backdrop-blur-2xl border border-base-200/20 rounded-2xl shadow-2xl px-10">
+    <div className="w-80 md:w-full bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl px-10">
       <motion.h1
         className="text-center mb-5 flex flex-col items-center justify-center"
         initial={{ opacity: 0, x: 100 }}
