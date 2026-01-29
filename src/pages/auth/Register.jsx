@@ -135,20 +135,20 @@ export default function Register() {
   }
 
   return (
-    <div className="">
+    <div className="w-80 md:w-full bg-base-200/20 backdrop-blur-2xl border border-base-200/20 rounded-2xl shadow-2xl px-10">
       <motion.h1
         className="text-center mb-5 flex flex-col items-center justify-center"
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src={logo} className="w-15 mt-5" alt="BloodLink Logo" />
+        <img src={logo} className="w-15 md:w-30 mt-5" alt="BloodLink Logo" />
         <span className="text-xs font-black mt-2">Create Donor Account</span>
       </motion.h1>
 
       <motion.form
         onSubmit={handleSubmit(handleRegistration)}
-        className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 pt-2 gap-6 px-8"
+        className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 pt-0 md:pt-2 gap-6"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -318,7 +318,7 @@ export default function Register() {
             Register
           </Button>
 
-          <span className="text-sm py-5 border-none text-center">
+          <span className="text-md font-medium py-5 border-none text-center">
             Already have an account?{" "}
             <Link state={location.state} to="/login" className="text-[#f9232c] font-black">
               Login

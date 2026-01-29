@@ -44,14 +44,14 @@ const Login = () => {
   }
 
   return (
-    <div className='p-10'>
+    <div className='w-80 md:w-130 bg-base-200/20 backdrop-blur-2xl border border-base-200/20 rounded-2xl shadow-2xl p-10'>
       <motion.div initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.6, ease: "easeOut" }}>
         <div className="flex flex-col gap-3 items-center justify-center">
           <img src={logo} className="w-30" alt="BloodLink Logo" />
-          <p className="text-sm text-center">Your impact starts here — <strong>Log in</strong></p>
+          <p className="text-sm text-center">Your impact starts here — <strong>Login</strong></p>
         </div>
 
-        <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col mt-10 w-full max-w-md mx-auto">
+        <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col mt-10 w-full mx-auto">
           {/* Email Field */}
           <TextField
             label="Email"
@@ -138,8 +138,8 @@ const Login = () => {
           </Button>
 
           {/* Register Link */}
-          <span className="text-sm text-center text-base-content">
-            Don't have an account?{" "}
+          <span className="text-md font-medium text-center text-base-content">
+            Don't have an account?{"  "}
             <Link
               state={location.state}
               to="/register"
