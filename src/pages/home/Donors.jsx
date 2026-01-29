@@ -87,10 +87,9 @@ const DonorCard = ({ donor }) => {
 
           <span
             className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold
-              ${
-                available
-                  ? "bg-emerald-500/15 text-emerald-500"
-                  : "bg-error/15 text-error"
+              ${available
+                ? "bg-emerald-500/15 text-emerald-500"
+                : "bg-error/15 text-error"
               }`}
           >
             {available ? "Available" : "Not Available"}
@@ -206,7 +205,11 @@ const Donors = () => {
 
   return (
     <section className="py-30 bg-base-200">
-      <div className="max-w-7xl mx-auto px-6 md:px-0">
+      <div className="max-w-7xl mx-auto relative px-6 md:px-0">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f9232c]/5 rounded-full blur-3xl" />
+        </div>
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -266,8 +269,8 @@ const Donors = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
-                <DonorSkeleton key={i} />
-              ))
+              <DonorSkeleton key={i} />
+            ))
             : (
               <AnimatePresence>
                 {currentDonors.map((d) => (
@@ -284,10 +287,9 @@ const Donors = () => {
                 key={page}
                 onClick={() => setCurrentPage(page)}
                 className={`px-3 py-1 rounded border font-semibold
-                  ${
-                    currentPage === page
-                      ? "bg-[#f9232c] text-white border-[#f9232c]"
-                      : "bg-base-100 text-base-content border-base-content/20"
+                  ${currentPage === page
+                    ? "bg-[#f9232c] text-white border-[#f9232c]"
+                    : "bg-base-100 text-base-content border-base-content/20"
                   }`}
               >
                 {page}

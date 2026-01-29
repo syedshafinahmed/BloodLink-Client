@@ -65,7 +65,7 @@ const Banner = () => {
               </button>
 
               <button
-                onClick={() => navigate("/search")}
+                onClick={() => navigate("/donors")}
                 className="px-8 py-4 rounded-xl font-semibold border border-base-content/30 text-base-content
                 hover:border-[#f9232c] hover:text-[#f9232c] hover:scale-105 transition-all"
               >
