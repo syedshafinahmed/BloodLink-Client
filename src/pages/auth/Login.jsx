@@ -141,7 +141,7 @@ const Login = () => {
             <Link
               state={location.state}
               to="/register"
-              className="text-[#f9232c] font-black"
+              className="text-[#f9232c] font-black uppercase"
             >
               Register
             </Link>

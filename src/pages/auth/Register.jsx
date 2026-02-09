@@ -313,14 +313,20 @@ export default function Register() {
           <Button
             type="submit"
             variant="outlined"
-            sx={{ borderColor: "#f9232c", color: "#f9232c" }}
+            sx={{
+              borderColor: "#f9232c", backgroundColor: '#f9232c',
+              color: 'var(--tw-text-base-content)',
+              '&:hover': {
+                backgroundColor: '#e31b24',
+              },
+            }}
           >
             Register
           </Button>
 
           <span className="text-md font-medium py-5 border-none text-center">
             Already have an account?{" "}
-            <Link state={location.state} to="/login" className="text-[#f9232c] font-black">
+            <Link state={location.state} to="/login" className="text-[#f9232c] uppercase font-black">
               Login
             </Link>
           </span>
