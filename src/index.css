@@ -29,11 +29,21 @@ html {
 
 
 li .active {
-  font-weight: bold;
-  border-radius: 2px;
-  border-bottom: 3px solid #f9232c;
+  font-weight: 700;
+  color: #f9232c;
+  background-color: rgba(249, 35, 44, 0.1);
+  border-radius: 6px;
+  padding: 6px 10px;
 }
 
+@media (min-width: 768px) {
+  li .active {
+    font-weight: bold;
+    border-radius: 2px;
+    border-bottom: 3px solid #f9232c;
+    background-color: transparent;
+  }
+}
 
 .conic-spin {
   border-radius: 2rem;
@@ -55,6 +65,20 @@ li .active {
   }
 }
 
+@keyframes grid-slide {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 40px 40px;
+  }
+}
+
+.animate-grid-slide {
+  animation: grid-slide 1s linear infinite;
+}
+
 .spin-border {
   position: absolute;
   inset: 0;
@@ -64,13 +88,11 @@ li .active {
   --spin-accent: rgba(249, 35, 44, 0.55);
   --spin-fade: rgba(249, 35, 44, 0.05);
 
-  background: conic-gradient(
-    from 0deg,
-    var(--spin-accent),
-    transparent 35%,
-    transparent 65%,
-    var(--spin-accent)
-  );
+  background: conic-gradient(from 0deg,
+      var(--spin-accent),
+      transparent 35%,
+      transparent 65%,
+      var(--spin-accent));
 
   filter: blur(0.3px);
   animation: spin 7s linear infinite;

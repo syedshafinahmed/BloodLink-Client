@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import logo from '../../assets/BloodLink.png'
 import useAuth from '../../hooks/useAuth';
@@ -12,10 +12,10 @@ const Navbar = () => {
   const [blur, setBlur] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      const triggerPoint = window.innerHeight * 0.05; 
+      const triggerPoint = window.innerHeight * 0.05;
       setBlur(window.scrollY >= triggerPoint);
     };
-    handleScroll(); 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -37,12 +37,12 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/">Home</NavLink></li>
-      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/about-us">About Us</NavLink></li>
-      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/services">Services</NavLink></li>
-      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/donors">Donors</NavLink></li>
-      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/donation-requests">Donation Requests</NavLink></li>
-      <li><NavLink className="text-[#f9232c] text-sm font-bold" to="/fundings">Funding</NavLink></li>
+      <li><NavLink className="text-[#f9232c] mr-0 md:mr-3 text-xs md:text-sm font-bold" to="/">Home</NavLink></li>
+      <li><NavLink className="text-[#f9232c] mr-0 md:mr-3 text-xs md:text-sm font-bold" to="/about-us">About Us</NavLink></li>
+      <li><NavLink className="text-[#f9232c] mr-0 md:mr-3 text-xs md:text-sm font-bold" to="/services">Services</NavLink></li>
+      <li><NavLink className="text-[#f9232c] mr-0 md:mr-3 text-xs md:text-sm font-bold" to="/donors">Donors</NavLink></li>
+      <li><NavLink className="text-[#f9232c] mr-0 md:mr-3 text-xs md:text-sm font-bold" to="/donation-requests">Donation Requests</NavLink></li>
+      <li><NavLink className="text-[#f9232c] mr-0 md:mr-3 text-xs md:text-sm font-bold" to="/fundings">Funding</NavLink></li>
       {user && (
         <li>
           <NavLink className="text-[#f9232c] text-sm font-bold" to="/dashboard/dhome">
@@ -73,7 +73,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box z-1 mt-3 w-36 p-2 shadow">
+                className="menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box z-1 mt-3 w-40 p-2 shadow">
                 {links}
               </ul>
             </div>
