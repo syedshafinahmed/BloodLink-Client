@@ -80,13 +80,13 @@ const Banner = () => {
             transition={{ duration: 1, delay: 0.1 }}
             className="hidden lg:flex items-center justify-center"
           >
-            <div className="relative w-[600px] h-[460px]">
+            <div className="relative w-[600px] h-[560px]">
 
               <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                <div className="absolute inset-0 rounded-3xl conic-spin" />
+                <div className="absolute inset-0 rounded-3xl ab" />
               </div>
 
-              <div className="absolute inset-1 rounded-3xl overflow-hidden backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl">
+              <div className="absolute inset-2 rounded-3xl overflow-hidden backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl">
                 <img
                   src={banner}
                   alt="Blood Donation"

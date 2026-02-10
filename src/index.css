@@ -106,9 +106,57 @@ li .active {
   filter: blur(0.6px);
 }
 
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+.ab{
+  border: transparent 2px solid;
+  border-radius: 26px;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  height: 560px;
+  width: 600px;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.ab::before {
+  content: "";
+  background-image: conic-gradient(#f9232c 20deg,
+      transparent 120deg);
+  position: absolute;
+  height: 150%;
+  width: 150%;
+  left: -25%;
+  top: -25%;
+  animation: spin 4s infinite linear;
+  overflow: hidden;
+  border-radius: 26px;
+}
+
+@keyframes rotate {
+  100%{
+    transform: rotate(-360deg);
+  }
+}
+
+.ab::after {
+  content: "";
+  background-image: conic-gradient(#f9232c 20deg,
+      transparent 120deg);
+  position: absolute;
+  background-color: transparent;
+  color: #f9232c;
+  border-radius: 26px;
+  height: 94%;
+  width: 94%;
+  left: 3%;
+  top: 3%; 
 }
