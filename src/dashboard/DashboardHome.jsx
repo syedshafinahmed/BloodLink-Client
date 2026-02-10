@@ -217,10 +217,10 @@ const DashboardHome = () => {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.03 }}
-                  className="bg-base-100 dark:bg-base-800/80 backdrop-blur-3xl border border-[#f9232c]/20 hover:bg-linear-to-br hover:from-[#f9232c]/50 hover:via-[#f9232c]/20 hover:to-transparent rounded-2xl shadow-lg p-6 transition-colors"
+                  className="bg-base-200  backdrop-blur-3xl border border-[#f9232c]/20 hover:bg-linear-to-r hover:from-[#f9232c]/20 hover:via-[#f9232c]/10 hover:to-transparent rounded-2xl shadow-2xl p-6 transition-colors"
                 >
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-black text-base-content transition-colors">{card.title}</h3>
+                    <h3 className="text-md font-light text-base-content transition-colors">{card.title}</h3>
                     <Tooltip title={canNavigate ? card.tooltip : "Access restricted"}>
                       <span
                         onClick={() => canNavigate && navigate(card.route)}
@@ -229,11 +229,11 @@ const DashboardHome = () => {
                           : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
                           }`}
                       >
-                        <GoArrowUpRight size={20} />
+                        <GoArrowUpRight size={20} className='hover:scale-110 transition-transform duration-200' />
                       </span>
                     </Tooltip>
                   </div>
-                  <h2 className="text-4xl font-bold text-[#f9232c] transition-colors">
+                  <h2 className="text-4xl font-medium text-[#f9232c] transition-colors">
                     <CountUp
                       end={card.value}
                       duration={1.5}

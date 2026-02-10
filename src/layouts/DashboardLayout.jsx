@@ -86,9 +86,9 @@ const DashboardLayout = () => {
       <div className="drawer-side is-drawer-close:overflow-visible">
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
-        <div className="flex flex-col sticky top-0 transition-all duration-300 h-screen bg-gray-900 is-drawer-close:w-14 is-drawer-open:w-60">
+        <div className="flex flex-col sticky top-0 transition-all duration-300 h-screen bg-base-200 is-drawer-close:w-14 is-drawer-open:w-60">
           <h1 className="text-[#f9232c] is-drawer-close:hidden text-3xl flex items-center justify-start gap-2 font-black p-4"><img src={logo} className="h-8" alt="Logo" />Dashboard</h1>
-          <ul className="menu w-full grow text-white text-md font-extralight flex flex-col">
+          <ul className="menu w-full grow text-base-content text-md font-extralight flex flex-col">
             {/* <li>
               <Link to="/" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Home">
                 <img src={logo} className="w-32 pb-5" alt="Logo" />
@@ -100,7 +100,7 @@ const DashboardLayout = () => {
                 <NavLink to="/" className={({ isActive }) =>
                   `is-drawer-close:tooltip is-drawer-close:tooltip-right
      flex items-center gap-3 px-3 py-2 transition-all
-     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+     ${isActive ? "glass-active text-[#f9232c]" : "text-base-content hover:text-[#f9232c]"}`
                 } data-tip="Dashboard">
                   <AiFillHome />
                   <span className="is-drawer-close:hidden">Home</span>
@@ -110,7 +110,7 @@ const DashboardLayout = () => {
                 <NavLink to="dhome" className={({ isActive }) =>
                   `is-drawer-close:tooltip is-drawer-close:tooltip-right
      flex items-center gap-3 px-3 py-2 transition-all
-     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+     ${isActive ? "glass-active text-[#f9232c]" : "text-base-content hover:text-[#f9232c]"}`
                 } data-tip="Dashboard">
                   <MdDashboard />
                   <span className="is-drawer-close:hidden">Dashboard</span>
@@ -126,7 +126,7 @@ const DashboardLayout = () => {
                     <NavLink to="all-users" className={({ isActive }) =>
                       `is-drawer-close:tooltip is-drawer-close:tooltip-right
      flex items-center gap-3 px-3 py-2 transition-all
-     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+     ${isActive ? "glass-active text-[#f9232c]" : "text-base-content hover:text-[#f9232c]"}`
                     }
                       data-tip="All Users">
                       <FaUsers />
@@ -143,7 +143,7 @@ const DashboardLayout = () => {
                     <NavLink to="all-donation-requests" className={({ isActive }) =>
                       `is-drawer-close:tooltip is-drawer-close:tooltip-right
      flex items-center gap-3 px-3 py-2 transition-all
-     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+     ${isActive ? "glass-active text-[#f9232c]" : "text-base-content hover:text-[#f9232c]"}`
                     }
                       data-tip="All Donation Requests">
                       <FaClipboardList />
@@ -159,7 +159,7 @@ const DashboardLayout = () => {
                 <NavLink to="donation-requests" className={({ isActive }) =>
                   `is-drawer-close:tooltip is-drawer-close:tooltip-right
      flex items-center gap-3 px-3 py-2 transition-all
-     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+     ${isActive ? "glass-active text-[#f9232c]" : "text-base-content hover:text-[#f9232c]"}`
                 }
                   data-tip="My Donation Requests">
                   <FaHourglassEnd />
@@ -172,7 +172,7 @@ const DashboardLayout = () => {
                   <NavLink to="create-donation-request" className={({ isActive }) =>
                     `is-drawer-close:tooltip is-drawer-close:tooltip-right
      flex items-center gap-3 px-3 py-2 transition-all
-     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+     ${isActive ? "glass-active text-[#f9232c]" : "text-base-content hover:text-[#f9232c]"}`
                   }
                     data-tip="Create Donation Request">
                     <MdAddToPhotos />
@@ -184,14 +184,13 @@ const DashboardLayout = () => {
               )}
             </div>
 
-
             <div className="mt-auto space-y-1">
               <div className="h-0.5 bg-linear-to-r from-transparent mb-4 via-[#f9232c] to-transparent" />
               <li>
                 <NavLink to="profile" className={({ isActive }) =>
                   `is-drawer-close:tooltip is-drawer-close:tooltip-right
      flex items-center px-3 py-2 transition-all justify-items-start gap-3
-     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+     ${isActive ? "glass-active text-[#f9232c]" : "text-base-content hover:text-[#f9232c]"}`
                 } data-tip="Profile">
                   <img src={user?.photoURL || "/default-profile.png"} alt="Profile" className="w-4 h-4 rounded-full" />
                   <p className="is-drawer-close:hidden">{user?.displayName || "Profile"}</p>
@@ -204,7 +203,7 @@ const DashboardLayout = () => {
                   className="
       is-drawer-close:tooltip is-drawer-close:tooltip-right
       flex items-center gap-3 px-3 py-2 transition-all rounded-[5px]
-      text-white hover:text-[#f9232c]
+      text-base-content hover:text-[#f9232c]
       hover:backdrop-blur-xl
     "
                   data-tip={theme === "dark" ? "Light Mode" : "Dark Mode"}
@@ -221,7 +220,7 @@ const DashboardLayout = () => {
                   className="
                 is-drawer-close:tooltip is-drawer-close:tooltip-right
                 flex items-center gap-3 px-3 py-2 transition-all
-                text-white hover:text-[#f9232c]
+                text-base-content hover:text-[#f9232c]
                 hover:backdrop-blur-xl
                 rounded-[5px]
               ">
