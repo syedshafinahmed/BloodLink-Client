@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { FaHourglassEnd, FaUser, FaUsers } from 'react-icons/fa';
+import { FaClipboardList, FaHourglassEnd, FaUser, FaUsers } from 'react-icons/fa';
 import { IoLogOut } from "react-icons/io5";
-import { MdAddToPhotos, MdDashboard } from "react-icons/md";
-import { BiSolidDonateBlood } from "react-icons/bi";
-import { Link, Outlet } from 'react-router';
+import { MdAddToPhotos, MdDarkMode, MdDashboard, MdLightMode } from "react-icons/md";
+import { NavLink, Outlet } from 'react-router';
+import { AiFillHome } from "react-icons/ai";
 import logo from "../assets/BloodLink.png";
 import useAuth from '../hooks/useAuth';
 import useAxiosSecure from '../hooks/useAxiosSecure';
+import Switch from '../toggle/Switch';
 
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
@@ -36,6 +37,18 @@ const DashboardLayout = () => {
 
     fetchRole();
   }, [user?.email, axiosSecure]);
+
+
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || "light");
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
+  useEffect(() => {
+    const html = document.querySelector('html');
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
     <div className="drawer lg:drawer-open h-screen overflow-hidden bg-base-200">
@@ -73,86 +86,155 @@ const DashboardLayout = () => {
       <div className="drawer-side is-drawer-close:overflow-visible">
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
-        <div className="flex flex-col sticky top-0 transition-all duration-300 h-screen bg-gray-900 is-drawer-close:w-14 is-drawer-open:w-52">
-          <ul className="menu w-full grow text-[#f9232c]">
-            <li>
+        <div className="flex flex-col sticky top-0 transition-all duration-300 h-screen bg-gray-900 is-drawer-close:w-14 is-drawer-open:w-60">
+          <h1 className="text-[#f9232c] is-drawer-close:hidden text-3xl flex items-center justify-start gap-2 font-black p-4"><img src={logo} className="h-8" alt="Logo" />Dashboard</h1>
+          <ul className="menu w-full grow text-white text-md font-extralight flex flex-col">
+            {/* <li>
               <Link to="/" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Home">
                 <img src={logo} className="w-32 pb-5" alt="Logo" />
               </Link>
-            </li>
+            </li> */}
 
-            <li>
-              <Link to="dhome" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Dashboard">
-                <MdDashboard />
-                <span className="is-drawer-close:hidden font-black text-xs">Dashboard</span>
-              </Link>
-            </li>
-
-            <li>
-              <Link to="profile" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Profile">
-                <FaUser />
-                <span className="is-drawer-close:hidden font-black text-xs">Profile</span>
-              </Link>
-            </li>
-
-            {/* admin */}
-            {(role === 'admin') && (
-              <>
-                <li>
-                  <Link to="all-users" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="All Users">
-                    <FaUsers />
-                    <span className="is-drawer-close:hidden font-black text-xs">All Users</span>
-                  </Link>
-                </li>
-              </>
-            )}
-
-            {/* admin */}
-            {(role === 'admin' || role === 'volunteer') && (
-              <>
-                <li>
-                  <Link to="all-donation-requests" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="All Donation Requests">
-                    <BiSolidDonateBlood />
-                    <span className="is-drawer-close:hidden font-black text-xs">
-                      All Donation Requests
-                    </span>
-                  </Link>
-                </li>
-              </>
-            )}
-
-            <li>
-              <Link to="donation-requests" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Donation Requests">
-                <FaHourglassEnd />
-                <span className="is-drawer-close:hidden font-black text-xs">My Donation Requests</span>
-              </Link>
-            </li>
-
-            {status === "active" && (
+            <div className="space-y-1">
               <li>
-                <Link to="create-donation-request" className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Create Donation Request">
-                  <MdAddToPhotos />
-                  <span className="is-drawer-close:hidden font-black text-xs">
-                    Create Donation Request
-                  </span>
-                </Link>
+                <NavLink to="/" className={({ isActive }) =>
+                  `is-drawer-close:tooltip is-drawer-close:tooltip-right
+     flex items-center gap-3 px-3 py-2 transition-all
+     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+                } data-tip="Dashboard">
+                  <AiFillHome />
+                  <span className="is-drawer-close:hidden">Home</span>
+                </NavLink>
               </li>
-            )}
+              <li>
+                <NavLink to="dhome" className={({ isActive }) =>
+                  `is-drawer-close:tooltip is-drawer-close:tooltip-right
+     flex items-center gap-3 px-3 py-2 transition-all
+     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+                } data-tip="Dashboard">
+                  <MdDashboard />
+                  <span className="is-drawer-close:hidden">Dashboard</span>
+                </NavLink>
+              </li>
 
-            <li>
-              <button onClick={handleLogout} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Logout">
-                <IoLogOut />
-                <span className="is-drawer-close:hidden font-black text-xs">Logout</span>
-              </button>
-            </li>
+
+
+              {/* admin */}
+              {(role === 'admin') && (
+                <>
+                  <li>
+                    <NavLink to="all-users" className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+     flex items-center gap-3 px-3 py-2 transition-all
+     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+                    }
+                      data-tip="All Users">
+                      <FaUsers />
+                      <span className="is-drawer-close:hidden">All Users</span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              {/* admin */}
+              {(role === 'admin' || role === 'volunteer') && (
+                <>
+                  <li>
+                    <NavLink to="all-donation-requests" className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+     flex items-center gap-3 px-3 py-2 transition-all
+     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+                    }
+                      data-tip="All Donation Requests">
+                      <FaClipboardList />
+                      <span className="is-drawer-close:hidden">
+                        All Donation Requests
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              <li>
+                <NavLink to="donation-requests" className={({ isActive }) =>
+                  `is-drawer-close:tooltip is-drawer-close:tooltip-right
+     flex items-center gap-3 px-3 py-2 transition-all
+     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+                }
+                  data-tip="My Donation Requests">
+                  <FaHourglassEnd />
+                  <span className="is-drawer-close:hidden">My Donation Requests</span>
+                </NavLink>
+              </li>
+
+              {status === "active" && (
+                <li>
+                  <NavLink to="create-donation-request" className={({ isActive }) =>
+                    `is-drawer-close:tooltip is-drawer-close:tooltip-right
+     flex items-center gap-3 px-3 py-2 transition-all
+     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+                  }
+                    data-tip="Create Donation Request">
+                    <MdAddToPhotos />
+                    <span className="is-drawer-close:hidden">
+                      Create Donation Request
+                    </span>
+                  </NavLink>
+                </li>
+              )}
+            </div>
+
+
+            <div className="mt-auto space-y-1">
+              <div className="h-0.5 bg-linear-to-r from-transparent mb-4 via-[#f9232c] to-transparent" />
+              <li>
+                <NavLink to="profile" className={({ isActive }) =>
+                  `is-drawer-close:tooltip is-drawer-close:tooltip-right
+     flex items-center px-3 py-2 transition-all justify-items-start gap-3
+     ${isActive ? "glass-active text-[#f9232c]" : "text-white hover:text-[#f9232c]"}`
+                } data-tip="Profile">
+                  <img src={user?.photoURL || "/default-profile.png"} alt="Profile" className="w-4 h-4 rounded-full" />
+                  <p className="is-drawer-close:hidden">{user?.displayName || "Profile"}</p>
+                </NavLink>
+              </li>
+
+              <li>
+                <button
+                  onClick={() => handleTheme(theme !== "dark")}
+                  className="
+      is-drawer-close:tooltip is-drawer-close:tooltip-right
+      flex items-center gap-3 px-3 py-2 transition-all rounded-[5px]
+      text-white hover:text-[#f9232c]
+      hover:backdrop-blur-xl
+    "
+                  data-tip={theme === "dark" ? "Light Mode" : "Dark Mode"}
+                >
+                  {theme === "dark" ? <MdDarkMode /> : <MdLightMode />}
+                  <span className="is-drawer-close:hidden font-light text-md">
+                    {theme === "dark" ? "Dark Mode" : "Light Mode"}
+                  </span>
+                </button>
+              </li>
+
+              <li>
+                <button onClick={handleLogout} data-tip="Logout"
+                  className="
+                is-drawer-close:tooltip is-drawer-close:tooltip-right
+                flex items-center gap-3 px-3 py-2 transition-all
+                text-white hover:text-[#f9232c]
+                hover:backdrop-blur-xl
+                rounded-[5px]
+              ">
+                  <IoLogOut />
+                  <span className="is-drawer-close:hidden">Logout</span>
+                </button>
+              </li>
+            </div>
+
           </ul>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

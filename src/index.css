@@ -160,3 +160,12 @@ li .active {
   left: 3%;
   top: 3%; 
 }
+
+/* glassmorphic active state */
+.glass-active {
+  background: rgba(249, 35, 44, 0.15);
+  color: #f9232c;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 5px;
+}
