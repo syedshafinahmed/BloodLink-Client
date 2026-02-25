@@ -121,8 +121,8 @@ li .active {
   right: 0;
   bottom: 0;
   position: absolute;
-  height: 560px;
-  width: 600px;
+  height: 460px;
+  width: 500px;
   overflow: hidden;
   background-color: transparent;
 }
