@@ -61,39 +61,60 @@ const cardVariants = {
 const members = [
   {
     name: 'Shafin Ahmed',
-    img: 'https://i.ibb.co.com/JR2YVTLG/Whats-App-Image-2026-01-03-at-12-08-30-AM.jpg',
+    img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775483435/IMG_20260308_005554.jpg_sade1o.jpg',
     role: 'Platform & Operations Lead',
     linkedin: 'https://www.linkedin.com/in/syed-shafin-ahmed/',
     instagram: '#'
   },
   {
-    name: 'Nafin Ahmed',
-    img: 'https://i.ibb.co.com/4njtfg1N/IMG-20240908-004438-350.jpg',
-    role: 'Community & Donor Relations Manager',
-    linkedin: 'https://www.linkedin.com/in/syednafinahmed/',
-    instagram: '#'
-  },
-  {
-    name: 'Anik Rubayet',
-    img: 'https://i.ibb.co.com/yFXsHxFs/Whats-App-Image-2026-01-02-at-11-37-26-PM-1.jpg',
-    role: 'Outreach & Partnerships Coordinator',
-    linkedin: 'https://www.linkedin.com/in/md-rubayet-hossain-1b17a226a/',
-    instagram: '#'
-  },
-  {
-    name: 'Tashfiq Talukder',
-    img: 'https://i.ibb.co.com/rKQJJHqH/Whats-App-Image-2026-01-03-at-1-39-18-AM.jpg',
-    role: 'Communications & Social Impact Lead',
-    linkedin: '#',
-    instagram: '#'
-  },
-  {
-    name: 'Archo Islam',
-    img: 'https://i.ibb.co.com/r2r2fKJ3/Gemini-Generated-Image-5237852378523785.png',
+    name: 'Asa-ad Mohammad Akib',
+    img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775483449/IMG_20260321_123009_2.jpg_fnuw41.jpg',
     role: 'Volunteer Operations Lead',
     linkedin: 'https://www.linkedin.com/in/asa-ad-mohammad-akib-411a45387/',
     instagram: '#'
   },
+  {
+    name: 'Prosenjit Sarker',
+    img: 'https://i.ibb.co.com/r2r2fKJ3/Gemini-Generated-Image-5237852378523785.png',
+    role: 'Volunteer Operations Lead',
+    linkedin: '#',
+    instagram: '#'
+  },
+  {
+    name: 'Mahim Khan',
+    img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775483444/photo_2026-04-06_19-46-18_gvprb8.jpg',
+    role: 'Volunteer Operations Lead',
+    linkedin: '#',
+    instagram: '#'
+  },
+  {
+    name: 'Sabuj Ahmed',
+    img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775483438/photo_2026-04-06_19-46-25_zvgecv.jpg',
+    role: 'Volunteer Operations Lead',
+    linkedin: '#',
+    instagram: '#'
+  },
+  // {
+  //   name: 'Nafin Ahmed',
+  //   img: 'https://i.ibb.co.com/4njtfg1N/IMG-20240908-004438-350.jpg',
+  //   role: 'Community & Donor Relations Manager',
+  //   linkedin: 'https://www.linkedin.com/in/syednafinahmed/',
+  //   instagram: '#'
+  // },
+  // {
+  //   name: 'Anik Rubayet',
+  //   img: 'https://i.ibb.co.com/yFXsHxFs/Whats-App-Image-2026-01-02-at-11-37-26-PM-1.jpg',
+  //   role: 'Outreach & Partnerships Coordinator',
+  //   linkedin: 'https://www.linkedin.com/in/md-rubayet-hossain-1b17a226a/',
+  //   instagram: '#'
+  // },
+  // {
+  //   name: 'Tashfiq Talukder',
+  //   img: 'https://i.ibb.co.com/rKQJJHqH/Whats-App-Image-2026-01-03-at-1-39-18-AM.jpg',
+  //   role: 'Communications & Social Impact Lead',
+  //   linkedin: '#',
+  //   instagram: '#'
+  // },
 ];
 
 const redMarkerIcon = new L.Icon({
