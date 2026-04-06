@@ -104,7 +104,7 @@ const HomeDonationRequests = () => {
           viewport={{ once: false, amount: 0.2 }}
         >
           {loading
-            ? Array.from({ length: 8 }).map((_, i) => (
+            ? Array.from({ length: 20 }).map((_, i) => (
               <RequestSkeleton key={i} />
             ))
             : currentRequests.map((req) => (

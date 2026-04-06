@@ -268,7 +268,7 @@ const Donors = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {loading
-            ? Array.from({ length: 6 }).map((_, i) => (
+            ? Array.from({ length: 20 }).map((_, i) => (
               <DonorSkeleton key={i} />
             ))
             : (
