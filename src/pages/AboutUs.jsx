@@ -75,22 +75,22 @@ const members = [
   },
   {
     name: 'Prosenjit Sarker',
-    img: 'https://i.ibb.co.com/r2r2fKJ3/Gemini-Generated-Image-5237852378523785.png',
-    role: 'Volunteer Operations Lead',
+    img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775496969/photo_2026-04-06_23-34-09_ehgxnq.jpg',
+    role: 'Community & Donor Relations Manager',
     linkedin: '#',
     instagram: '#'
   },
   {
     name: 'Mahim Khan',
     img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775483444/photo_2026-04-06_19-46-18_gvprb8.jpg',
-    role: 'Volunteer Operations Lead',
+    role: 'Outreach & Partnerships Coordinator',
     linkedin: '#',
     instagram: '#'
   },
   {
     name: 'Sabuj Ahmed',
     img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775483438/photo_2026-04-06_19-46-25_zvgecv.jpg',
-    role: 'Volunteer Operations Lead',
+    role: 'Communications & Social Impact Lead',
     linkedin: '#',
     instagram: '#'
   },
@@ -329,7 +329,7 @@ const AboutUs = () => {
             Meet the Team <span className="text-[#f9232c]">Saving Lives</span>
           </h1>
         </motion.div>
-        <div className="flex flex-wrap justify-center gap-8 md:gap-32">
+        {/* <div className="flex flex-wrap justify-center gap-8 md:gap-32">
 
           {members.map((member, index) => (
             <motion.div
@@ -352,7 +352,7 @@ const AboutUs = () => {
               </div>
 
               <div className="text-center mt-3">
-                <p className="font-black text-base-content text-sm">
+                <p className="font-black line-clamp-1 text-base-content text-sm">
                   {member.name}
                 </p>
                 <p className="text-gray-500 dark:text-gray-300 font-semibold line-clamp-2 text-xs">{member.role}</p>
@@ -365,6 +365,46 @@ const AboutUs = () => {
                     <FaSquareXTwitter className="text-[#f9232c]" />
                   </a>
                 </div>
+              </div>
+            </motion.div>
+          ))}
+        </div> */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+          {members.map((member, index) => (
+            <motion.div
+              key={index}
+              className="group relative bg-base-200/60 backdrop-blur-sm border border-base-content/10 rounded-2xl p-5 flex flex-col items-center text-center hover:border-[#f9232c]/30 transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+            >
+              <div className="relative w-30 h-35 mb-3">
+                <div className="absolute inset-[-3px] rounded-full border-2 border-[#f9232c]/30" />
+                <div className="absolute -inset-1.5 rounded-full border border-dashed border-[#f9232c]/20" />
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  className="w-40 h-35 rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              <p className="font-bold text-sm text-base-content line-clamp-1 mb-0.5">
+                {member.name}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium line-clamp-1 leading-tight mb-3">
+                {member.role}
+              </p>
+
+              <div className="flex justify-center gap-2">
+                <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                  className="w-7 h-7 rounded-full bg-[#f9232c]/10 border border-[#f9232c]/30 flex items-center justify-center hover:bg-[#f9232c] hover:text-white text-[#f9232c] transition-colors duration-200">
+                  <SiLinkedin size={12} />
+                </a>
+                <a href={member.instagram} target="_blank" rel="noopener noreferrer"
+                  className="w-7 h-7 rounded-full bg-[#f9232c]/10 border border-[#f9232c]/30 flex items-center justify-center hover:bg-[#f9232c] hover:text-white text-[#f9232c] transition-colors duration-200">
+                  <FaSquareXTwitter size={12} />
+                </a>
               </div>
             </motion.div>
           ))}
