@@ -5,6 +5,7 @@ import { FaCaretRight, FaGithub, FaGlobe, FaLinkedin } from "react-icons/fa";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { IoMdMail } from "react-icons/io";
 import { FaMapLocationDot } from "react-icons/fa6";
+import locationimage from "../../assets/location.png";
 
 const Footer = () => {
   return (
@@ -65,9 +66,25 @@ const Footer = () => {
                 <IoMdMail className="text-[#f9232c]" size={20} />
                 shafinahmed.cse@gmail.com
               </li>
-              <li className="flex items-center gap-3">
+              <li className="relative flex items-center gap-3 group cursor-pointer">
                 <FaMapLocationDot className="text-[#f9232c]" size={20} />
                 Mirpur, Dhaka
+
+                {/* IMAGE POPUP */}
+                <img
+                  src={locationimage}
+                  alt="location"
+                  className="
+                  absolute left-10 bottom-10
+                  w-40 h-56
+                  object-cover
+                  rounded-lg shadow-lg
+                  opacity-0 scale-95 translate-y-2
+                  group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0
+                  transition-all duration-300 pointer-events-none
+                  z-50
+                "
+                />
               </li>
             </ul>
           </div>
