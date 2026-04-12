@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
@@ -27,6 +27,13 @@ export default function Register() {
 
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedUpazila, setSelectedUpazila] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || "light");
+
+  useEffect(() => {
+    const html = document.querySelector('html');
+    const currentTheme = html.getAttribute('data-theme') || "light";
+    setTheme(currentTheme);
+  }, []);
 
   const districtOptions = [
     ...new Set(locations.map((loc) => loc.district)),
@@ -47,9 +54,37 @@ export default function Register() {
   const customSelectStyles = {
     control: (base) => ({
       ...base,
+      backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
       borderColor: "#f9232c",
+      color: theme === 'dark' ? '#ffffff' : '#000000',
       boxShadow: "none",
       "&:hover": { borderColor: "#f9232c" },
+    }),
+    menu: (base) => ({
+      ...base,
+      backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused 
+        ? (theme === 'dark' ? '#374151' : '#f3f4f6')
+        : (theme === 'dark' ? '#1f2937' : '#ffffff'),
+      color: theme === 'dark' ? '#ffffff' : '#000000',
+      "&:hover": {
+        backgroundColor: theme === 'dark' ? '#374151' : '#f3f4f6',
+      },
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: theme === 'dark' ? '#ffffff' : '#000000',
+    }),
+    placeholder: (base) => ({
+      ...base,
+      color: theme === 'dark' ? '#9ca3af' : '#6b7280',
+    }),
+    input: (base) => ({
+      ...base,
+      color: theme === 'dark' ? '#ffffff' : '#000000',
     }),
   };
 
@@ -77,7 +112,6 @@ export default function Register() {
         axios.post(image_API_URL, formData)
           .then(res => {
             const imageURL = res.data.data.url;
-            // console.log('after image upload', res.data.data.url);
 
             const userProfile = {
               displayName: data.name,
@@ -100,7 +134,6 @@ export default function Register() {
 
                 axiosSecure.post('/users', savedUser)
                   .then(dbRes => {
-
                     setLoading(false);
                     Swal.fire({
                       icon: "success",
@@ -135,7 +168,7 @@ export default function Register() {
   }
 
   return (
-    <div className="w-80 md:w-full bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl px-10">
+    <div className="w-80 md:w-full bg-white/10 dark:bg-gray-800/10 backdrop-blur-2xl border border-white/20 dark:border-gray-700/20 rounded-2xl shadow-2xl px-10">
       <motion.h1
         className="text-center mb-5 flex flex-col items-center justify-center"
         initial={{ opacity: 0, x: 100 }}
@@ -143,7 +176,7 @@ export default function Register() {
         transition={{ duration: 0.5 }}
       >
         <img src={logo} className="w-15 md:w-30 mt-5" alt="BloodLink Logo" />
-        <span className="text-xs font-black mt-2">Create Donor Account</span>
+        <span className="text-xs font-black mt-2 text-base-content">Create Donor Account</span>
       </motion.h1>
 
       <motion.form
@@ -155,12 +188,12 @@ export default function Register() {
       >
         {/* Email */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Email</label>
+          <label className="font-medium text-xs mb-1 text-base-content">Email</label>
           <input
             type="email"
             placeholder="Email"
             {...register("email", { required: "Email is required" })}
-            className="border border-[#f9232c] p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none bg-base-100 text-base-content placeholder:text-base-content/50"
           />
           {errors.email && (
             <p className="text-[#f9232c] text-xs">{errors.email.message}</p>
@@ -169,12 +202,12 @@ export default function Register() {
 
         {/* Name */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Name</label>
+          <label className="font-medium text-xs mb-1 text-base-content">Name</label>
           <input
             type="text"
             placeholder="Name"
             {...register("name", { required: "Name is required" })}
-            className="border border-[#f9232c] p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none bg-base-100 text-base-content placeholder:text-base-content/50"
           />
           {errors.name && (
             <p className="text-[#f9232c] text-xs">{errors.name.message}</p>
@@ -183,11 +216,11 @@ export default function Register() {
 
         {/* Photo */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Photo</label>
+          <label className="font-medium text-xs mb-1 text-base-content">Photo</label>
           <input
             type="file"
             {...register("photo", { required: "photo is required" })}
-            className="border border-[#f9232c] p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none bg-base-100 text-base-content file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-[#f9232c] file:text-white hover:file:bg-[#e31b24]"
           />
           {errors.photo && (
             <p className="text-[#f9232c] text-xs">{errors.photo.message}</p>
@@ -196,10 +229,10 @@ export default function Register() {
 
         {/* Blood Group */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Blood Group</label>
+          <label className="font-medium text-xs mb-1 text-base-content">Blood Group</label>
           <select
             {...register("bloodGroup", { required: "Blood group is required" })}
-            className="border border-[#f9232c] p-2 rounded outline-none"
+            className="border border-[#f9232c] p-2 rounded outline-none bg-base-100 text-base-content"
           >
             <option value="">Select blood group</option>
             <option>A+</option>
@@ -218,7 +251,7 @@ export default function Register() {
 
         {/* District */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">District</label>
+          <label className="font-medium text-xs mb-1 text-base-content">District</label>
           <Select
             options={districtOptions}
             value={selectedDistrict}
@@ -239,7 +272,7 @@ export default function Register() {
 
         {/* Upazila */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Upazila</label>
+          <label className="font-medium text-xs mb-1 text-base-content">Upazila</label>
           <Select
             options={upazilaOptions}
             value={selectedUpazila}
@@ -262,7 +295,7 @@ export default function Register() {
 
         {/* Password */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Password</label>
+          <label className="font-medium text-xs mb-1 text-base-content">Password</label>
           <input
             type="password"
             placeholder="Password"
@@ -278,7 +311,7 @@ export default function Register() {
                   "Weak Password"
               }
             })}
-            className="border p-2 rounded border-[#f9232c] outline-none"
+            className="border p-2 rounded border-[#f9232c] outline-none bg-base-100 text-base-content placeholder:text-base-content/50"
           />
           {errors.password && (
             <p className="text-[#f9232c] text-xs">{errors.password.message}</p>
@@ -287,7 +320,7 @@ export default function Register() {
 
         {/* Confirm Password */}
         <motion.div className="flex flex-col" variants={itemVariants}>
-          <label className="font-medium text-xs mb-1">Confirm Password</label>
+          <label className="font-medium text-xs mb-1 text-base-content">Confirm Password</label>
           <input
             type="password"
             placeholder="Confirm Password"
@@ -296,7 +329,7 @@ export default function Register() {
               validate: (value) =>
                 value === watch("password") || "Passwords do not match",
             })}
-            className="border p-2 rounded border-[#f9232c] outline-none"
+            className="border p-2 rounded border-[#f9232c] outline-none bg-base-100 text-base-content placeholder:text-base-content/50"
           />
           {errors.confirmPassword && (
             <p className="text-[#f9232c] text-xs">
@@ -314,17 +347,19 @@ export default function Register() {
             type="submit"
             variant="outlined"
             sx={{
-              borderColor: "#f9232c", backgroundColor: '#f9232c',
-              color: 'var(--tw-text-base-content)',
+              borderColor: "#f9232c", 
+              backgroundColor: '#f9232c',
+              color: '#ffffff',
               '&:hover': {
                 backgroundColor: '#e31b24',
+                borderColor: "#e31b24",
               },
             }}
           >
             Register
           </Button>
 
-          <span className="text-md font-medium py-5 border-none text-center">
+          <span className="text-md font-medium py-5 border-none text-center text-base-content">
             Already have an account?{" "}
             <Link state={location.state} to="/login" className="text-[#f9232c] uppercase font-black">
               Login

@@ -95,11 +95,11 @@ const Navbar = () => {
               <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded border border-[#f9232c]">
-                    <img
-                      src={user.photoURL}
-                      referrerPolicy="no-referrer"
-                      alt="user"
-                    />
+                  <img
+                    src={user.photoURL || user.photo || 'https://i.ibb.co/2N2HhZP/default-avatar.png'}
+                    referrerPolicy="no-referrer-when-downgrade"
+                    alt="user"
+                  />
                   </div>
                 </div>
 

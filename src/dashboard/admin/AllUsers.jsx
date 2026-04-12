@@ -190,8 +190,8 @@ const AllUsers = () => {
                         confirmAndUpdate(
                           user.email,
                           { status: "blocked" },
-                          "This user will be blocked",
-                          "User blocked successfully"
+                          `${user.name || "This user"} will be blocked`,
+                          `${user.name || "User"} has been blocked`
                         )
                       }
                       className="btn btn-xs bg-[#f9232c] text-base-200"
@@ -206,8 +206,8 @@ const AllUsers = () => {
                         confirmAndUpdate(
                           user.email,
                           { status: "active" },
-                          "This user will be unblocked",
-                          "User unblocked successfully"
+                          `${user.name || "This user"} will be unblocked`,
+                          `${user.name || "User"} has been unblocked`
                         )
                       }
                       className="btn btn-xs bg-green-600 text-base-200"
@@ -225,8 +225,8 @@ const AllUsers = () => {
                         confirmAndUpdate(
                           user.email,
                           { role: "volunteer" },
-                          "This user will become a volunteer",
-                          "User is now a volunteer"
+                          `${user.name || "This user"} will become a volunteer`,
+                          `${user.name || "User"} is now a volunteer`
                         )
                       }
                       className="btn btn-xs bg-blue-600 text-base-200"
@@ -244,11 +244,11 @@ const AllUsers = () => {
                         user.email,
                         { role: user.role === "admin" ? "donor" : "admin" },
                         user.role === "admin"
-                          ? "Admin role will be removed"
-                          : "This user will become an admin",
+                          ? `${user.name || "This user"} will lose admin access`
+                          : `${user.name || "This user"} will become an admin`,
                         user.role === "admin"
-                          ? "Admin removed"
-                          : "User is now an admin"
+                          ? `${user.name || "User"} is no longer an admin`
+                          : `${user.name || "User"} is now an admin`
                       )
                     }
                     className={`btn btn-xs text-base-200

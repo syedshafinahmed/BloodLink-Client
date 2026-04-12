@@ -29,6 +29,7 @@ const DashboardHome = () => {
 
   const [requests, setRequests] = useState([]);
   const [role, setRole] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || "light");
 
   // Admin 
   const [totalUsers, setTotalUsers] = useState(0);
@@ -42,6 +43,22 @@ const DashboardHome = () => {
   });
   const [dailyFundings, setDailyFundings] = useState([]);
   const [chartLoading, setChartLoading] = useState(true);
+
+  // Track theme changes
+  useEffect(() => {
+    const html = document.querySelector('html');
+    const currentTheme = html.getAttribute('data-theme') || "light";
+    setTheme(currentTheme);
+
+    const observer = new MutationObserver(() => {
+      const newTheme = html.getAttribute('data-theme') || "light";
+      setTheme(newTheme);
+    });
+
+    observer.observe(html, { attributes: true, attributeFilter: ['data-theme'] });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Fetch role
   useEffect(() => {
@@ -186,15 +203,71 @@ const DashboardHome = () => {
     ],
   };
 
+  // Chart options with theme-aware colors
+  const statusChartOptions = {
+    maintainAspectRatio: false,
+    plugins: { 
+      legend: { 
+        position: 'bottom', 
+        labels: { 
+          color: theme === 'dark' ? '#e5e7eb' : '#374151',
+          font: { size: 12 }
+        } 
+      },
+      tooltip: {
+        backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+        titleColor: theme === 'dark' ? '#f3f4f6' : '#111827',
+        bodyColor: theme === 'dark' ? '#f3f4f6' : '#111827',
+        borderColor: theme === 'dark' ? '#374151' : '#e5e7eb',
+        borderWidth: 1
+      }
+    },
+    animation: { duration: 900, easing: 'easeOutExpo', animateRotate: true, animateScale: true },
+  };
+
+  const fundingChartOptions = {
+    maintainAspectRatio: false,
+    plugins: { 
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+        titleColor: theme === 'dark' ? '#f3f4f6' : '#111827',
+        bodyColor: theme === 'dark' ? '#f3f4f6' : '#111827',
+        borderColor: theme === 'dark' ? '#374151' : '#e5e7eb',
+        borderWidth: 1
+      }
+    },
+    animation: { duration: 950, easing: 'easeOutExpo' },
+    scales: { 
+      y: { 
+        ticks: { 
+          beginAtZero: true, 
+          color: theme === 'dark' ? '#9ca3af' : '#6b7280' 
+        },
+        grid: {
+          color: theme === 'dark' ? '#374151' : '#e5e7eb'
+        }
+      }, 
+      x: { 
+        ticks: { 
+          color: theme === 'dark' ? '#9ca3af' : '#6b7280' 
+        },
+        grid: {
+          color: theme === 'dark' ? '#374151' : '#e5e7eb'
+        }
+      } 
+    },
+  };
+
   return (
-    <div>
+    <div className="min-h-screen transition-colors duration-300">
       <div className='flex justify-center'>
         <span className="inline-block mx-auto px-4 py-1.5 rounded-full bg-[#f9232c]/10 text-[#f9232c] text-xs font-extrabold uppercase tracking-[0.3em] border border-[#f9232c]/30 text-center mb-4">
           {(role === 'admin' || role === 'volunteer' ? role : 'Donor').toUpperCase()} DASHBOARD
         </span>
       </div>
       <motion.section
-        className="pb-5 px-4 md:px-10 dark:bg-base-900 transition-colors duration-300"
+        className="pb-5 px-4 md:px-10 transition-colors duration-300"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -204,7 +277,7 @@ const DashboardHome = () => {
         <motion.h1 className="text-center font-bold text-base-content text-2xl md:text-5xl mb-2 transition-colors">
           Welcome, <span className="text-[#f9232c]">{user.displayName}</span>
         </motion.h1>
-        <motion.p className="text-center text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 transition-colors">
+        <motion.p className="text-center text-lg md:text-xl text-base-content/70 mb-10 transition-colors">
           Your generosity helps save lives everyday.
         </motion.p>
 
@@ -217,7 +290,7 @@ const DashboardHome = () => {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.03 }}
-                  className="bg-base-200  backdrop-blur-3xl border border-[#f9232c]/20 hover:bg-linear-to-r hover:from-[#f9232c]/20 hover:via-[#f9232c]/10 hover:to-transparent rounded-2xl shadow-2xl p-6 transition-colors"
+                  className="bg-base-200 backdrop-blur-3xl border border-base-300 hover:border-[#f9232c]/30 rounded-2xl shadow-lg hover:shadow-xl p-6 transition-all duration-300"
                 >
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-md font-light text-base-content transition-colors">{card.title}</h3>
@@ -226,7 +299,7 @@ const DashboardHome = () => {
                         onClick={() => canNavigate && navigate(card.route)}
                         className={`transition ${canNavigate
                           ? "text-base-content hover:text-[#f9232c] cursor-pointer"
-                          : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                          : "text-base-content/30 cursor-not-allowed"
                           }`}
                       >
                         <GoArrowUpRight size={20} className='hover:scale-110 transition-transform duration-200' />
@@ -251,49 +324,40 @@ const DashboardHome = () => {
         {role === 'admin' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 mt-10">
             {/* Status Chart */}
-            <div className="rounded-2xl p-6 h-[360px] transition-colors">
+            <div className="bg-base-200 border border-base-300 rounded-2xl p-6 h-[360px] transition-colors shadow-lg">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-black text-[#f9232c] transition-colors">Donation Requests by Status</h3>
-                <span className="text-xs text-gray-600 dark:text-gray-400 transition-colors">Last synced: live</span>
+                <span className="text-xs text-base-content/60 transition-colors">Last synced: live</span>
               </div>
               {chartLoading ? (
                 <div className="flex items-center justify-center h-[260px]"><Loading /></div>
               ) : Object.values(statusCounts).some((val) => val > 0) ? (
                 <Doughnut
-                  key={`status-${Object.values(statusCounts).join('-')}`}
+                  key={`status-${Object.values(statusCounts).join('-')}-${theme}`}
                   data={statusChartData}
-                  options={{
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { color: 'inherit' } } },
-                    animation: { duration: 900, easing: 'easeOutExpo', animateRotate: true, animateScale: true },
-                  }}
+                  options={statusChartOptions}
                 />
               ) : (
-                <p className="text-gray-600 dark:text-gray-300 text-sm">No request data yet.</p>
+                <p className="text-base-content/60 text-sm">No request data yet.</p>
               )}
             </div>
 
             {/* Funding Chart */}
-            <div className="rounded-2xl  p-6 h-[360px] transition-colors">
+            <div className="bg-base-200 border border-base-300 rounded-2xl p-6 h-[360px] transition-colors shadow-lg">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-black text-[#f9232c] transition-colors">Funding (Last 14 Days)</h3>
-                <span className="text-xs text-gray-600 dark:text-gray-400 transition-colors">৳ Total: {totalFundings.toLocaleString()}</span>
+                <span className="text-xs text-base-content/60 transition-colors">৳ Total: {totalFundings.toLocaleString()}</span>
               </div>
               {chartLoading ? (
                 <div className="flex items-center justify-center h-[260px]"><Loading /></div>
               ) : dailyFundings.length > 0 ? (
                 <Bar
-                  key={`fund-${dailyFundings.map((d) => `${d.label}-${d.amount}`).join('|')}`}
+                  key={`fund-${dailyFundings.map((d) => `${d.label}-${d.amount}`).join('|')}-${theme}`}
                   data={fundingChartData}
-                  options={{
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    animation: { duration: 950, easing: 'easeOutExpo' },
-                    scales: { y: { ticks: { beginAtZero: true, color: 'inherit' } }, x: { ticks: { color: 'inherit' } } },
-                  }}
+                  options={fundingChartOptions}
                 />
               ) : (
-                <p className="text-gray-600 dark:text-gray-300 text-sm">No funding data yet.</p>
+                <p className="text-base-content/60 text-sm">No funding data yet.</p>
               )}
             </div>
           </div>
@@ -302,22 +366,22 @@ const DashboardHome = () => {
         {/* Donor Table */}
         {role === 'donor' && (
           <>
-            <h2 className="text-xl mb-4 text-left text-gray-900 dark:text-base-200 transition-colors">Your Recent Donation Requests</h2>
-            <div className="overflow-x-auto rounded-lg border border-base-300 dark:border-base-700 bg-base-200 dark:bg-base-900 transition-colors">
-              <table className="w-full text-center text-gray-900 dark:text-base-200 transition-colors">
-                <thead className="bg-gray-200 dark:bg-base-800 transition-colors">
+            <h2 className="text-xl mb-4 text-left text-base-content font-semibold transition-colors">Your Recent Donation Requests</h2>
+            <div className="overflow-x-auto rounded-lg border border-base-300 bg-base-200 shadow-lg transition-colors">
+              <table className="w-full text-center text-base-content transition-colors">
+                <thead className="bg-base-300 transition-colors">
                   <tr>
-                    <th className="p-3">Recipient</th>
-                    <th className="p-3">Blood Group</th>
-                    <th className="p-3">Hospital</th>
-                    <th className="p-3">Location</th>
-                    <th className="p-3">Date</th>
-                    <th className="p-3">Status</th>
+                    <th className="p-3 font-semibold">Recipient</th>
+                    <th className="p-3 font-semibold">Blood Group</th>
+                    <th className="p-3 font-semibold">Hospital</th>
+                    <th className="p-3 font-semibold">Location</th>
+                    <th className="p-3 font-semibold">Date</th>
+                    <th className="p-3 font-semibold">Status</th>
                   </tr>
                 </thead>
                 <tbody className="text-xs md:text-sm">
                   {requests.slice(0, 3).map((req) => (
-                    <tr key={req._id} className="border-b border-base-300 dark:border-base-700 hover:bg-gray-300 dark:hover:bg-base-700 transition-colors">
+                    <tr key={req._id} className="border-b border-base-300 hover:bg-base-300/50 transition-colors">
                       <td className="p-3 text-base-content">{req.recipientName}</td>
                       <td className="p-3 text-base-content font-semibold">{req.bloodGroup}</td>
                       <td className="p-3 text-base-content">{req.hospitalName}</td>
@@ -335,7 +399,7 @@ const DashboardHome = () => {
             </div>
 
             <Link to='/dashboard/donation-requests' className='flex justify-end'>
-              <button className='btn bg-[#f9232c] btn-sm text-base-200 mt-10'>View All</button>
+              <button className='btn bg-[#f9232c] hover:bg-[#e31b24] btn-sm text-white border-none mt-10'>View All</button>
             </Link>
           </>
         )}
