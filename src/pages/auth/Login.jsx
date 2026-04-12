@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import logo from '../../assets/BloodLink.png';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { motion } from "framer-motion";
@@ -38,10 +38,6 @@ const Login = () => {
         setLoginError("Incorrect email or password");
       });
   };
-
-  if (loading) {
-    return <Loading></Loading>
-  }
 
   return (
     <div className='w-80 md:w-100 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl p-10'>
@@ -120,19 +116,33 @@ const Login = () => {
 
           {/* Login Button */}
           <Button
-            type="submit"
-            variant="contained" 
-            sx={{
-              mb: 2,
-              mt: 2,
-              backgroundColor: '#f9232c',
-              color: 'var(--tw-text-base-content)', 
-              '&:hover': {
-                backgroundColor: '#e31b24', 
-              },
-            }}
-          >
-            Login
+              type="submit"
+              variant="contained"
+              disabled={loading}
+              sx={{
+                mb: 2,
+                mt: 2,
+                backgroundColor: '#f9232c',
+                color: 'var(--tw-text-base-content)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+
+                '&:hover': {
+                  backgroundColor: '#e31b24',
+                },
+
+                '&.Mui-disabled': {
+                  backgroundColor: '#f9232c80', 
+                  color: 'var(--tw-text-base-content)',
+                },
+              }}
+              >
+              {loading && (
+                <CircularProgress size={18} sx={{ color: 'white' }} />
+              )}
+              {loading ? "Logging in..." : "Login"}
           </Button>
 
           {/* Register Link */}

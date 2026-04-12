@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import Select from "react-select";
@@ -162,10 +162,6 @@ export default function Register() {
         setLoading(false);
       })
   };
-
-  if (loading) {
-    return <Loading></Loading>
-  }
 
   return (
     <div className="w-80 md:w-full bg-white/10 dark:bg-gray-800/10 backdrop-blur-2xl border border-white/20 dark:border-gray-700/20 rounded-2xl shadow-2xl px-10">
@@ -346,17 +342,30 @@ export default function Register() {
           <Button
             type="submit"
             variant="outlined"
+            disabled={loading}
             sx={{
-              borderColor: "#f9232c", 
+              borderColor: "#f9232c",
               backgroundColor: '#f9232c',
               color: '#ffffff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+
               '&:hover': {
                 backgroundColor: '#e31b24',
                 borderColor: "#e31b24",
               },
+
+              '&.Mui-disabled': {
+                backgroundColor: '#f9232c80',
+                borderColor: '#f9232c80',
+                color: '#ffffff',
+              },
             }}
           >
-            Register
+            {loading && <CircularProgress size={18} sx={{ color: 'white' }} />}
+            {loading ? "Registering..." : "Register"}
           </Button>
 
           <span className="text-md font-medium py-5 border-none text-center text-base-content">
