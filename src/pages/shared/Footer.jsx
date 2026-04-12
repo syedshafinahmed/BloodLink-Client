@@ -29,7 +29,7 @@ const Footer = () => {
           {/* QUICK LINKS */}
           <div>
             <h3 className="font-black text-[#f9232c] text-xl mb-4">
-              Quick Links
+              Navigation
             </h3>
             <ul className="space-y-2 text-sm">
               {[
@@ -54,7 +54,7 @@ const Footer = () => {
           {/* SUPPORT */}
           <div>
             <h3 className="font-black text-[#f9232c] text-xl mb-4">
-              BloodLink Support
+              Support
             </h3>
             <ul className="space-y-3 text-sm text-base-content/70">
               <li className="flex items-center gap-3">
@@ -73,35 +73,44 @@ const Footer = () => {
           </div>
 
           {/* NEWSLETTER */}
-          <div>
-            <h3 className="font-black text-[#f9232c] text-xl mb-4">
-              Newsletter
-            </h3>
-            <p className="text-xs text-base-content/70 mb-5">
-              Subscribe to receive updates and platform news.
-            </p>
+          <div className="relative p-px rounded-xl bg-linear-to-r from-[#f9232c]/40 to-transparent">
+            <div className="rounded-xl bg-base-200/80 backdrop-blur-md p-5 space-y-8.5">
 
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="
-                  w-full px-4 py-2 rounded-lg
-                  bg-base-100 text-base-content
-                  border border-base-content/20
-                  focus:outline-none focus:ring-2 focus:ring-[#f9232c]
-                "
-              />
-              <button
-                className="
-                  px-4 py-2 rounded-lg
-                  bg-[#f9232c] text-white font-semibold
-                  hover:bg-[#d71b1b]
-                  transition
-                "
-              >
-                Subscribe
-              </button>
+              {/* HEADER */}
+              <div>
+                <h3 className="font-black text-[#f9232c] text-xl mb-2">
+                  Newsletter
+                </h3>
+                <p className="text-xs text-base-content/70">
+                  Subscribe to receive updates and platform news.
+                </p>
+              </div>
+
+              {/* INPUT + BUTTON */}
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  className="
+                    w-full px-4 py-2 rounded-lg
+                    bg-base-100 text-base-content
+                    border border-base-content/20
+                    focus:outline-none focus:ring-2 focus:ring-[#f9232c]
+                  "
+                />
+
+                <button
+                  className="
+                    px-4 py-2 rounded-lg
+                    bg-[#f9232c] text-white font-semibold
+                    hover:bg-[#d71b1b]
+                    transition
+                  "
+                >
+                  Subscribe
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
@@ -113,7 +122,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 py-6">
           <p className="text-xs md:text-sm text-base-content/70">
             © {new Date().getFullYear()}{" "}
-            <strong className="text-base-content">BloodLink</strong> — All Rights
+            <strong className="text-[#f9232c]">BloodLink</strong> — All Rights
             Reserved
           </p>
 

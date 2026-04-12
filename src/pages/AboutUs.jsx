@@ -60,7 +60,7 @@ const cardVariants = {
 
 const members = [
   {
-    name: 'Shafin Ahmed',
+    name: 'Syed Shafin Ahmed',
     img: 'https://res.cloudinary.com/dxipjzeda/image/upload/v1775483435/IMG_20260308_005554.jpg_sade1o.jpg',
     role: 'Platform & Operations Lead',
     linkedin: 'https://www.linkedin.com/in/syed-shafin-ahmed/',
