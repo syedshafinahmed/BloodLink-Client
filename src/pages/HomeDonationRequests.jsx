@@ -6,6 +6,7 @@ import { GoArrowUpRight } from "react-icons/go";
 import { useNavigate } from "react-router";
 import { IoCall } from "react-icons/io5";
 import { Tooltip } from "@mui/material";
+import ScrollToTop from "../components/ScrollToTop";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -68,6 +69,7 @@ const HomeDonationRequests = () => {
 
   return (
     <section className="py-28 bg-base-100">
+      <ScrollToTop></ScrollToTop>
       <div className="relative max-w-7xl mx-auto px-6 md:px-0">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />

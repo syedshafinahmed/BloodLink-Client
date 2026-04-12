@@ -8,6 +8,7 @@ import Testimonials from './Testimonials';
 import ImpactStats from './ImpactStats';
 import HowItWorks from './HowItWorks';
 import Coverage from './Coverage';
+import ScrollToTop from '../../components/ScrollToTop';
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       <Testimonials></Testimonials>
       <Coverage></Coverage>
       <Contact></Contact>
+      <ScrollToTop></ScrollToTop>
     </div>
   );
 };

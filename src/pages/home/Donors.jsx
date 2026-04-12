@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTint, FaMapMarkerAlt } from "react-icons/fa";
 import donors from "../../../public/donors.json";
+import ScrollToTop from "../../components/ScrollToTop";
 
 const DAYS_120 = 120;
 const isAvailable = (date) => {
@@ -205,6 +206,7 @@ const Donors = () => {
 
   return (
     <section className="py-30 bg-base-200">
+      <ScrollToTop></ScrollToTop>
       <div className="max-w-7xl mx-auto relative px-6 md:px-0">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />

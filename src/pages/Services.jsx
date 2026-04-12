@@ -2,6 +2,7 @@ import React from "react";
 import { FaTint, FaHospital, FaUserShield, FaHandsHelping } from "react-icons/fa";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
+import ScrollToTop from "../components/ScrollToTop";
 
 const services = [
   {
@@ -54,6 +55,7 @@ const cardVariants = {
 const Services = () => {
   return (
     <section className="relative py-28 bg-base-100 overflow-hidden">
+      <ScrollToTop></ScrollToTop>
       <div className="max-w-7xl mx-auto px-6">
         {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">

@@ -9,6 +9,7 @@ import { SiLinkedin } from "react-icons/si";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import ScrollToTop from "../components/ScrollToTop";
 
 const values = [
   {
@@ -152,6 +153,7 @@ const AboutUs = () => {
 
   return (
     <section className="bg-base-100 py-24">
+      <ScrollToTop></ScrollToTop>
       <div className="relative max-w-7xl mx-auto px-6 md:px-0 space-y-20 mt-5">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#f9232c]/10 rounded-full blur-3xl" />
