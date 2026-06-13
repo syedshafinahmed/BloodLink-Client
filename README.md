@@ -13,11 +13,8 @@
 
 ---
 
-## 🌐 Live Demo
+### [🔗 Live Demo](https://bloodlink-ssa.pages.dev) | [⚙️ Backend Architecture](https://github.com/syedshafinahmed/BloodLink-Server)
 
-https://bloodlink-ssa.pages.dev/
-
----
 
 ## 📖 Overview
 
