@@ -171,3 +171,51 @@ li .active {
   -webkit-backdrop-filter: blur(12px);
   border-radius: 5px;
 }
+
+/* ── Custom Scrollbar ─────────────────────────────────────────────────────── */
+
+:root {
+  --scrollbar-track: #e5e7eb;
+  --scrollbar-thumb: #f9232c;
+  --scrollbar-thumb-border: #e5e7eb;
+  --scrollbar-thumb-hover: #d41920;
+}
+
+[data-theme="dark"] {
+  --scrollbar-track: #1f2937;
+  --scrollbar-thumb: #f9232c;
+  --scrollbar-thumb-border: #1f2937;
+  --scrollbar-thumb-hover: #ff4047;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* WebKit */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid var(--scrollbar-thumb-border);
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
